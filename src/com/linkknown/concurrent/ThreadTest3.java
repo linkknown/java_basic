@@ -1,5 +1,6 @@
 package com.linkknown.concurrent;
 
+import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -84,7 +85,7 @@ public class ThreadTest3 {
 		ThreadTest3.sleep(10);
 	}
 	
-	public static void main(String[] args) {
+	private static void testThreadPool() {
 		int corePoolSize = 1;		// 线程池长期维持的线程数，即使线程处于Idle状态，也不会回收
 		int maximumPoolSize = 2;	// 线程数的上限
 		long keepAliveTime = 1000;	// 超过corePoolSize的线程的idle时长，超过这个时间，多余的线程会被回收
@@ -104,4 +105,101 @@ public class ThreadTest3 {
 		}   
 		poolExecutor.shutdown();
 	}
+	
+	
+	/**
+	 * 测试用户线程
+	 * 问题：搬砖的不能说不干就不干，盖房的可干可不干，盖房的不干的时候，搬砖的也要休息（导致问题，无法通知）
+	 */
+	public static void testUserThread () {
+		Thread t1 = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for (;;) {
+					System.out.println("我是搬砖的，我不能随随便便休息#######");
+					try {
+						Thread.currentThread().sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		
+		Thread t2  = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for (;;) {
+					System.out.println("我是盖房的，天气太热我就要休息~~~~~~");
+					try {
+						Thread.currentThread().sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
+					if (new Random().nextInt(100) > 90) {
+						System.out.println("今天天气太热，我不盖房了~~~~~~");
+						break;
+					}
+				}
+			}
+		});
+		t1.start();
+		t2.start();
+	}
+	
+	/**
+	 * 测试守护线程
+	 * 解决的问题：不需要等盖房的通知，只要看到盖房的都休息了，搬砖的自动休息
+	 */
+	public static void testDaemonThread () {
+		Thread t1 = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for (;;) {
+					System.out.println("我是搬砖的，我不能随随便便休息#######");
+					try {
+						Thread.currentThread().sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		
+		Thread t2  = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for (;;) {
+					System.out.println("我是盖房的，天气太热我就要休息~~~~~~");
+					try {
+						Thread.currentThread().sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
+					if (new Random().nextInt(100) > 90) {
+						System.out.println("今天天气太热，我不盖房了~~~~~~");
+						break;
+					}
+				}
+			}
+		});
+		// 设置为守护线程
+		t1.setDaemon(true);
+		t1.start();
+		t2.start();
+	}
+	
+	public static void main(String[] args) {
+		// 测试线程池
+//		testThreadPool();
+		
+		// 测试用户线程
+//		testUserThread();
+		
+		// 测试守护线程
+		testDaemonThread();
+	}
+
 }
