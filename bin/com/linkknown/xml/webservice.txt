@@ -1,0 +1,170 @@
+Webservice常用接口大全
+
+天气预报Web服务，数据来源于中国气象局
+Endpoint :http://www.webxml.com.cn/WebServices/WeatherWebService.asmx
+Disco :http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?disco
+WSDL :http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl
+
+IP地址来源搜索 WEB 服务（是目前最完整的IP地址数据）
+Endpoint:http://www.webxml.com.cn/WebServices/IpAddressSearchWebService.asmx
+Disco :http://www.webxml.com.cn/WebServices/IpAddressSearchWebService.asmx?disco
+WSDL :http://www.webxml.com.cn/WebServices/IpAddressSearchWebService.asmx?wsdl
+
+随机英文、数字和中文简体字 WEB 服务
+Endpoint:http://www.webxml.com.cn/WebServices/RandomFontsWebService.asmx
+Disco :http://www.webxml.com.cn/WebServices/RandomFontsWebService.asmx?disco
+WSDL :http://www.webxml.com.cn/WebServices/RandomFontsWebService.asmx?wsdl
+
+中国邮政编码 <-> 地址信息双向查询/搜索 WEB 服务
+Endpoint:http://www.webxml.com.cn/WebServices/ChinaZipSearchWebService.asmx
+Disco :http://www.webxml.com.cn/WebServices/ChinaZipSearchWebService.asmx?disco
+WSDL :http://www.webxml.com.cn/WebServices/ChinaZipSearchWebService.asmx?wsdl
+
+验证码图片 WEB 服务 支持中文、字母、数字 图像和多媒体
+Endpoint:http://www.webxml.com.cn/WebServices/ValidateCodeWebService.asmx
+Disco :http://www.webxml.com.cn/WebServices/ValidateCodeWebService.asmx?disco
+WSDL :http://www.webxml.com.cn/WebServices/ValidateCodeWebService.asmx?wsdl
+
+Email 电子邮件地址验证 WEB 服务
+Endpoint:http://www.webxml.com.cn/WebServices/ValidateEmailWebService.asmx
+Disco :http://www.webxml.com.cn/WebServices/ValidateEmailWebService.asmx?disco
+WSDL :http://www.webxml.com.cn/WebServices/ValidateEmailWebService.asmx?wsdl
+
+中文简体字 <->繁体字转换WEB 服务
+Endpoint:http://www.webxml.com.cn/WebServices/TraditionalSimplifiedWebService.asmx
+Disco :http://www.webxml.com.cn/WebServices/TraditionalSimplifiedWebService.asmx?disco
+WSDL :http://www.webxml.com.cn/WebServices/TraditionalSimplifiedWebService.asmx?wsdl
+
+中文 <-> 英文双向翻译WEB 服务
+Endpoint :http://www.webxml.com.cn/WebServices/TranslatorWebService.asmx
+Disco :http://www.webxml.com.cn/WebServices/TranslatorWebService.asmx?disco
+WSDL :http://www.webxml.com.cn/WebServices/TranslatorWebService.asmx?wsdl
+
+火车时刻表 WEB 服务 （第六次提速最新列车时刻表）
+Endpoint :http://www.webxml.com.cn/WebServices/TrainTimeWebService.asmx
+Disco :http://www.webxml.com.cn/WebServices/TrainTimeWebService.asmx?disco
+WSDL :http://www.webxml.com.cn/WebServices/TrainTimeWebService.asmx?wsdl
+
+中国股票行情数据 WEB 服务（支持深圳和上海股市的基金、债券和股票）
+Endpoint :http://www.webxml.com.cn/WebServices/ChinaStockWebService.asmx
+Disco :http://www.webxml.com.cn/WebServices/ChinaStockWebService.asmx?disco
+WSDL :http://www.webxml.com.cn/WebServices/ChinaStockWebService.asmx?wsdl
+
+即时外汇汇率数据 WEB 服务
+Endpoint :http://www.webxml.com.cn/WebServices/ExchangeRateWebService.asmx
+Disco :http://www.webxml.com.cn/WebServices/ExchangeRateWebService.asmx?disco
+WSDL :http://www.webxml.com.cn/WebServices/ExchangeRateWebService.asmx?wsdl
+
+腾讯QQ在线状态 WEB 服务
+Endpoint :http://www.webxml.com.cn/webservices/qqOnlineWebService.asmx
+Disco :http://www.webxml.com.cn/webservices/qqOnlineWebService.asmx?disco
+WSDL :http://www.webxml.com.cn/webservices/qqOnlineWebService.asmx?wsdl
+
+中国电视节目预告（电视节目表） WEB 服务
+Endpoint :http://www.webxml.com.cn/webservices/ChinaTVprogramWebService.asmx
+Disco :http://www.webxml.com.cn/webservices/ChinaTVprogramWebService.asmx?disco
+WSDL :http://www.webxml.com.cn/webservices/ChinaTVprogramWebService.asmx?wsdl
+
+外汇-人民币即时报价 WEB 服务
+Endpoint:http://www.webxml.com.cn/WebServices/ForexRmbRateWebService.asmx
+Disco :http://www.webxml.com.cn/WebServices/ForexRmbRateWebService.asmx?disco
+WSDL :http://www.webxml.com.cn/WebServices/ForexRmbRateWebService.asmx?wsdl
+
+中国股票行情分时走势预览缩略图 WEB 服务
+Endpoint : http://www.webxml.com.cn/webservices/ChinaStockSmallImageWS.asmx
+Disco :http://www.webxml.com.cn/webservices/ChinaStockSmallImageWS.asmx?disco
+WSDL : http://www.webxml.com.cn/webservices/ChinaStockSmallImageWS.asmx?wsdl
+
+国内飞机航班时刻表 WEB 服务
+Endpoint :http://www.webxml.com.cn/webservices/DomesticAirline.asmx
+Disco : http://www.webxml.com.cn/webservices/DomesticAirline.asmx?disco
+WSDL : http://www.webxml.com.cn/webservices/DomesticAirline.asmx?wsdl
+
+中国开放式基金数据 WEB 服务
+Endpoint :http://www.webxml.com.cn/WebServices/ChinaOpenFundWS.asmx
+Disco : http://www.webxml.com.cn/WebServices/ChinaOpenFundWS.asmx?disco
+WSDL :http://www.webxml.com.cn/WebServices/ChinaOpenFundWS.asmx?wsdl
+
+股票行情数据 WEB 服务（支持香港、深圳、上海基金、债券和股票；支持多股票同时查询）
+Endpoint :http://www.webxml.com.cn/WebServices/StockInfoWS.asmx
+Disco :http://www.webxml.com.cn/WebServices/StockInfoWS.asmx?disco
+WSDL :http://www.webxml.com.cn/WebServices/StockInfoWS.asmx?wsdl
+
+查询手机：http://www.yodao.com/smartresult-xml/search.s?type=mobile&q=手机号码
+
+查询IP：http://www.yodao.com/smartresult-xml/search.s?type=ip&q=IP地址
+
+查询身份证：http://www.yodao.com/smartresult-xml/search.s?type=id&q=身份证号码
+
+快递查询接口http://webservice.36wu.com/ExpressService.asmx
+
+ip查询接口http://webservice.36wu.com/ipService.asmx
+
+天气预报接口http://webservice.36wu.com/weatherService.asmx
+
+身份证查询接口http://webservice.36wu.com/IdCardService.asmx
+
+手机归属地接口http://webservice.36wu.com/MobilePhoneService.asmx
+
+翻译接口http://webservice.36wu.com/TranslationService.asmx
+
+火车时刻接口：http://webservice.36wu.com/TrainService.asmx
+
+股票查询接口：http://webservice.36wu.com/StockService.asmx
+
+邮编接口：http://webservice.36wu.com/ZipcodeService.asmx
+
+二维码Web服务
+http://webservice.36wu.com/DimensionalCodeService.asmx
+
+公交查询Web服务
+http://webservice.36wu.com/mapService.asmx
+
+ISBN查询Web服务
+http://webservice.36wu.com/ISBNService.asmx
+
+ICP备案查询Web服务
+
+http://webservice.36wu.com/ICPServic.asmx
+
+权威周公解梦：
+http://www.gpsso.com/WebService/Dream/Dream.asmx
+
+身份证信息免费查询WEB服务
+http://www.gpsso.com/webservice/idcard/idcard.asmx
+
+IP地址来源查询
+http://www.gpsso.com/WebService/IP/GetIP.asmx
+
+手机号码归属地查询
+http://www.gpsso.com/WebService/Phone/Phone.asmx
+
+实时彩票开奖数据免费webservice
+http://www.gpsso.com/webservice/caipiao/award.asmx
+
+快递单号免费查询WEB服务(支持上百家快递和物流)
+http://www.gpsso.com/webservice/kuaidi/kuaidi.asmx
+
+火车时刻表 WEB 服务 （第六次提速最新列车时刻表）
+http://webservice.webxml.com.cn/WebServices/TrainTimeWebService.asmx
+
+国内飞机航班时刻表 WEB 服务
+http://webservice.webxml.com.cn/webservices/DomesticAirline.asmx
+
+2500多个城市天气预报 WEB服务
+http://www.webxml.com.cn/WebServices/WeatherWebService.asmx
+
+http://webservice.webxml.com.cn/WebServices/WeatherWS.asmx
+http://www.gpsso.com/webservice/weather/weatherinfo.asmx(六天 + 实时)
+
+CIP核字号验证查询
+http://www.gpsso.com/WebService/Book/BookInfo.asmx
+
+标准图书编号ISBN查询
+http://www.gpsso.com/WebService/Book/BookInfo.asmx
+
+商品条形码查询服务
+http://www.gpsso.com/WebService/GoodsCode/Gds.asmx
+
+手机IMEI查询
+http://www.gpsso.com/WebService/Phone/Phone.asmx
