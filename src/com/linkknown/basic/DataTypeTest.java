@@ -11,6 +11,11 @@ public class DataTypeTest {
 	public void testDataType() {
 		// byte\short\int\long\float\double\boolean\char
 
+//		System.out.println(Byte.SIZE + " : " + Byte.MIN_VALUE + " ~~ " + Byte.MAX_VALUE);
+//		System.out.println(Short.SIZE + " : " + Short.MIN_VALUE + " ~~ " + Short.MAX_VALUE);
+//		System.out.println(Integer.SIZE + " : " + Integer.MIN_VALUE + " ~~ " + Integer.MAX_VALUE);
+//		System.out.println(Long.SIZE + " : " + Long.MIN_VALUE + " ~~ " + Long.MAX_VALUE);
+		
 		System.out.println("Byte 占用字节数：" + Byte.SIZE);
 		System.out.println(Byte.MIN_VALUE);
 		System.out.println(Byte.MAX_VALUE);
@@ -97,6 +102,7 @@ public class DataTypeTest {
 		double num3 = 10.0d;
 		double num4 = 10.0;
 		
+		// 下面哪种正确
 		int num5 = 30 * 356 * 24 * 3600 * 1000;			// 30 年毫秒数，正确吗？
 		System.out.println(num5);
 		long num6 = 30 * 356 * 24 * 3600 * 1000;		// 30 年毫秒数，正确吗？
