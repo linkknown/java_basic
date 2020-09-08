@@ -100,13 +100,13 @@ public class ForTest {
 	 */
 	@Test
 	public void testBreak() {
-		int[] numbers = new int[] { 10, 20, 30, 40, 50, 60 };
-		for (int number : numbers) {
-			if (number == 30) {
-				// number == 30 时跳出循环
+		String[] names = {"tom", "bob", "smith"};
+		for (String name : names) {
+			if ("bob".equals(name)) {
+				// 找到 bob 则跳出循环
 				break;
 			}
-			System.out.println(number);
+			System.out.println(name);
 		}
 	}
 
@@ -115,13 +115,13 @@ public class ForTest {
 	 */
 	@Test
 	public void testContinue() {
-		int[] numbers = new int[] { 10, 20, 30, 40, 50, 60 };
-		for (int number : numbers) {
-			if (number == 30) {
-				// number == 30 时跳到下一次循环
+		String[] names = {"tom", "bob", "smith"};
+		for (String name : names) {
+			if (name.contains("o")) {
+				// 名字包含 o 时跳到下一次循环
 				continue;
 			}
-			System.out.println(number);
+			System.out.println(name);
 		}
 	}
 	

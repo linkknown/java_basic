@@ -88,5 +88,9 @@ public class CalculatorTest {
 		flag = num > 10 ? true : false;
 		System.out.println(flag);
 		System.out.println(num > 10 ? true : false);
+		
+		flag = num > 10;
+		System.out.println(flag);
+		System.out.println(num > 10);
 	}
 }
