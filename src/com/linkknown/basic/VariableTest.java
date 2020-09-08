@@ -26,5 +26,10 @@ public class VariableTest {
 		String str = "helloworld"; // 申明一个字符串变量并赋初值
 		double pi = 3.14159; // 申明了一个双精度浮点型变量 pi
 		char x = 'x'; // 申明了一个字符型变量 x 并赋初值
+		
+		a = 20;
+		System.out.println(a);		// 变量可以修改值
+		
+//		a = "helloworld";			// 变量类型确定就不能再修改
 	}
 }
