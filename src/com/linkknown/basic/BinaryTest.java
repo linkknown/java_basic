@@ -1,6 +1,7 @@
 package com.linkknown.basic;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
@@ -65,8 +66,8 @@ public class BinaryTest {
 	
 		/*
 		 * 详解 & 0xff 的作用
-		 * &表示按位与,只有两个位同时为1,才能得到1
-		 * 0x代表16进制数,0xff表示的数二进制1111 1111 占一个字节.和其进行&操作的数,最低8位,不会发生变化.
+		 * & 表示按位与,只有两个位同时为1,才能得到1
+		 * 0x代表16进制数,0xff表示的数二进制1111 1111 占一个字节.和其进行与 & 操作的数,最低8位,不会发生变化.
 		 */
 		byte[] bytes2 = "国".getBytes("utf-8");
 		for (int i=0; i<bytes2.length; i++) {
@@ -86,5 +87,44 @@ public class BinaryTest {
 //			11111111111111111111111110111101
 			System.out.println(Integer.toBinaryString((bytes3[i])));			
 		}
+	}
+	
+	
+	/**
+	 * 1、原码：符号加上数字的二进制表示 +7：00000111  -7：100000111
+	 * 2、反码：如果一个数为正，他的反码与原码相同，如果是负数那么符号位不变 其余位数取反   -7反码：111111000
+	 * 3、补码：一个数如果为正其原码反码补码相同        如果是负数那么在反码加一
+	 */
+	@Test
+	public void testBinary5() {
+		// 打印 byte = 5 和 byte = -5  的二进制
+		/*
+		 * 结论1、在 二进制里,是用 0 和 1 来表示正负的,最高位为符号位,最高位为 1 代表负数,最高位为 0 代表正数
+		 * 结论2、负数的二进制计算过程
+		 *  以负数-5为例：
+		 *  1.先将-5的绝对值转换成二进制,即为0000 0101;
+		 *  2.然后求该二进制的反码,即为 1111 1010;
+		 *  3.最后将反码加1,即为:1111 1011
+		 */
+		System.out.println(String.format("%08d", Integer.parseInt(Integer.toBinaryString(5))));		// 00000101
+		System.out.println(Integer.toBinaryString(-5 & 0xff));										// 11111011
+		
+		// 打印 short = 5 和 short = -5 的二进制
+		System.out.println(String.format("%016d", new BigInteger(Integer.toBinaryString(5))));		// 0000000000000101	
+		System.out.println(Integer.toBinaryString(-5 & 0xffff));									// 1111111111111011
+		
+		// 打印 int = 5 和 int = -5 的二进制
+		// 00000000000000000000000000000101
+		System.out.println(String.format("%032d", new BigInteger(Integer.toBinaryString(5))));			
+		// 11111111111111111111111111111011
+		System.out.println(String.format("%032d", new BigInteger(Integer.toBinaryString(-5))));		
+		// 11111111111111111111111111111011
+		System.out.println(Integer.toBinaryString(-5 & 0xffffffff));
+	
+		// 打印 long = 5L 和 long = -5L 的二进制
+		// 0000000000000000000000000000000000000000000000000000000000000101
+		System.out.println(String.format("%064d", new BigInteger(Long.toBinaryString(5L))));			
+		// 1111111111111111111111111111111111111111111111111111111111111011
+		System.out.println(String.format("%064d", new BigInteger(Long.toBinaryString(-5L))));	
 	}
 }
