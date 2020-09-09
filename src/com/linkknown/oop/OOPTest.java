@@ -7,12 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 
-import com.linkknown.oop.calculator.Calculator;
-import com.linkknown.oop.calculator.NewScienceCalculator;
-import com.linkknown.oop.calculator.OldScienceCalculator;
-import com.linkknown.oop.calculator.OrdinaryCalculator;
-import com.linkknown.oop.calculator.ScienceCalculator;
-
 public class OOPTest {
 	
 	/**
@@ -354,6 +348,7 @@ public class OOPTest {
 		
 		
 		// 测试静态代码块, class 文件只加载一次，static 代码块也只执行一次
+		// 静态代码块主要用于加载静态资源
 		System.out.println(new Animal());
 		System.out.println(new Animal());
 		System.out.println(new Animal());
@@ -373,20 +368,6 @@ public class OOPTest {
 
 		// static 关键词的作用就是申明该方法是全局共有的，不是类的实例方法
 		Address address2 = Address.getAddress("安徽省", "合肥市", "肥西县"); // 通过 类.静态方法 来调用函数
-	}
-
-	/**
-	 * 测试 static
-	 * 综合练习
-	 */
-	@Test
-	public void testStatic2 () {
-		// 修饰静态属性
-		// 修饰静态方法
-		// 修饰静态代码块
-		ConfigFile configUtil = ConfigFile.getInstance();
-		System.out.println(configUtil.getUserName());
-		System.out.println(configUtil.getPassword());
 	}
 	
 	@Test
@@ -429,32 +410,7 @@ public class OOPTest {
 		dog.sing();
 	}
 	
-	
-	/**
-	 * 测试 final、abstract、interface 和 可变参数
-	 */
-	@Test
-	public void testOOP () {
-		Calculator ordinaryCalculator = new OrdinaryCalculator();
-		int result = ordinaryCalculator.getOperator("+").eval(1, 1);
-		System.out.println(result);
-		ordinaryCalculator.showDesc(true);
-		ordinaryCalculator.showDesc();
-		
-		ScienceCalculator newScienceCalculator = new NewScienceCalculator();
-		int result2 = newScienceCalculator.getOperator("^").eval(2,8);
-		System.out.println(result2);
-		newScienceCalculator.showDesc(true);
-		newScienceCalculator.showDesc();
-		
-		System.out.println("5 个老式科学计算器价格是：" + newScienceCalculator.getPrice() * 10);
-		
-		Calculator oldScienceCalculator = new OldScienceCalculator();
-		int result3 = oldScienceCalculator.getOperator("^").eval(2,16);
-		System.out.println(result3);
-		oldScienceCalculator.showDesc(true);
-		oldScienceCalculator.showDesc();
-	}
+
 	
 	private void printAddress (Address... addresses) {
 		for (int i=0; i<addresses.length; i++) {
@@ -503,4 +459,65 @@ public class OOPTest {
 			TimeUnit.SECONDS.sleep(1);
 		}
 	}
+	
+	/**
+	 * 测试包装类
+	 */
+	@Test
+	public void testWarpClass () {
+		// int <==> Integer
+		// int <==> String
+		// Integer <==> String
+		
+		// int => Integer
+		Integer number = new Integer(10);
+		// Integer => int
+		int number2 = number.intValue();
+		// int => String
+		String number3 = String.valueOf(10);
+		// String => int
+		int number4 = Integer.parseInt("10");
+		// Integer => String
+		String number5 = number.toString();
+		// String => Integer
+		Integer number6 = new Integer("10");
+	}
+	
+	
+	/**
+	 * 测试静态内部类
+	 */
+	@Test
+	public void testOuter01() {
+		Outer01 outer01 = new Outer01();
+		outer01.printName();
+	}
+	
+	/**
+	 * 测试成员内部类
+	 */
+	@Test
+	public void testOuter02() {
+		Outer02 outer02 = new Outer02();
+		outer02.printName();
+	}
+	
+	/**
+	 * 测试局部变量内部类
+	 */
+	@Test
+	public void testOuter03() {
+		Outer03 outer03 = new Outer03();
+		outer03.printName();
+	}
+	
+	/**
+	 * 测试匿名内部类
+	 */
+	@Test
+	public void testOuter04() {
+		Outer04 outer04 = new Outer04();
+		outer04.printName();
+	}
+
 }

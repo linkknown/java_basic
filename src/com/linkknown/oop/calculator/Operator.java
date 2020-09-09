@@ -1,4 +1,4 @@
-package com.linkknown.oop;
+package com.linkknown.oop.calculator;
 
 // 数学运算接口
 public interface Operator {

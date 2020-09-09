@@ -1,6 +1,5 @@
 package com.linkknown.oop.calculator;
 
-import com.linkknown.oop.Operator;
 import com.linkknown.oop.SubOperator;
 
 // 新式科学计算器

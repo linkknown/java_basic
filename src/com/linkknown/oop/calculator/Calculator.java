@@ -1,7 +1,5 @@
 package com.linkknown.oop.calculator;
 
-import com.linkknown.oop.Operator;
-
 // 计算器接口
 public interface Calculator {
 	// 根据类型获取操作运算

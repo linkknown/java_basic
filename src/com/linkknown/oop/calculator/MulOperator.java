@@ -1,7 +1,5 @@
 package com.linkknown.oop.calculator;
 
-import com.linkknown.oop.Operator;
-
 public class MulOperator implements Operator {
 
 	@Override
