@@ -1,4 +1,6 @@
-package com.linkknown.oop;
+package com.linkknown.oop.calculator;
+
+import com.linkknown.oop.Operator;
 
 public class PowOperator implements Operator {
 

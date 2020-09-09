@@ -1,4 +1,7 @@
-package com.linkknown.oop;
+package com.linkknown.oop.calculator;
+
+import com.linkknown.oop.Operator;
+import com.linkknown.oop.SubOperator;
 
 // ∆’Õ®º∆À„∆˜
 public class OrdinaryCalculator implements Calculator {

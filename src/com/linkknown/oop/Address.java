@@ -7,11 +7,11 @@ package com.linkknown.oop;
  *
  */
 public class Address {
-
+	
 	/**
-	 * 省
+	 * 省,设置初始值
 	 */
-	private String province;
+	private String province = "广东省";
 	/**
 	 * 市
 	 */
@@ -112,5 +112,20 @@ public class Address {
 	public static Address getAddress(String province, String city, String country) {
 		Address address = new Address(province, city, country);
 		return address;
+	}
+	
+	public static Address[] generateRandomAddress (int count) {
+		Address[] addresses = new Address[count];
+		for (int i=0; i<count; i++) {
+			addresses[i] = getAddress("province" + i, "city" + i, "country" + i);
+		}
+		return addresses;
+	}
+	
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		
+		System.out.println("销毁了一个 Address 对象~~");
 	}
 }

@@ -1,4 +1,4 @@
-package com.linkknown.oop;
+package com.linkknown.oop.calculator;
 
 // ¿ÆÑ§¼ÆËãÆ÷
 public abstract class ScienceCalculator implements Calculator {

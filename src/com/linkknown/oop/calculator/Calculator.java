@@ -1,4 +1,6 @@
-package com.linkknown.oop;
+package com.linkknown.oop.calculator;
+
+import com.linkknown.oop.Operator;
 
 // ¼ÆËãÆ÷½Ó¿Ú
 public interface Calculator {

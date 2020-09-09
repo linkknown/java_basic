@@ -1,6 +1,6 @@
 package com.linkknown.oop;
 
-public class Dog extends Animal {
+public class Dog extends Animal implements Player,Singer {
 	
 	/**
 	 * 玩伴
@@ -44,6 +44,11 @@ public class Dog extends Animal {
 		// 调用 this 构造器
 		this();
 		this.playmate = playmate;
+	}
+
+	@Override
+	public void sing() {
+		System.out.println(this.getName() + "在路边对陌生人狂叫~~");
 	}
 	
 	

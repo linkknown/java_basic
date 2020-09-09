@@ -1,6 +1,10 @@
 package com.linkknown.oop;
 
 public class Animal {
+	
+	static {
+		System.out.println("我是静态代码块,我被执行了~");
+	}
 
 	private String name;
 
@@ -27,4 +31,7 @@ public class Animal {
 		System.out.println("开始睡觉啦~");
 	}
 
+	public final void finalMethod () {
+		System.out.println("我是 final 方法不能被重写~");
+	}
 }

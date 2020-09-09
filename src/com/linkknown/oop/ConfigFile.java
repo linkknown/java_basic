@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class ConfigUtil {
+public class ConfigFile {
 
 	private String userName;
 	private String password;
@@ -29,11 +29,11 @@ public class ConfigUtil {
 	private static Properties properties;
 	// ¾²Ì¬´úÂë¿é
 	static {
-		InputStream inputStream = ConfigUtil.class.getClassLoader()
+		InputStream inputStream = ConfigFile.class.getClassLoader()
 				.getResourceAsStream("com/linkknown/oop/account.properties");
 		properties = new Properties();
 		try {
-			ConfigUtil.properties.load(inputStream);
+			ConfigFile.properties.load(inputStream);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -47,11 +47,11 @@ public class ConfigUtil {
 	}
 
 	// ¾²Ì¬·½·¨
-	public static ConfigUtil getInstance () {
+	public static ConfigFile getInstance () {
 		
-		ConfigUtil configUtil = new ConfigUtil();
+		ConfigFile configUtil = new ConfigFile();
 		configUtil.setUserName(properties.getProperty("userName"));
-		configUtil.setPassword(ConfigUtil.properties.getProperty("password"));
+		configUtil.setPassword(ConfigFile.properties.getProperty("password"));
 		return configUtil;
 	}
 

@@ -1,6 +1,17 @@
 package com.linkknown.oop;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.jupiter.api.Test;
+
+import com.linkknown.oop.calculator.Calculator;
+import com.linkknown.oop.calculator.NewScienceCalculator;
+import com.linkknown.oop.calculator.OldScienceCalculator;
+import com.linkknown.oop.calculator.OrdinaryCalculator;
+import com.linkknown.oop.calculator.ScienceCalculator;
 
 public class OOPTest {
 	
@@ -32,17 +43,6 @@ public class OOPTest {
 		// 怎么声明构造函数
 	}
 
-	/**
-	 * 普通方法和函数的区别
-	 */
-	@Test
-	public void testMethodAndFunction() {
-		Address address1 = new Address("安徽省", "合肥市", "肥东县");
-		System.out.println(address1.toString()); // 通过对象.方法 的方法来调用
-
-		// static 关键词的作用就是申明该方法是全局共有的，不是类的实例方法
-		Address address2 = Address.getAddress("安徽省", "合肥市", "肥西县"); // 通过 类.静态方法 来调用函数
-	}
 
 	/**
 	 * 有参构造器和无参构造器
@@ -66,6 +66,17 @@ public class OOPTest {
 		address3.setCountry("肥东县");
 		System.out.println(address3);
 	}
+	
+	
+	/**
+	 * 分析一下对象实例化过程
+	 */
+	@Test
+	public void testNew () {
+//		String str = "helloworld....";
+		
+		String str = new String("helloworld...");
+	}
 
 	/**
 	 * 测试 toString
@@ -81,14 +92,31 @@ public class OOPTest {
 	 * 测试 Object 类
 	 */
 	@Test
-	public void testSuper() {
+	public void testObject() {
 		Address address = new Address("安徽省", "合肥市", "肥西县");
 		// getClass 方法没定义怎么能使用 ??
 		System.out.println(address.getClass());
 	}
 
+	/**
+	 * 验证所有类都是 Object 的子类实现
+	 * Object 类是所有类的公共父类
+	 */
 	@Test
-	public void testObject() {
+	public void testObject2() {
+		// 验证 Object 类
+		String str = "helloworld...";
+//		String str = new String("helloworld");
+		
+		// String、Date 等所有的类都可以使用 Object 的中的方法
+		System.out.println(str.getClass());
+		System.out.println(str.hashCode());
+		
+		Date date = new Date();
+		System.out.println(date.getClass());
+		System.out.println(date.hashCode());
+		
+		
 		Object object = new Address("安徽省", "合肥市", "肥西县");
 		System.out.println(object);
 	}
@@ -103,8 +131,18 @@ public class OOPTest {
 		}
 	}
 
+	/**
+	 * 比较相等
+	 * == 基本类型比较值相等,引用类型比较是同一个对象
+	 */
 	@Test
 	public void testEquals() {
+		int i = 10;
+		int j = 10;
+		char k = 10;
+		System.out.println(i == j);
+		System.out.println(i == k);		// 不同类型基本类型值相等,返回 true
+		
 		// 未重写 equals 方法
 		Address address1 = new Address("安徽省", "合肥市", "肥西县");
 		Address address2 = new Address("安徽省", "合肥市", "肥西县");
@@ -118,14 +156,46 @@ public class OOPTest {
 		Address address3 = address1;
 		System.out.println(address1 == address3); // true
 		System.out.println(address1.equals(address3)); // true
+		
+		String str1 = "helloworld...";
+		String str2 = "helloworld...";
+		String str3 = new String("helloworld...");
+		
+//		说明下面两句没有重新创建新的对象,只会创建一次
+//		String str1 = "helloworld...";
+//		String str2 = "helloworld...";
+		System.out.println(str1 == str2);		// 相同
+//		str3 被重新创建,所以不是同一个对象
+		System.out.println(str1 == str3);		// 不相等
+		
+		
+		System.out.println(str1.equals(str2));
 	}
 
 	/**
+	 * 使用 jconsole 监听内存
+	 * 模拟内存溢出
+	 */
+	@Test
+	public void testGC () {
+		List<String> lst = new ArrayList<>();
+		for (;;) {
+			lst.add("helloworld helloworld helloworld");
+			
+			System.out.println(lst.size());
+		}
+	}
+	
+	/**
 	 * 封装测试
+	 * 封装的作用：
+	 * 1、保证数据的安全
+	 * 2、隐藏细节
 	 */
 	@Test
 	public void testFengZhuang() {
 		UnSecurityPerson person = new UnSecurityPerson();
+		// 不使用 setter getter 方法设置获取属性值
 		person.name = "zhang^san";
 		person.age = 200;
 		person.score = 1000;
@@ -137,7 +207,14 @@ public class OOPTest {
 		person2.setScore(1000);
 		System.out.println(person2);
 		
+		// 隐藏细节
 		System.out.println(person2.getPerson("张&*……%三", 25, "A"));
+		
+		// 隐藏细节
+		SecurityPerson[] persons = SecurityPerson.generateRandomPersons(10);
+		for (SecurityPerson person3 : persons) {
+			System.out.println(person3);
+		}
 	}
 	
 	/**
@@ -146,6 +223,11 @@ public class OOPTest {
 	 */
 	@Test
 	public void testExtends () {
+		// 先了解 Random 和 SecureRandom 类的继承关系
+		// 先了解 Date 和 Time	类的继承关系
+		// 了解单继承特性
+		
+		// 再举例说明
 		Dog animal = new Dog();
 		animal.talk();
 		animal.sleep();
@@ -153,6 +235,9 @@ public class OOPTest {
 		Cat animal2 = new Cat();
 		animal2.talk();
 		animal2.sleep();
+		
+		
+		// 最后了解 Object 类
 	}
 	
 	
@@ -169,7 +254,42 @@ public class OOPTest {
 	}
 	
 	/**
-	 * 测试 this 关键字, 以 Dog 为例
+	 * 对于当前方法，运行时决定具体类型
+	 */
+	public static void animalTalk (Animal animal) {
+		animal.talk();
+	}
+	
+	/**
+	 * 测试多态:不同场景下有不同的形态
+	 * 场景1、子类引用指向子类对象
+	 * 场景2、父类引用指向子类对象  => "向上造型"
+	 * 
+	 * Java的多态变量：
+	 * 1 Java的对象变量是多态的,他们能保存不止一种类型对象
+	 * 2 它可以保存申明类型的变量,或申明类型的子类的对象
+	 * 3 把子类的对象赋到父类的变量的时候就发生了向上造型
+	 * 
+	 * 多态的前提条件： 
+	 * 1，有继承的存在
+	 * 2，子类重写父类方法
+	 * 3，父类引用指向子类对象
+	 */
+	@Test
+	public void testDuoTai () {
+		Animal cat = new Cat();
+		Animal dog = new Dog();
+		
+		OOPTest.animalTalk(cat);
+		OOPTest.animalTalk(dog);
+		
+		if (cat instanceof Cat) {
+			((Cat)cat).eatMouse();
+		}
+	}
+	
+	/**
+	 * 测试 this 和 super 关键字, 以 Dog 为例
 	 */
 	@Test
 	public void testThis () {
@@ -184,6 +304,9 @@ public class OOPTest {
 	}
 	
 	
+	/**
+	 * 测试重写和重载
+	 */
 	@Test
 	public void testOverloadAndOverride () {
 		// 重载和重写练习
@@ -195,19 +318,117 @@ public class OOPTest {
 		dog.talk(3);
 	}
 	
-
+	public static Address currentAddress;
+	
 	/**
-	 * 测试 static
+	 * static 测试
 	 */
 	@Test
 	public void testStatic () {
+		// 测试非静态属性,每一个实例拥有自己的属性，互不影响
+		Address address01 = new Address("安徽省", "合肥市", "肥东县");
+		System.out.println(address01.getProvince());
+		
+		// 测试静态属性
+		OOPTest test01 = new OOPTest();
+		OOPTest test02 = new OOPTest();
+		// 操作的是内容中的同一个区域
+		test01.currentAddress = address01;
+		test02.currentAddress = address01;
+		
+		// 建议使用类名去操作，不建议使用实例对象去操作静态属性
+		OOPTest.currentAddress = address01;
+		
+		
+		
+		// 测试静态方法
+		Address address02 = new Address("安徽省", "合肥市", "肥东县");
+		address01.getAddress(address01.getProvince(), address01.getCity(), address01.getCountry());
+		address02.getAddress(address02.getProvince(), address02.getCity(), address02.getCountry());
+	
+		// 同样不建议使用实例对象去操作静态方法
+		Address.getAddress(address01.getProvince(), address01.getCity(), address01.getCountry());
+		
+		// 思考：静态方法能操作实例属性和实例方法吗？能使用 this 么？
+	
+		
+		
+		// 测试静态代码块, class 文件只加载一次，static 代码块也只执行一次
+		System.out.println(new Animal());
+		System.out.println(new Animal());
+		System.out.println(new Animal());
+		System.out.println(new Animal());
+		System.out.println(new Animal());
+		System.out.println(new Animal());
+	}
+	
+	/**
+	 * 测试 static
+	 * 普通方法和函数的区别
+	 */
+	@Test
+	public void testMethodAndFunction() {
+		Address address1 = new Address("安徽省", "合肥市", "肥东县");
+		System.out.println(address1.toString()); // 通过对象.方法 的方法来调用
+
+		// static 关键词的作用就是申明该方法是全局共有的，不是类的实例方法
+		Address address2 = Address.getAddress("安徽省", "合肥市", "肥西县"); // 通过 类.静态方法 来调用函数
+	}
+
+	/**
+	 * 测试 static
+	 * 综合练习
+	 */
+	@Test
+	public void testStatic2 () {
 		// 修饰静态属性
 		// 修饰静态方法
 		// 修饰静态代码块
-		ConfigUtil configUtil = ConfigUtil.getInstance();
+		ConfigFile configUtil = ConfigFile.getInstance();
 		System.out.println(configUtil.getUserName());
 		System.out.println(configUtil.getPassword());
 	}
+	
+	@Test
+	public void testFinal () {
+		// 测试 final 变量
+		final double PI = 3.1415;
+//		PI = 3.14159;
+		
+		// 测试 final 方法
+		Animal animal = new Animal();
+		animal.finalMethod();
+	}
+	
+	@Test
+	public void testAbstract () {
+		// 抽象类不能被创建
+//		Person person = new Person();	
+		
+		// 只能创建抽象类的子类实现
+		Person person = new Student();
+		person.work();
+		person.eat();
+	}
+	
+	/**
+	 * 测试接口
+	 * 接口的粒度要细
+	 * 满足接口隔离原则
+	 */
+	@Test
+	public void testInterface () {
+		Student student = new Student();
+		student.play();
+		student.sing();
+		
+		Dog dog = new Dog();
+		dog.setName("阿旺");
+		dog.setPlaymate(dog);
+		dog.play();
+		dog.sing();
+	}
+	
 	
 	/**
 	 * 测试 final、abstract、interface 和 可变参数
@@ -234,80 +455,52 @@ public class OOPTest {
 		oldScienceCalculator.showDesc(true);
 		oldScienceCalculator.showDesc();
 	}
-}
-
-class UnSecurityPerson {
-	public String name;
-	public int age;
-	public int score;
-
-	@Override
-	public String toString() {
-		return "UnSecurityPerson [name=" + name + ", age=" + age + ", score=" + score + "]";
-	}
-
-}
-
-class SecurityPerson {
-	private String name;
-	private int age;
-	private int score;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		String regEx = "[\\s~·`!！@#￥$%^……&*（()）\\-——\\-_=+【\\[\\]】｛{}｝\\|、\\\\；;：:‘'“”\"，,《<。.》>、/？?]";
-		this.name = name.replaceAll(regEx, "");
-	}
-
-	public int getAge() {
-		return this.age;
-	}
-
-	public void setAge(int age) {
-		this.age = age > 0 && age < 150 ? age : this.age;
-	}
-
-	public int getScore() {
-		return score;
-	}
-
-	public void setScore(int score) {
-		this.score = score >= 0 && score <= 150 ? score : this.score;
-	}
-
-	@Override
-	public String toString() {
-		return "SecurityPerson [name=" + name + ", age=" + age + ", score=" + score + "]";
+	
+	private void printAddress (Address... addresses) {
+		for (int i=0; i<addresses.length; i++) {
+			System.out.println(addresses[i]);
+		}
 	}
 	
 	/**
-	 * 根据成绩等级随机产生一个 person 实例
-	 * @param name
-	 * @return
+	 * 测试可变参数
 	 */
-	public SecurityPerson getPerson (String name, int age, String grade) {
-		SecurityPerson person = new SecurityPerson();
-		person.setName(name);
-		person.setAge(age);
-		switch (grade) {
-		case "A":
-			person.setScore(150);
-			break;
-		case "B":
-			person.setScore(120);
-		case "C":
-			person.setScore(90);
-		case "D":
-			person.setScore(60);
-			break;
-		default:
-			person.setScore(0);
-			break;
-		}
-		return person;
+	@Test
+	public void testArgs () {
+		OOPTest test = new OOPTest();
+		test.printAddress(Address.generateRandomAddress(10));
 	}
-
+	
+	/**
+	 * 测试析构方法
+	 */
+	@Test
+	public void testFinalize () {
+		// 不断创建不断销毁
+		Address address;
+		for (int i=0;; i++) {
+			address = Address.getAddress("安徽省","合肥市","肥东县");
+			
+			System.out.println("new Address :" + i);
+		}
+	}
+	
+	/**
+	 * 测试析构方法
+	 * 主动回收 System.gc()
+	 * @throws InterruptedException 
+	 */
+	@Test
+	public void testFinalize2 () throws InterruptedException {
+		// 不断创建不断销毁
+		Address address;
+		for (int i=0;; i++) {
+			address = Address.getAddress("安徽省","合肥市","肥东县");
+			
+			System.out.println("new Address :" + i);
+			System.gc();		// 主动通知 gc 回收
+			
+			TimeUnit.SECONDS.sleep(1);
+		}
+	}
 }
