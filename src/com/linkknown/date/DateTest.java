@@ -17,6 +17,8 @@ public class DateTest {
 		// 使用当前日期和时间来初始化对象
 		Date date = new Date();
 		System.out.println(date);
+		
+		System.out.println(date.getTime());
 	}
 
 	/**
@@ -25,7 +27,10 @@ public class DateTest {
 	@Test
 	public void testDate2() {
 		// 构造函数接收一个参数，该参数是从1970年1月1日起的毫秒数
-		Date date = new Date(30 * 365 * 24 * 3600 * 1000l);
+		Date date = new Date(0 + 30 * 365 * 24 * 3600 * 1000l); 	// 时间元年 30 年之后
+		System.out.println(date);
+		
+		date = new Date(new Date().getTime() + 24 * 3600 * 1000l);	// 明天的这个时间点
 		System.out.println(date);
 	}
 
@@ -40,6 +45,12 @@ public class DateTest {
 		System.out.println(date1.before(date2));
 		// 若当调用此方法的Date对象在指定日期之前返回true,否则返回false。
 		System.out.println(date1.after(date2));
+		
+		System.out.println(between(date2, new Date(0), new Date()));
+	}
+	
+	public static boolean between (Date date, Date start, Date end) {
+		return date.after(start) && date.before(end);
 	}
 
 	/**
@@ -63,6 +74,7 @@ public class DateTest {
 		// 注意:有的格式大写，有的格式小写，例如 MM 是月份，mm 是分；HH 是 24 小时制，而 hh 是 12 小时制。
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String dateStr = dateFormat.format(date);
+//		String dateStr = dateFormat.format(new Date(date.getTime() + 12 * 3600 * 1000));	
 		System.out.println(dateStr);
 
 		dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -95,5 +107,9 @@ public class DateTest {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
 		System.out.println(dateFormat.parse(dateStr));
+		
+		SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
+		
+		System.out.println(dateFormat2.format(dateFormat.parse(dateStr)));
 	}
 }

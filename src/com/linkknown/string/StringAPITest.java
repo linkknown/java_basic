@@ -1,5 +1,8 @@
 package com.linkknown.string;
 
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -11,15 +14,24 @@ public class StringAPITest {
 	
 	/**
 	 * 测试字符串常用 api
+	 * @throws UnsupportedEncodingException 
 	 */
 	@Test
-	public void testStringAIP () {
+	public void testStringAIP () throws UnsupportedEncodingException {
 		String str = "helloworld";
-		String str2 = "             helloworld";
+		String str2 = "我爱java";
+		String str3 = "             helloworld";
+		String str4 = "我爱java123我爱java123";
 		
 		System.out.println(str.length());
+		System.out.println(str2.length());
+		
 		System.out.println(str.charAt(0));
 		System.out.println(str.getBytes().length);
+		System.out.println(str2.getBytes().length);
+		System.out.println(str2.getBytes("UTF-8").length);
+		
+		
 		System.out.println(str.toCharArray().length);
 		System.out.println(str.equals("helloworld"));
 		System.out.println(str.equalsIgnoreCase("helloWORLD"));
@@ -27,9 +39,18 @@ public class StringAPITest {
 		System.out.println(str.startsWith("hello"));
 		System.out.println(str.endsWith("world"));
 		System.out.println(str.split("o").length);
-		System.out.println(str.replace("o", "O"));
-		System.out.println(str2);
-		System.out.println(str2.trim());
+		
+		
+		System.out.println(str.replace("o", "O"));				// 替换全部,匹配字符串进行替换
+		System.out.println(str.replaceFirst("o", "O"));			// 替换第一个,匹配正则进行替换
+		System.out.println(str.replaceAll("o", "O"));			// 替换全部,匹配正则进行替换
+		
+		System.out.println(str4.replace("\\d", ""));			
+		System.out.println(str4.replaceAll("\\d", ""));			// 替换成功
+		
+		
+		System.out.println(str3);
+		System.out.println(str3.trim());
 	}
 	
 	/**
@@ -37,6 +58,13 @@ public class StringAPITest {
 	 */
 	@Test
 	public void testStringFormat () {
-		System.out.println(String.format("%s 的年龄是 %d", "tom", 20));
+		String name = "tom";
+		int age = 20;
+		int height = 175;
+		System.out.println(name + " 的年龄是 " + age + ",身高是 " + height + "cm");
+		System.out.println(String.format("%s 的年龄是 %d,身高是 %dcm", name, age, height));
+		
+		System.out.println(String.format("%08d", 1001));
+		System.out.println(String.format("%016d", 1001));
 	}
 }

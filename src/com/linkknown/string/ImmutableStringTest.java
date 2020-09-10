@@ -24,9 +24,9 @@ public class ImmutableStringTest {
 	public void testImmutableString2 () {
 		String str = "helloworld";
 		System.out.println(str);
-		String upperStr = str.substring(0, 5);
+		String subStr = str.substring(0, 5);
 	
-		System.out.println(upperStr);
+		System.out.println(subStr);
 		System.out.println(str);		// 调用前后 str 值不变,证明 substring 是返回新字符串
 	}
 }

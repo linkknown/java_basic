@@ -10,6 +10,7 @@ public class CalenderTest {
 
 	/**
 	 * 创建 Calendar
+	 * 了解 Calendar 类包含的面向对象知识
 	 */
 	@Test
 	public void testCalender () {
@@ -23,7 +24,7 @@ public class CalenderTest {
 	}
 	
 	/**
-	 * 修改 lendar
+	 * 修改 Calendar
 	 */
 	@Test
 	public void testCalender2 () {
@@ -39,8 +40,10 @@ public class CalenderTest {
 		System.out.println(simpleDateFormat.format(calendar.getTime()));		// 2020-02-01 15:57:57
 		// 获取年份
 		System.out.println(calendar.get(Calendar.YEAR));
-		// 获取当前系统时间中当月的最后一天
-		System.out.println(calendar.getMaximum(Calendar.DAY_OF_MONTH));
+		// 获取当前系统时间中当月的最后一天(获取给定时间分量所允许的最大值)
+		System.out.println(calendar.getActualMaximum(Calendar.DAY_OF_MONTH));	
+		System.out.println(calendar.getActualMaximum(Calendar.MONTH));			// 数字 11 表示 12 月
+
 		// 增加一年
 		calendar.add(Calendar.YEAR, 1);
 		System.out.println(simpleDateFormat.format(calendar.getTime()));		// 2021-02-01 15:57:57
