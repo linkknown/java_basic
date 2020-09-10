@@ -1,1 +1,4 @@
 /bin/
+.idea
+/linkknown_basic.iml
+/.classpath

@@ -1,5 +1,6 @@
 package com.linkknown.array;
 
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -8,15 +9,26 @@ import org.junit.jupiter.api.Test;
 public class ArrayTest {
 
 	/**
-	 * 
+	 * 创建数组的几种方式
 	 */
 	public void testArray() {
 		int[] intArr; // 声明数组
 		intArr = new int[3]; // new 的时候给数组强制开辟内存
+		
+		
+		// 方式1
+		int[] intArr01 = new int[3];
+		// 方式2
+		int intArr02[] = new int[3];
+		// 方式3
+		int[] intArr03 = new int[] {1,2,3};
+		// 方式4
+		int[] intArr04 = {1,2,3};
 	}
 
 	/**
 	 * 测试数组的创建
+	 * 数组的默认值
 	 */
 	@Test
 	public void testArray1() {
@@ -34,8 +46,9 @@ public class ArrayTest {
 		}
 
 		// 创建数组并初始化数组元素
-		String[] strArr = new String[] { "hello", "world" };
+		String[] strArr = new String[] {"hello", "world"};
 		System.out.println(strArr);
+		System.out.println(Arrays.toString(strArr));
 	}
 
 	/**
@@ -77,17 +90,19 @@ public class ArrayTest {
 	 */
 	@Test
 	public void testStringToArr() {
-		String str = "helloworld"; // 默认 UTF-8 编码
+		String str = "helloworld"; 
 		char[] chars = str.toCharArray();
 		byte[] bytes = str.getBytes();
 		System.out.println(chars.length);
 		System.out.println(bytes.length);
 
-		str = "你好 Java"; // 默认 UTF-8 编码,一个中文两个字节
+		str = "你好 Java"; // GBK：一个中文两个字节  UTF-8：一个中文三个字节
 		chars = str.toCharArray();
 		bytes = str.getBytes();
 		System.out.println(chars.length);
 		System.out.println(bytes.length);
+		
+		System.out.println(Charset.defaultCharset().toString());
 	}
 
 	/**

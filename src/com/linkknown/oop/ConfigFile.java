@@ -46,13 +46,16 @@ public class ConfigFile {
 		}
 	}
 
+	public static ConfigFile instance;
+	
 	// ¾²Ì¬·½·¨
 	public static ConfigFile getInstance () {
-		
-		ConfigFile configUtil = new ConfigFile();
-		configUtil.setUserName(properties.getProperty("userName"));
-		configUtil.setPassword(ConfigFile.properties.getProperty("password"));
-		return configUtil;
+		if (instance == null) {
+			instance = new ConfigFile();
+			instance.setUserName(properties.getProperty("userName"));
+			instance.setPassword(ConfigFile.properties.getProperty("password"));
+		}
+		return instance;
 	}
 
 }

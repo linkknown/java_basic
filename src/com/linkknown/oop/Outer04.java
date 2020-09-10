@@ -16,7 +16,7 @@ public class Outer04 {
 		
 		final int age = 10;
 		
-		InnerClass innerClass = new InnerClass() {
+		InnerClassIterface innerClass = new InnerClassIterface() {
 			
 			private String name = "我是匿名内部类属性";
 			
@@ -37,6 +37,6 @@ public class Outer04 {
 	}
 }
 
-interface InnerClass {
+interface InnerClassIterface {
 	void printName();
 }
