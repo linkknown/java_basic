@@ -7,7 +7,9 @@ import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +20,29 @@ import org.junit.jupiter.api.Test;
  *
  */
 public class ExceptionTest {
+	
+	/**
+	 * 测试错误
+	 * 我们可以通过指定-Xmx参数，快速的模拟出OutOfMemoryError的错误,-Xmx指定的是JVM的最大堆内存,如果该值很小,非常容易就会出现OutOfMemoryError的错误
+	 * 设置虚拟机参数：-Xmx1m
+	 */
+	private static void testError() {
+		List<String> lst = new ArrayList<>();
+		// 存储 100 w 个对象
+		for (int i = 0; i < 1000000; i++) {
+			lst.add("helloworld");
+		}
+		System.out.println(lst.size());
+	}
+	
+	/**
+	 * 测试异常
+	 */
+	@Test
+	private void testException() {
+		System.out.println(10 / 0);
+	}
+	
 	/*************************************** 模拟非检查异常 ******************************************/ 
 	/**
 	 * 模拟非检查异常
@@ -108,7 +133,7 @@ public class ExceptionTest {
 	 * try catch 捕获并处理异常
 	 */
 	@Test
-	public void testException () {
+	public void testException1 () {
 		Date date = new Date();
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
