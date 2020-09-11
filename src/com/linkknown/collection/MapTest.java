@@ -1,7 +1,10 @@
 package com.linkknown.collection;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import org.junit.jupiter.api.Test;
@@ -46,5 +49,42 @@ public class MapTest {
 		System.out.println(map.getOrDefault("smith", "smith"));
 		System.out.println(map.isEmpty());
 		System.out.println(map.size());
+	}
+	
+	/**
+	 * 验证 HashMap 的无序性
+	 */
+	@Test
+	public void testHashMap3 () {
+		HashMap<String, String> map = new HashMap<>();
+		for (int i=0; i<1000; i++) {
+			map.put("test_" + i, "test_" + i);
+		}
+		
+		// map 重写了 toString 方法
+		System.out.println(map);
+		
+		Iterator<Entry<String, String>> iterator = map.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Entry<String, String> entry = iterator.next();
+			System.out.println(entry.getKey() + "~" + entry.getValue());
+		}
+	}
+
+	/**
+	 * 验证 LinkedHashMap 的有序性
+	 */
+	@Test
+	public void testHashMap4 () {
+		HashMap<String, String> map = new LinkedHashMap<>();
+		for (int i=0; i<1000; i++) {
+			map.put("test_" + i, "test_" + i);
+		}
+		
+		Iterator<Entry<String, String>> iterator = map.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Entry<String, String> entry = iterator.next();
+			System.out.println(entry.getKey() + "~" + entry.getValue());
+		}
 	}
 }

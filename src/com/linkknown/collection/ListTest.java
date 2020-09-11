@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +18,14 @@ import org.junit.jupiter.api.Test;
 public class ListTest {
 
 	/**
-	 * 测试 add 方法
+	 * 测试 add 方法,底层 ensureCapacityInternal(size + 1) 用来扩容
+	 * 
+	 *   public boolean add(E e) {
+	 *       ensureCapacityInternal(size + 1);  // Increments modCount!!
+	 *       elementData[size++] = e;
+	 *       return true;
+	 *   }
+	 *   
 	 */
 	@Test
 	public void testArrayList01() {
@@ -42,6 +50,30 @@ public class ListTest {
 		System.out.println(lst);
 	}
 
+	/**
+	 * 测试 list 有序性、可重复性、可以放入 null
+	 */
+	@Test
+	public void testListRepeat () {
+		List<String> lst = new ArrayList<>();
+		lst.add("hello");
+		lst.add("world");
+		lst.add(null);
+		lst.add("hello");
+		lst.add("world");
+		lst.add(null);
+		System.out.println(lst);
+		
+		lst = new LinkedList<>();
+		lst.add("hello");
+		lst.add("world");
+		lst.add(null);
+		lst.add("hello");
+		lst.add("world");
+		lst.add(null);
+		System.out.println(lst);
+	}
+	
 	/**
 	 * 测试 contains\containsAll\... 等方法
 	 */
@@ -137,5 +169,114 @@ public class ListTest {
 			tmp = e;
 		end = System.nanoTime();
 		System.out.println("linkedlist:	" + (end - start));
+	}
+	
+	
+	/**
+	 * arraylist、linkedlist 的使用场景
+	 */
+	@Test
+	public void testArrayListAndLinkedList2 () {
+		long start = System.nanoTime();
+		List<Integer> lst = new ArrayList<>();
+		// 使用 List 存储最近 30 天的天气
+		for (int i = 0; i < 365; i++) {
+			lst.add(new Random().nextInt(40));
+			if (lst.size() > 30) {
+				lst.remove(0);
+			}
+		}
+		long end = System.nanoTime();
+		System.out.println(end - start);
+		
+		start = System.nanoTime();
+		lst = new LinkedList<>();
+		// 使用 List 存储最近 30 天的天气
+		for (int i = 0; i < 365; i++) {
+			lst.add(new Random().nextInt(40));
+			if (lst.size() > 30) {
+				lst.remove(0);
+			}
+		}
+		end = System.nanoTime();
+		System.out.println(end - start);
+	}
+	
+	
+	/**
+	 * 优化：知道数据长度的时候性能优化
+	 * 初始化的时候指定长度肯定是要比不指定长度的性能好很多, 这样不用重复的申请空间, 复制数组, 销毁老的分配空间
+	 */
+	@Test
+	public void testArrayList05 () {
+		long start = System.nanoTime();
+		List<String> lst = new ArrayList<>();
+		for (int i=0; i< 1000; i++) {
+			lst.add("hello");
+		}
+		long end = System.nanoTime();
+		System.out.println(end - start);
+		
+		
+		start = System.nanoTime();
+		// 创建 List 的时候指定长度
+		lst = new ArrayList<>(1000);
+		for (int i=0; i< 1000; i++) {
+			lst.add("hello");
+		}
+		end = System.nanoTime();
+		System.out.println(end - start);
+	}
+	
+	/**
+	 * 设置初始长度的时候要合理,小了会自动扩容，大了会浪费
+	 */
+	@Test
+	public void testArrayList06 () {
+		List<String> lst = new ArrayList<>(100);
+		for (int i=0; i< 1000; i++) {
+			lst.add("hello");
+		}
+		System.out.println(lst.size());
+	}
+
+	/**
+	 * 遍历时删除元素
+	 * 使用迭代器的删除可靠些
+	 */
+	@Test
+	public void testRemove () {
+		List<String> lst = new ArrayList<>(100);
+		for (int i=0; i< 1000; i++) {
+			lst.add(new Random().nextInt(100) + "");
+		}
+		for(String s: lst){  
+		    if(Integer.parseInt(s) < 60){  
+		        lst.remove(s);  
+		    }  
+		}  
+		System.out.println(lst); 
+	}
+	
+	/**
+	 * 遍历时删除元素
+	 * 使用迭代器的删除可靠些
+	 */
+	@Test
+	public void testRemove2 () {
+		List<String> lst = new ArrayList<>(100);
+		for (int i=0; i< 1000; i++) {
+			lst.add(new Random().nextInt(100) + "");
+		}
+		
+		System.out.println(lst);
+		Iterator<String> iterator = lst.iterator();
+		while (iterator.hasNext()) {
+			String number = iterator.next();
+			if (Integer.parseInt(number) < 60) {
+				iterator.remove();
+			}
+		}
+		System.out.println(lst);
 	}
 }

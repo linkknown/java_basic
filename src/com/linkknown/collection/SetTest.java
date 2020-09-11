@@ -1,6 +1,7 @@
 package com.linkknown.collection;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -19,6 +20,11 @@ public class SetTest {
 
 	/**
 	 * 测试 set 去重 测试 add 方法
+	 * 
+	 * HashSet 底层是使用 HashMap 实现的
+	 *  public HashSet() {
+     *		map = new HashMap<>();
+     *	}
 	 */
 	@Test
 	public void testHashSet01() {
@@ -56,7 +62,8 @@ public class SetTest {
 	}
 
 	/**
-	 * Set 遍历 Ctrl + 数字 1 快速给行生成返回值
+	 * Set 遍历 
+	 * Ctrl + 数字 1 快速给行生成返回值
 	 */
 	@Test
 	public void testHashSet04() {
@@ -74,6 +81,60 @@ public class SetTest {
 			String entry = iterator.next();
 			System.out.println(entry);
 		}
+	}
+	
+	/**
+	 * 测试 HashSet 无序性、不可重复性、可为 null
+	 */
+	@Test
+	public void testHashSetRepeatAndOrder () {
+		Set<String> set = new HashSet<>();
+		set.add("hello");
+		set.add("world");
+		set.add(null);
+		set.add("hello");
+		set.add("world");
+		set.add(null);
+		
+		System.out.println(set);
+	}
+	
+	/**
+	 * LinkedHashSet 是有序的
+	 */
+	@Test
+	public void testHashSetRepeatAndOrder2 () {
+		Set<String> set = new LinkedHashSet<>();
+		set.add("hello");
+		set.add("world");
+		set.add(null);
+		set.add("hello");
+		set.add("world");
+		set.add(null);
+		
+		System.out.println(set);
+	}
+	
+	/**
+	 * 遍历 Set
+	 */
+	@Test
+	public void testSetForeach () {
+		Set<String> set = new HashSet<>(Arrays.asList("hello", "world", "hello", "java"));
+		
+		for (String str : set) {
+			System.out.println(str);
+		}
+		
+		System.out.println();
+		
+		Iterator<String> iterator = set.iterator();
+		while (iterator.hasNext()) {
+			String str = (String) iterator.next();
+			System.out.println(str);
+		}
+		
+		set.forEach(str -> System.out.println(str));
 	}
 	
 	/**
