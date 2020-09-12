@@ -91,6 +91,51 @@ public class CollectionTest {
 		
 		System.out.println(lst);
 	}
+	
+	
+	/********************* 形参和实参的使用: 集合传参是引用传递 *************************/
+	public static void add (Integer i) {
+		i = i + 1;
+	}
+	
+	public static void add (List<Integer> lst) {
+		Integer i = lst.get(0);
+
+		lst.set(0, lst.get(0) + 1);
+		
+		System.out.println(lst);
+	}
+	
+	/**
+	 * 形参 ：就是形式参数，用于定义方法的时候使用的参数，是用来接收调用者传递的参数的。 
+	 * 形参只有在方法被调用的时候，虚拟机才会分配内存单元，在方法调用结束之后便会释放所分配的内存单元。 
+	 * 因此,形参只在方法内部有效，所以针对引用对象的改动也无法影响到方法外。
+	 * 
+	 * 实参 ：就是实际参数，用于调用时传递给方法的参数。实参在传递给别的方法之前是要被预先赋值的。
+	 * 
+	 * 
+	 * 值传递：方法调用时，实际参数把它的值传递给对应的形式参数，函数接收的是原始值的一个copy， 
+	 * 此时内存中存在两个相等的基本类型，即实际参数和形式参数，后面方法中的操作都是对形参这个值的修改，不影响实际参数的值。
+	 * 
+	 * 引用传递：也称为地址传递、址传递。方法调用时，实际参数的引用(地址，而不是参数的值)被传递给方法中相对应的形式参数，
+	 * 函数接收的是原始值的内存地址在方法执行中，形参和实参内容相同，指向同一块内存地址，方法执行中对引用的操作将会影响到实际对象。
+	 */
+	@Test
+	public void testCollection4 () {
+		Integer i = 10;
+		
+		add(i);
+		
+		System.out.println(i);
+		
+		List<Integer> lst = new ArrayList<>();
+		
+		lst.add(i);
+		
+		add(lst);
+		
+		System.out.println(lst);
+	}
 }
 
 

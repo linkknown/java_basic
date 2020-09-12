@@ -87,6 +87,8 @@ public class ListTest {
 		System.out.println(lst.size());
 		System.out.println(lst.isEmpty());
 		System.out.println(lst.subList(0, 5));
+		System.out.println(lst.subList(0, lst.size()));
+		System.out.println(lst.subList(0, lst.size() - 1));
 	}
 
 	/**
@@ -98,6 +100,11 @@ public class ListTest {
 
 		lst.addAll(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 
+		// 普通 for 循环
+		for (int i=0; i<lst.size(); i++) {
+			System.out.println(lst.get(0));
+		}
+		
 		// 增强 for 循环
 		for (int num : lst) {
 			System.out.println(num);
@@ -177,27 +184,31 @@ public class ListTest {
 	 */
 	@Test
 	public void testArrayListAndLinkedList2 () {
-		long start = System.nanoTime();
-		List<Integer> lst = new ArrayList<>();
 		// 使用 List 存储最近 30 天的天气
-		for (int i = 0; i < 365; i++) {
-			lst.add(new Random().nextInt(40));
-			if (lst.size() > 30) {
-				lst.remove(0);
+		List<Integer> arrayList = new ArrayList<>();
+		List<Integer> linkedList = new LinkedList<>();
+		
+		long start = System.nanoTime();
+		
+		for (int i=0; i< 365; i++) {
+			arrayList.add(new Random().nextInt(40));
+			if (arrayList.size() > 30) {
+				arrayList.remove(0);
 			}
 		}
+		
 		long end = System.nanoTime();
 		System.out.println(end - start);
-		
+	
 		start = System.nanoTime();
-		lst = new LinkedList<>();
-		// 使用 List 存储最近 30 天的天气
-		for (int i = 0; i < 365; i++) {
-			lst.add(new Random().nextInt(40));
-			if (lst.size() > 30) {
-				lst.remove(0);
+		
+		for (int i=0; i< 365; i++) {
+			linkedList.add(new Random().nextInt(40));
+			if (linkedList.size() > 30) {
+				linkedList.remove(0);
 			}
 		}
+		
 		end = System.nanoTime();
 		System.out.println(end - start);
 	}
@@ -210,21 +221,25 @@ public class ListTest {
 	@Test
 	public void testArrayList05 () {
 		long start = System.nanoTime();
+		
 		List<String> lst = new ArrayList<>();
 		for (int i=0; i< 1000; i++) {
 			lst.add("hello");
 		}
+		
 		long end = System.nanoTime();
 		System.out.println(end - start);
 		
 		
 		start = System.nanoTime();
+		
 		// 创建 List 的时候指定长度
 		lst = new ArrayList<>(1000);
 		for (int i=0; i< 1000; i++) {
 			lst.add("hello");
 		}
 		end = System.nanoTime();
+		
 		System.out.println(end - start);
 	}
 	
@@ -261,6 +276,15 @@ public class ListTest {
 	/**
 	 * 遍历时删除元素
 	 * 使用迭代器的删除可靠些
+	 * 
+	 * 
+	 * 基本上ArrayList采用size属性来维护自已的状态，而Iterator采用cursor来来维护自已的状态。
+	 * 当size出现变化时，cursor并不一定能够得到同步，除非这种变化是Iterator主动导致的。
+	 * 从上面的代码可以看到当Iterator.remove方法导致ArrayList列表发生变化时，他会更新cursor来同步这一变化。
+	 * 但其他方式导致的ArrayList变化，Iterator是无法感知的。ArrayList自然也不会主动通知Iterator们，那将是一个繁重的工作。
+	 * Iterator到底还是做了努力：为了防止状态不一致可能引发的无法设想的后果，Iterator会经常做checkForComodification检查，
+	 * 以防有变。如果有变，则以异常抛出，所以就出现了上面的异常。
+	 * 
 	 */
 	@Test
 	public void testRemove2 () {
