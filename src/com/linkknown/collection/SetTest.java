@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 public class SetTest {
 
 	/**
-	 * 测试 set 去重 测试 add 方法
+	 * 测试 add 方法
 	 * 
 	 * HashSet 底层是使用 HashMap 实现的
 	 *  public HashSet() {
@@ -37,7 +37,7 @@ public class SetTest {
 	}
 
 	/**
-	 * 测试 set 去重 测试 addAll 方法
+	 * 测试 addAll 方法
 	 */
 	@Test
 	public void testHashSet02() {
@@ -68,6 +68,12 @@ public class SetTest {
 	@Test
 	public void testHashSet04() {
 		Set<String> set = new HashSet<>(Arrays.asList(new String[] { "tom", "bob", "tom", "smith", "null", null, null }));
+		
+//		set 不支持普通 for 循环
+//		for (int i=0; i<set.size(); i++) {
+//			set.get(i);
+//		}
+		
 		// 增强 for 循环
 		for (String s : set) {
 			System.out.println(s);
@@ -81,6 +87,8 @@ public class SetTest {
 			String entry = iterator.next();
 			System.out.println(entry);
 		}
+		
+		set.forEach(str -> System.out.println(str));
 	}
 	
 	/**
@@ -113,28 +121,6 @@ public class SetTest {
 		set.add(null);
 		
 		System.out.println(set);
-	}
-	
-	/**
-	 * 遍历 Set
-	 */
-	@Test
-	public void testSetForeach () {
-		Set<String> set = new HashSet<>(Arrays.asList("hello", "world", "hello", "java"));
-		
-		for (String str : set) {
-			System.out.println(str);
-		}
-		
-		System.out.println();
-		
-		Iterator<String> iterator = set.iterator();
-		while (iterator.hasNext()) {
-			String str = (String) iterator.next();
-			System.out.println(str);
-		}
-		
-		set.forEach(str -> System.out.println(str));
 	}
 	
 	/**
@@ -204,13 +190,13 @@ public class SetTest {
 	 */
 	@Test
 	public void testOrder2 () {
-		Set<Dog> treeSet = new TreeSet<>();
+		Set<Person> treeSet = new TreeSet<>();
 		
 		for (int i = 0; i< 100; i++) {
-			treeSet.add(new Dog("Dog_" + i, 100 - i));
+			treeSet.add(new Person("Person_" + i, 100 - i));
 		}
 		
-		// [Dog [name=Dog_9, age=91], Dog [name=Dog_8, age=92], Dog [name=Dog_7, age=93], Dog [name=Dog_6, age=94], Dog [name=Dog_5, age=95], Dog [name=Dog_4, age=96], Dog [name=Dog_3, age=97], Dog [name=Dog_2, age=98], Dog [name=Dog_1, age=99], Dog [name=Dog_0, age=100], Dog [name=Dog_99, age=1], Dog [name=Dog_98, age=2], Dog [name=Dog_97, age=3], Dog [name=Dog_96, age=4], Dog [name=Dog_95, age=5], Dog [name=Dog_94, age=6], Dog [name=Dog_93, age=7], Dog [name=Dog_92, age=8], Dog [name=Dog_91, age=9], Dog [name=Dog_90, age=10], Dog [name=Dog_89, age=11], Dog [name=Dog_88, age=12], Dog [name=Dog_87, age=13], Dog [name=Dog_86, age=14], Dog [name=Dog_85, age=15], Dog [name=Dog_84, age=16], Dog [name=Dog_83, age=17], Dog [name=Dog_82, age=18], Dog [name=Dog_81, age=19], Dog [name=Dog_80, age=20], Dog [name=Dog_79, age=21], Dog [name=Dog_78, age=22], Dog [name=Dog_77, age=23], Dog [name=Dog_76, age=24], Dog [name=Dog_75, age=25], Dog [name=Dog_74, age=26], Dog [name=Dog_73, age=27], Dog [name=Dog_72, age=28], Dog [name=Dog_71, age=29], Dog [name=Dog_70, age=30], Dog [name=Dog_69, age=31], Dog [name=Dog_68, age=32], Dog [name=Dog_67, age=33], Dog [name=Dog_66, age=34], Dog [name=Dog_65, age=35], Dog [name=Dog_64, age=36], Dog [name=Dog_63, age=37], Dog [name=Dog_62, age=38], Dog [name=Dog_61, age=39], Dog [name=Dog_60, age=40], Dog [name=Dog_59, age=41], Dog [name=Dog_58, age=42], Dog [name=Dog_57, age=43], Dog [name=Dog_56, age=44], Dog [name=Dog_55, age=45], Dog [name=Dog_54, age=46], Dog [name=Dog_53, age=47], Dog [name=Dog_52, age=48], Dog [name=Dog_51, age=49], Dog [name=Dog_50, age=50], Dog [name=Dog_49, age=51], Dog [name=Dog_48, age=52], Dog [name=Dog_47, age=53], Dog [name=Dog_46, age=54], Dog [name=Dog_45, age=55], Dog [name=Dog_44, age=56], Dog [name=Dog_43, age=57], Dog [name=Dog_42, age=58], Dog [name=Dog_41, age=59], Dog [name=Dog_40, age=60], Dog [name=Dog_39, age=61], Dog [name=Dog_38, age=62], Dog [name=Dog_37, age=63], Dog [name=Dog_36, age=64], Dog [name=Dog_35, age=65], Dog [name=Dog_34, age=66], Dog [name=Dog_33, age=67], Dog [name=Dog_32, age=68], Dog [name=Dog_31, age=69], Dog [name=Dog_30, age=70], Dog [name=Dog_29, age=71], Dog [name=Dog_28, age=72], Dog [name=Dog_27, age=73], Dog [name=Dog_26, age=74], Dog [name=Dog_25, age=75], Dog [name=Dog_24, age=76], Dog [name=Dog_23, age=77], Dog [name=Dog_22, age=78], Dog [name=Dog_21, age=79], Dog [name=Dog_20, age=80], Dog [name=Dog_19, age=81], Dog [name=Dog_18, age=82], Dog [name=Dog_17, age=83], Dog [name=Dog_16, age=84], Dog [name=Dog_15, age=85], Dog [name=Dog_14, age=86], Dog [name=Dog_13, age=87], Dog [name=Dog_12, age=88], Dog [name=Dog_11, age=89], Dog [name=Dog_10, age=90]]
+		// [Person [name=Person_9, age=91], Person [name=Person_8, age=92], Person [name=Person_7, age=93], Person [name=Person_6, age=94], Person [name=Person_5, age=95], Person [name=Person_4, age=96], Person [name=Person_3, age=97], Person [name=Person_2, age=98], Person [name=Person_1, age=99], Person [name=Person_0, age=100], Person [name=Person_99, age=1], Person [name=Person_98, age=2], Person [name=Person_97, age=3], Person [name=Person_96, age=4], Person [name=Person_95, age=5], Person [name=Person_94, age=6], Person [name=Person_93, age=7], Person [name=Person_92, age=8], Person [name=Person_91, age=9], Person [name=Person_90, age=10], Person [name=Person_89, age=11], Person [name=Person_88, age=12], Person [name=Person_87, age=13], Person [name=Person_86, age=14], Person [name=Person_85, age=15], Person [name=Person_84, age=16], Person [name=Person_83, age=17], Person [name=Person_82, age=18], Person [name=Person_81, age=19], Person [name=Person_80, age=20], Person [name=Person_79, age=21], Person [name=Person_78, age=22], Person [name=Person_77, age=23], Person [name=Person_76, age=24], Person [name=Person_75, age=25], Person [name=Person_74, age=26], Person [name=Person_73, age=27], Person [name=Person_72, age=28], Person [name=Person_71, age=29], Person [name=Person_70, age=30], Person [name=Person_69, age=31], Person [name=Person_68, age=32], Person [name=Person_67, age=33], Person [name=Person_66, age=34], Person [name=Person_65, age=35], Person [name=Person_64, age=36], Person [name=Person_63, age=37], Person [name=Person_62, age=38], Person [name=Person_61, age=39], Person [name=Person_60, age=40], Person [name=Person_59, age=41], Person [name=Person_58, age=42], Person [name=Person_57, age=43], Person [name=Person_56, age=44], Person [name=Person_55, age=45], Person [name=Person_54, age=46], Person [name=Person_53, age=47], Person [name=Person_52, age=48], Person [name=Person_51, age=49], Person [name=Person_50, age=50], Person [name=Person_49, age=51], Person [name=Person_48, age=52], Person [name=Person_47, age=53], Person [name=Person_46, age=54], Person [name=Person_45, age=55], Person [name=Person_44, age=56], Person [name=Person_43, age=57], Person [name=Person_42, age=58], Person [name=Person_41, age=59], Person [name=Person_40, age=60], Person [name=Person_39, age=61], Person [name=Person_38, age=62], Person [name=Person_37, age=63], Person [name=Person_36, age=64], Person [name=Person_35, age=65], Person [name=Person_34, age=66], Person [name=Person_33, age=67], Person [name=Person_32, age=68], Person [name=Person_31, age=69], Person [name=Person_30, age=70], Person [name=Person_29, age=71], Person [name=Person_28, age=72], Person [name=Person_27, age=73], Person [name=Person_26, age=74], Person [name=Person_25, age=75], Person [name=Person_24, age=76], Person [name=Person_23, age=77], Person [name=Person_22, age=78], Person [name=Person_21, age=79], Person [name=Person_20, age=80], Person [name=Person_19, age=81], Person [name=Person_18, age=82], Person [name=Person_17, age=83], Person [name=Person_16, age=84], Person [name=Person_15, age=85], Person [name=Person_14, age=86], Person [name=Person_13, age=87], Person [name=Person_12, age=88], Person [name=Person_11, age=89], Person [name=Person_10, age=90]]
 		System.out.println(treeSet);
 	}
 }
