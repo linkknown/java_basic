@@ -17,11 +17,15 @@ public class StackTest {
 	@Test
 	public void testStack () {
 		Stack<String> stack = new Stack<>();
-		for (String s : "hello world hollo linkknown".split(" ")) {
-			stack.push(s);
+		for (String str : "hello world hollo linkknown".split(" ")) {
+			// 入栈(往队尾添加元素)
+			stack.push(str);
 		}
 		
-		while (!stack.isEmpty()) {
+		System.out.println(stack);
+		
+		while (!stack.empty()) {
+			// 出栈(从栈顶移除元素)
 			System.out.println(stack.pop());
 		}
 	}

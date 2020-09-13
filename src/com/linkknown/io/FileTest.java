@@ -94,9 +94,9 @@ public class FileTest {
 
 		// 使用日期类与日期格式化类进行获取规定的时间
 		long lastmodified = file.lastModified();
-		Date data = new Date(lastmodified);
+		Date date = new Date(lastmodified);
 		SimpleDateFormat simpledataformat = new SimpleDateFormat("YY年MM月DD日 HH:mm:ss");
-		System.out.println("最后一次修改的时间是：" + simpledataformat.format(data));
+		System.out.println("最后一次修改的时间是：" + simpledataformat.format(date));
 	}
 
 	/**

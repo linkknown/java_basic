@@ -101,7 +101,6 @@ public class QueueTest {
 	@Test
 	public void testQueue3 () {
 		Queue<Integer> queue = new PriorityQueue<>();
-		List<Integer> lst = new ArrayList<Integer>();
 	
 		for (int i=0; i<100; i++) {
 			int randomNum = new Random().nextInt(100);
@@ -115,31 +114,22 @@ public class QueueTest {
 		// 顺序已经和添加顺序不一致了,内部自动给排序
 		System.out.println(queue);
 		
-		System.out.println();
-		System.out.println(queue.peek());
-		System.out.println(queue.peek());
-		System.out.println(queue.peek());
-		System.out.println(queue.peek());
-		System.out.println(queue.peek());
-		System.out.println();
-		
 		while (!queue.isEmpty()) {
 			// 返回队首元素,按照自然顺序返回
-			lst.add(queue.poll());
+			System.out.print(queue.poll() + " ");
 		}
-		
-		System.out.println(lst);
 	}
 	
 	
 	/**
 	 * PriorityQueue(优先队列): 按照自定义顺序出队
 	 * 自定义：先返回奇数再返回偶数，相同性质的数按照自然顺序返回
+	 * 
 	 */
 	@Test
 	public void testQueue4 () {
 		// 自定义顺序需要使用重载的构造器,自定义匿名内部类 Comparator 来实现排序规则
-		Queue<Integer> queue = new PriorityQueue<>(new Comparator<Integer>() {
+		PriorityQueue<Integer> queue = new PriorityQueue<>(new Comparator<Integer>() {
 
 			@Override
 			public int compare(Integer o1, Integer o2) {
@@ -156,13 +146,13 @@ public class QueueTest {
 				return -(o1 % 2 - o2 % 2);
 			}
 		});
-		List<Integer> lst = new ArrayList<Integer>();
 	
 		for (int i=0; i<100; i++) {
 			int randomNum = new Random().nextInt(100);
 			System.out.print(randomNum + " ");
 			
-			// 添加到队尾
+			// 添加到队尾		
+			// 源码分析：public boolean offer(E e)   ->   siftUp(i, e);   ->    siftUpUsingComparator(k, x);  &&  siftUpComparable(k, x);
 			queue.offer(randomNum);
 		}
 		
@@ -170,20 +160,11 @@ public class QueueTest {
 		// 顺序已经和添加顺序不一致了
 		System.out.println(queue);
 		
-		System.out.println();
-		System.out.println(queue.peek());
-		System.out.println(queue.peek());
-		System.out.println(queue.peek());
-		System.out.println(queue.peek());
-		System.out.println(queue.peek());
-		System.out.println();
-		
 		while (!queue.isEmpty()) {
 			// 返回队首元素,按照自定义顺序返回
-			lst.add(queue.poll());
+			// 源码分析： public E poll()  ->     siftDown(0, x);   ->    siftDownUsingComparator(k, x);  &&  siftDownComparable(k, x);
+			System.out.print(queue.poll() + " ");
 		}
-		
-		System.out.println(lst);
 	}
 	
 	public static void main(String[] args) {
