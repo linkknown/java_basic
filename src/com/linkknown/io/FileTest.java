@@ -3,6 +3,8 @@ package com.linkknown.io;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,16 +17,46 @@ import org.junit.jupiter.api.Test;
  *
  */
 public class FileTest {
+	
+	/**
+	 * 测试 File 对象获取的几种方式
+	 * @throws URISyntaxException
+	 */
+	@Test
+	public void testFile () throws URISyntaxException {
+		// window 系统的路径分隔符是 \, Linux 系统的路径分隔符是 /, \需要进行转义
+		File file = new File("D:\\java\\linkknown\\helloworld.txt");
+		
+		System.out.println(file.exists());
+		
+		// window 系统也可以使用 /
+		file = new File("D:/java/linkknown/helloworld.txt");
+		
+		System.out.println(file.exists());
+		
+		// 使用 File.separator 路径分隔符
+		System.out.println("D:" + File.separator + "java" + File.separator + "linkknown" + File.separator + "helloworld.txt");
+		System.out.println(file.exists());
+		
+		System.out.println(file.toURI());
+		
+		file = new File(new URI("file:/D:/java/linkknown/helloworld.txt"));
+		System.out.println(file.exists());
+	
+		file = new File(new File("D:" + File.separator + "java" + File.separator + "linkknown"), "helloworld.txt");
+		System.out.println(file.exists());
+	
+		file = new File("D:" + File.separator + "java" + File.separator + "linkknown", "helloworld.txt");
+		System.out.println(file.exists());
+	}
+	
 
 	/**
-	 * File 静态熟悉测试
+	 * File 静态属性、静态方法测试
 	 */
 	@Test
 	public void test() {
 		System.out.println(File.separator);
-		System.out.println(File.pathSeparator);
-		System.out.println(File.separatorChar);
-		System.out.println(File.pathSeparatorChar);
 
 		File[] rootFiles = File.listRoots();
 		for (File file : rootFiles) {
@@ -33,19 +65,80 @@ public class FileTest {
 	}
 
 	/**
-	 * 文件创建方法测试
-	 * 
+	 * 创建文件：错误方式
 	 * @throws IOException
 	 */
 	@Test
-	public void testCreate() throws IOException {
-		File file = new File("D:\\java\\linkknown\\helloworld.txt");
-		System.out.println("文件是否创建成功：" + file.createNewFile());
-		System.out.println("单级文件夹是否创建成功：" + file.mkdir());
-		System.out.println("多级文件夹是否创建成功：" + file.mkdirs());
+	public void testCreateFile () throws IOException {
+		File file = new File("D:/java/linkknown/helloworld.txt");
+		if (!file.exists()) {
+			file.createNewFile();
+		}
+	}
+	
+	/**
+	 * 创建文件：正确方式
+	 * @throws IOException
+	 */
+	@Test
+	public void testCreateFile2 () throws IOException {
+		File file = new File("D:/java/linkknown/helloworld.txt");
+		if (!file.exists()) {
+			// 递归创建父目录
+			mkdirs(file.getParentFile());
+			// 创建当前文件
+			file.createNewFile();
+		}
+	}
+	
+	/**
+	 * 递归的重要前提是能跳出去
+	 * @param file
+	 */
+	public static void mkdirs(File file) {
+		if (!file.exists()) {
+			mkdirs(file.getParentFile());
+			
+			file.mkdir();
+		} 
+	}
+	
+	/**
+	 * 改进
+	 * @throws IOException
+	 */
+	@Test
+	public void testCreateFile3 () throws IOException {
+		File file = new File("D:/java/linkknown/helloworld.txt");
+		if (!file.exists()) {
+			
+			file.getParentFile().mkdirs();
+			// 创建当前文件
+			file.createNewFile();
+		}
+	}
+	
+	
 
-		File dest = new File("D:/java/linkknown/helloworld2.txt");
-		System.out.println("文件重命名是否成功：" + file.renameTo(dest));
+	/**
+	 * 测试文件 rename
+	 */
+	@Test
+	public void testRenameFile () {
+		File file = new File("D:/java/linkknown/helloworld.txt");
+		File file2 = new File("D:/java/linkknown/helloworld2.txt");
+		
+		boolean flag = file.renameTo(file2);		// 重命名文件
+		System.out.println(flag);
+		
+		File file3 = new File("D:/java/linkknown2/helloworld2.txt");
+		flag = file2.renameTo(file3);				// 移动文件（失败）
+		System.out.println(flag);
+	
+		// 需要创建父级目录
+		file3.getParentFile().mkdirs();
+		flag = file2.renameTo(file3);				// 移动文件（成功）
+		System.out.println(flag);
 	}
 
 	/**
@@ -103,6 +196,9 @@ public class FileTest {
 	 * 递归遍历文件夹
 	 */
 	void listDir(File dirFile, String indent) {
+		if (dirFile.isFile() || !dirFile.exists()) {
+			return;
+		}
 		File[] files = dirFile.listFiles();
 		if (files != null) {
 			for (File file : files) {
@@ -119,13 +215,16 @@ public class FileTest {
 	 */
 	@Test
 	public void testListDir() {
-		listDir(new File("E:\\teacher\\code"), "");
+		listDir(new File("D:\\zhourui\\program\\java\\IDEA\\java_basic"), "");
 	}
 
 	/**
 	 * 文件过滤
 	 */
 	void listDirWidthFilter(File dirFile, String indent, FileFilter filter) {
+		if (dirFile.isFile() || !dirFile.exists()) {
+			return;
+		}
 		File[] files = dirFile.listFiles(filter);
 		if (files != null) {
 			for (File file : files) {
@@ -137,12 +236,15 @@ public class FileTest {
 		}
 	}
 
+	/**
+	 * FileFilter 的使用,只过滤文件夹
+	 */
 	@Test
 	public void testListDirWithFilter() {
 		/**
 		 * 过滤目录
 		 */
-		listDirWidthFilter(new File("E:\\teacher\\code"), "", new FileFilter() {
+		listDirWidthFilter(new File("D:\\zhourui\\program\\java\\IDEA\\java_basic"), "", new FileFilter() {
 
 			@Override
 			public boolean accept(File file) {
