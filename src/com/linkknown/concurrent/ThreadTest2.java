@@ -2,9 +2,11 @@ package com.linkknown.concurrent;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.Test;
@@ -371,48 +373,86 @@ public class ThreadTest2 {
 		System.out.println(lst.size());
 	}
 
-//	/**
-//	 * 测试 List 迭代 bug
-//	 */
+	/**
+	 * 测试 List 线程安全问题(并发读写问题)
+	 */
 //	public static void main(String[] args) {
-//		List<Integer> lst = new ArrayList<>();
-//		new Thread(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				for (int i = 0; i < 1000; i++) {
-//					lst.add(i);
-//				}
-//			}
-//		}).start();
-//		Iterator<Integer> iterator = lst.iterator();
-//		while (iterator.hasNext()) {
-//			Integer num = (Integer) iterator.next();
-//			System.out.println(num);
-//		}
-//	}
-//	
+	public static void testList3() {
+		List<Integer> lst = new ArrayList<>();
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				for (int i = 0; i < 1000; i++) {
+					lst.add(i);
+				}
+			}
+		}).start();
+		Iterator<Integer> iterator = lst.iterator();
+		while (iterator.hasNext()) {
+			Integer num = (Integer) iterator.next();
+			System.out.println(num);
+		}
+	}
 	
-//	/**
-//	 * 安全地读取配置文件
-//	 */
+	
+	/**
+	 * 安全地读取配置文件
+	 */
 //	public static void main(String[] args) {
-//		for (int i=0; i<10; i++) {
-//			new Thread(new Runnable() {
-//				
-//				@Override
-//				public void run() {
-////					System.out.println(AccountUtil.getInstance());		// 没加锁，并发不安全
-////					System.out.println(AccountUtil.getInstance2());		// 方法加锁，并发安全
-////					System.out.println(AccountUtil.getInstance3());		// 代码块加锁，synchronized 外部判空，不安全（ 外部判空，不安全,读操作没有加锁）
-////					System.out.println(AccountUtil.getInstance4());		// 代码块加锁，线程安全
+	public static void testReadFle () {
+		for (int i=0; i<10; i++) {
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+//					System.out.println(AccountUtil.getInstance());		// 没加锁，并发不安全
+//					System.out.println(AccountUtil.getInstance2());		// 方法加锁，并发安全
+//					System.out.println(AccountUtil.getInstance3());		// 代码块加锁，synchronized 外部判空，不安全（ 外部判空，不安全,读操作没有加锁）
+//					System.out.println(AccountUtil.getInstance4());		// 代码块加锁，线程安全
 //					System.out.println(AccountUtil.getInstance5());		// 代码块加锁，线程安全, (单元测试类下跑会有 bug)
-//					
-//				}
-//			}).start();
-//		}
-//	}
-//	
+				}
+			}).start();
+		}
+	}
+
+	@Test
+	public void testThreadSafeInteger3() throws InterruptedException {
+		CountDownLatch countDownLatch = new CountDownLatch(10);
+
+		ThreadSafeInteger2 safeInteger = new ThreadSafeInteger2(0);
+
+		for (int i = 0; i < 10; i++) {
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					for (int j = 0; j < 10; j++) {
+						if (j % 2 == 0) {
+//							safeInteger.add(1);
+//							safeInteger.add2(1);
+							safeInteger.add3(1);
+						} else {
+//							safeInteger.sub(1);
+//							safeInteger.sub2(1);
+							safeInteger.sub3(1);
+						}
+					}
+					countDownLatch.countDown();
+					
+//					System.out.println(safeInteger.get());
+//					System.out.println(safeInteger.get2());
+//					System.out.println(safeInteger.get3());
+				}
+			}).start();
+		}
+		countDownLatch.await();
+//		System.out.println(safeInteger.get());
+//		System.out.println(safeInteger.get2());
+//		System.out.println(safeInteger.get3());
+	
+		TimeUnit.SECONDS.sleep(1000);
+	}
 	
 	private static AtomicInteger safeCount = new AtomicInteger(0);
 	

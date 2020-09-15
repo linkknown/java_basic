@@ -25,10 +25,6 @@ public class ThreadSafeInteger {
 		}
 	}
 	
-	public void unSafeSub (int num) {
-		this.initNum -= num;
-	}
-	
 	public synchronized void sub (int num) {
 		this.initNum -= num;
 	}

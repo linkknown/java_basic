@@ -3,12 +3,14 @@ package com.linkknown.concurrent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class AccountUtil {
 
 	private static Object object = new Object();
 	private static Account account = null;
-
+	
 	/**
 	 * 不加锁 initAccount 会执行多次，此方法有 bug
 	 * 
