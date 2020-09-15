@@ -482,4 +482,83 @@ public class ThreadTest2 {
 		System.out.println(ThreadTest2.safeCount.get());
 
 	}
+	
+	
+	/**
+	 * 练习：使用两个线程交替打印 123... 和 ABC...
+	 * 
+	 * object的wait()、notify()、notifyAll() 方法
+	 * 
+	 * wait()、notify()和notifyAll()是 Object类 中的方法
+	 * 从这三个方法的文字描述可以知道以下几点信息：
+	 * 1）wait()、notify()和notifyAll()方法是本地方法，并且为final方法，无法被重写。
+	 * 2）调用某个对象的wait()方法能让当前线程阻塞，并且当前线程必须拥有此对象的monitor（即锁）
+	 * 3）调用某个对象的notify()方法能够唤醒一个正在等待这个对象的monitor的线程，如果有多个线程都在等待这个对象的monitor，则只能唤醒其中一个线程；
+	 * 4）调用notifyAll()方法能够唤醒所有正在等待这个对象的monitor的线程；
+	 */
+	@Test
+	public void testPrintABC123 () {
+
+		// 锁对象
+		final Object obj = new Object();
+		
+		Runnable runnable_print123 = new Runnable() {
+			
+			@Override
+			public void run() {
+				synchronized (obj) {
+					for (int i = 1;; i++) {
+						System.out.println(i % 10);
+						// 唤醒锁 obj 绑定的其它线程
+						obj.notifyAll();
+						try {
+							// 阻塞线程，等待被唤醒
+							obj.wait();
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						
+					}
+				}
+			}
+		};
+
+		Runnable runnable_printABC = new Runnable() {
+			
+			@Override
+			public void run() {
+				synchronized (obj) {
+					for (int i = 'A'; i <= 'Z'; i++) {
+						System.out.println((char)i);
+						obj.notifyAll();
+						try {
+							obj.wait();
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		};
+
+		Thread thread1 = new Thread(runnable_print123);
+		Thread thread2 = new Thread(runnable_printABC);
+		
+		thread1.start();
+		thread2.start();
+	
+		sleep(10);
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+

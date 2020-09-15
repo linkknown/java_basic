@@ -1,6 +1,7 @@
 package com.linkknown.concurrent;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
 public class MyCallable implements Callable<Integer> {
 
@@ -10,6 +11,8 @@ public class MyCallable implements Callable<Integer> {
 		for (int i=0; i<100; i++) {
 			sum += i;
 			System.out.println(Thread.currentThread().getName() + " is running for " + i);
+			
+			TimeUnit.MILLISECONDS.sleep(100);
 		}
 		System.out.println(Thread.currentThread().getName() + "线程执行完啦~");
 		return sum;

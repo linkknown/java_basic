@@ -25,16 +25,6 @@ public class ThreadTest1 {
 	}
 
 	/**
-	 * 测试主线程
-	 */
-	@Test
-	public void testMain() {
-		System.out.println("当前线程名称是：" + Thread.currentThread().getName());
-
-		ThreadTest1.sleep(10);
-	}
-
-	/**
 	 * 获取线程名
 	 */
 	@Test
