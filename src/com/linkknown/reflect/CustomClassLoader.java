@@ -9,11 +9,11 @@ import java.io.IOException;
  * @author Administrator
  *
  */
-public class MyClassLoader extends ClassLoader {
+public class CustomClassLoader extends ClassLoader {
 
 	private String classFilePath;
 
-	public MyClassLoader(String classFilePath) {
+	public CustomClassLoader(String classFilePath) {
 		super();
 		this.classFilePath = classFilePath;
 	}

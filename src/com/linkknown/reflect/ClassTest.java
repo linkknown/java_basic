@@ -6,6 +6,8 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.sql.Array;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -134,4 +136,12 @@ public class ClassTest {
 		KaoShi3.start(kaoshiInterface);
 //		KaoShi3.start(kaoshi);
 	}
+
+	@Test
+	public void testAop4 () {
+		String str = new String("helloworld");
+		InvocationHandler handler = new LogInterceptor(str);
+		CharSequence proxyInstance = (CharSequence) Proxy.newProxyInstance(KaoShi2.class.getClassLoader(), new Class[] {CharSequence.class}, handler);
+		System.out.println(proxyInstance.toString());
+	} 
 }
