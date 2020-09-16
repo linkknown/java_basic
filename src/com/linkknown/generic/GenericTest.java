@@ -3,6 +3,7 @@ package com.linkknown.generic;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -29,19 +30,29 @@ public class GenericTest {
 	@Test
 	public void testNoGeneric () {
 		List lst = new ArrayList();
-		lst.add(new Bird());
-		lst.add(new Bird());
-		lst.add(new Bird());
-		lst.add(new Bird());
-		lst.add(new Bird());
-		lst.add(new Bird());
-		lst.add(new Bird());
-//		lst.add(new Animal());
-	
+		
+		lst.add(new Date());
+		lst.add(new Date());
+		lst.add(new Date());
+		lst.add(new Date());
+		
+//		lst.add(new String("helloworld"));
+		
+//		for (int i=0; i<lst.size(); i++) {
+//			Object object = lst.get(i);
+//			Date date = (Date) object;
+//			System.out.println(date);
+//		}
+		
+		foreachList(lst);
+	}
+
+
+	private void foreachList(List lst) {
 		for (int i=0; i<lst.size(); i++) {
 			Object object = lst.get(i);
-			Bird bird = (Bird) object;
-			bird.fly();
+			Date date = (Date) object;
+			System.out.println(date.getTime());
 		}
 	}
 	
@@ -58,10 +69,10 @@ public class GenericTest {
 		return intArr[randomIndex];
 	}
 	
-	private Bird generateRandom (Bird[] birdArr) {
+	private Date generateRandom (Date[] dateArr) {
 		Random random = new Random();
-		int randomIndex = random.nextInt(birdArr.length);
-		return birdArr[randomIndex];
+		int randomIndex = random.nextInt(dateArr.length);
+		return dateArr[randomIndex];
 	}
 	
 	/**
@@ -71,7 +82,7 @@ public class GenericTest {
 	public void testNoGeneric2 () {
 		System.out.println(generateRandom(new String[] {"hello", "world"}));
 		System.out.println(generateRandom(new Integer[] {1, 2}));
-		System.out.println(generateRandom(new Bird[] {new Bird(), new Bird()}));
+		System.out.println(generateRandom(new Date[] {new Date(), new Date()}));
 	}
 	
 	private Object generateRandomAdjust (Object[] objectArr) {
@@ -85,9 +96,9 @@ public class GenericTest {
 	 */
 	@Test
 	public void testNoGeneric3 () {
-		Object obj = generateRandomAdjust(new Bird[] {new Bird(), new Bird()});
-		Bird bird = (Bird) obj;
-		bird.fly();
+		Object obj = generateRandomAdjust(new Date[] {new Date(), new Date()});
+		Date date = (Date) obj;
+		System.out.println(date.getTime());
 	}
 	
 	
@@ -99,24 +110,22 @@ public class GenericTest {
 	 */
 	@Test
 	public void testUseGeneric () {
-		List<Bird> lst = new ArrayList<>();
-		lst.add(new Bird());
-		lst.add(new Bird());
-		lst.add(new Bird());
-		lst.add(new Bird());
-		lst.add(new Bird());
-		lst.add(new Bird());
-		lst.add(new Bird());
-//		lst.add(new Animal());
+		List<Date> lst = new ArrayList<>();
+		lst.add(new Date());
+		lst.add(new Date());
+		lst.add(new Date());
+		lst.add(new Date());
+		lst.add(new Date());
+//		lst.add(new String("helloworld"));
 	
 		for (int i=0; i<lst.size(); i++) {
-			Bird bird = lst.get(i);
-			bird.fly();
+			Date date = lst.get(i);
+			System.out.println(date.getTime());
 		}
 	}
 	
 	
-	private <T> T generateRandom (T[] objectArr) {
+	private <T> T generateRandomWithGeneric (T[] objectArr) {
 		Random random = new Random();
 		int randomIndex = random.nextInt(objectArr.length);
 		return objectArr[randomIndex];
@@ -128,10 +137,10 @@ public class GenericTest {
 	 */
 	@Test
 	public void testUseGeneric2 () {
-		Bird bird = generateRandom(new Bird[] {new Bird(), new Bird()});
-		bird.fly();
+		Date date = generateRandomWithGeneric(new Date[] {new Date(), new Date()});
+		System.out.println(date.getTime());
 		
-		String str = generateRandom(new String[] {"hello", "world"});
+		String str = generateRandomWithGeneric(new String[] {"hello", "world"});
 		System.out.println(str);
 	}
 	
@@ -153,8 +162,8 @@ public class GenericTest {
 	 */
 	@Test
 	public void testUseGeneric3 () {
-		Bird bird = generateRandom2(new Bird[] {new Bird(), new Bird()});
-		bird.fly();
+		Date date = generateRandom2(new Date[] {new Date(), new Date()});
+		System.out.println(date.getTime());
 	}
 	
 /**************************************** 泛型类 **************************************************/
@@ -430,43 +439,13 @@ public class GenericTest {
 		lst.add(2);
 		
 		printList2(lst);						// ??????? why 支持
-		
+												
 		List<Number> lst2 = new ArrayList<>();
 		lst.add(1);
 		lst.add(2);
 		printList2(lst2);
 	}
 	
-	/**
-	 * 测试泛型上界
-	 */
-	@Test
-	public void testUpperBound () {
-		List<? extends Animal> animals = new ArrayList<>();
-//	 	上界<? extends Animal>规定：只能取(get)，不能添加(add)。
-		
-//		animals.add(new Bird());	
-//		animals.add(new Dog());
-		
-		System.out.println(animals);
-	}
-	
-	
-	// 泛型上界只能取，不能添加
-	public void printAnimals (List<? extends Animal> animals) {		
-		System.out.println(animals);
-	}
-	
-	/**
-	 * 测试泛型上界
-	 */
-	@Test
-	public void testUpperBound2 () {
-		List<Animal> animals = new ArrayList<>();	// 使用明确的类型 List<Animal>
-		animals.add(new Bird());
-		animals.add(new Dog());
-		printAnimals(animals);
-	}	
 }
 
 
