@@ -34,6 +34,7 @@ public class ThreadTest2 {
 	 * 
 	 * @throws InterruptedException
 	 */
+//	public static void main(String[] args) throws InterruptedException {
 	@Test
 	public void testThread() throws InterruptedException {
 
@@ -63,6 +64,7 @@ public class ThreadTest2 {
 	 * 
 	 * @throws InterruptedException
 	 */
+//	public static void main(String[] args) throws InterruptedException {
 	@Test
 	public void testThreadUnSafeInteger() throws InterruptedException {
 		CountDownLatch countDownLatch = new CountDownLatch(1000);
@@ -91,6 +93,7 @@ public class ThreadTest2 {
 	 * 
 	 * @throws InterruptedException
 	 */
+//	public static void main(String[] args) throws InterruptedException {
 	@Test
 	public void testThreadUnSafeInteger2() throws InterruptedException {
 		CountDownLatch countDownLatch = new CountDownLatch(1000);
@@ -122,6 +125,7 @@ public class ThreadTest2 {
 	 * 
 	 * @throws InterruptedException
 	 */
+//	public static void main(String[] args) throws InterruptedException {
 	@Test
 	public void testThreadSafeInteger() throws InterruptedException {
 		CountDownLatch countDownLatch = new CountDownLatch(1000);
@@ -151,6 +155,7 @@ public class ThreadTest2 {
 	 * 
 	 * @throws InterruptedException
 	 */
+//	public static void main(String[] args) throws InterruptedException {
 	@Test
 	public void testThreadSafeInteger2() throws InterruptedException {
 		CountDownLatch countDownLatch = new CountDownLatch(1000);
@@ -230,6 +235,7 @@ public class ThreadTest2 {
 	 * 
 	 * @throws InterruptedException
 	 */
+//	public static void main(String[] args) throws InterruptedException {
 	@Test
 	public void testStringBuilder() throws InterruptedException {
 		StringBuilder sb = new StringBuilder();
@@ -258,6 +264,7 @@ public class ThreadTest2 {
 	 * 
 	 * @throws InterruptedException
 	 */
+//	public static void main(String[] args) throws InterruptedException {
 	@Test
 	public void testStringBuffer() throws InterruptedException {
 		StringBuffer sb = new StringBuffer();
@@ -288,6 +295,7 @@ public class ThreadTest2 {
 	 * 
 	 * @throws InterruptedException
 	 */
+//	public static void main(String[] args) throws InterruptedException {
 	@Test
 	public void testArrayList() throws InterruptedException {
 		List<Integer> lst = new ArrayList<Integer>();
@@ -316,6 +324,7 @@ public class ThreadTest2 {
 	 * 
 	 * @throws InterruptedException
 	 */
+//	public static void main(String[] args) throws InterruptedException {
 	@Test
 	public void testList() throws InterruptedException {
 		/**
@@ -350,6 +359,7 @@ public class ThreadTest2 {
 	 * 
 	 * @throws InterruptedException
 	 */
+//	public static void main(String[] args) throws InterruptedException {
 	@Test
 	public void testList2() throws InterruptedException {
 		// Collections.synchronizedList 也是线程安全的 List
@@ -416,6 +426,7 @@ public class ThreadTest2 {
 		}
 	}
 
+//	public static void main(String[] args) throws InterruptedException {
 	@Test
 	public void testThreadSafeInteger3() throws InterruptedException {
 		CountDownLatch countDownLatch = new CountDownLatch(10);
@@ -455,11 +466,14 @@ public class ThreadTest2 {
 	}
 	
 	private static AtomicInteger safeCount = new AtomicInteger(0);
+//	AtomicBoolean
+//	AtomicReference
 	
 	/**
 	 * AtomicInteger 原子类,底层使用 volitate 关键词,是线程安全的类
 	 * @throws InterruptedException
 	 */
+//	public static void main(String[] args) throws InterruptedException {
 	@Test
 	public void testAtomicInteger () throws InterruptedException {
 		CountDownLatch countDownLatch = new CountDownLatch(1000);
@@ -496,6 +510,7 @@ public class ThreadTest2 {
 	 * 3）调用某个对象的notify()方法能够唤醒一个正在等待这个对象的monitor的线程，如果有多个线程都在等待这个对象的monitor，则只能唤醒其中一个线程；
 	 * 4）调用notifyAll()方法能够唤醒所有正在等待这个对象的monitor的线程；
 	 */
+//	public static void main(String[] args) throws InterruptedException {
 	@Test
 	public void testPrintABC123 () {
 
