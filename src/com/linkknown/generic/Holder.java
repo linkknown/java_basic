@@ -18,7 +18,7 @@ public class Holder<T> {
 		System.out.println(t.toString());
 	}
 	
-	public void wirteToFile () {
+	public void writeToFile () {
 		System.out.println("将 " + t.toString() + " 写入文件");
 	}
 }

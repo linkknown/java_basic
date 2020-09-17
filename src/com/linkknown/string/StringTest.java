@@ -10,7 +10,20 @@ import org.junit.jupiter.api.Test;
  * @author Administrator
  *
  */
-public class StringAPITest {
+public class StringTest {
+	
+	/**
+	 * 测试字符串转义
+	 */
+	@Test
+	public void testTransformString () {
+		System.out.println("\"");			// 返回字面量 "
+		System.out.println("\'");			// 返回字面量 '
+		System.out.println("\\");			// 返回字面量 \
+		System.out.println("\r");			// 回车
+		System.out.println("\n");			// 换行
+		System.out.println("\t");			// tab
+	}
 	
 	/**
 	 * 测试字符串常用 api

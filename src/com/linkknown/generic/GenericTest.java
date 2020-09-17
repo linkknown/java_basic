@@ -1,6 +1,7 @@
 package com.linkknown.generic;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -21,7 +22,7 @@ import org.junit.jupiter.api.Test;
  */
 public class GenericTest {
 	
-/**************************************** 测试不使用泛型机制（JDK1.4） *********************************************/
+/**************************************** 使用泛型\不使用泛型场景对比 *********************************************/
 	
 	/**
 	 * 1. 解决元素存储的安全性问题
@@ -29,6 +30,11 @@ public class GenericTest {
 	 */
 	@Test
 	public void testNoGeneric () {
+//		List<String>
+//		List<Integer>
+//		List<Date>
+		
+		
 		List lst = new ArrayList();
 		
 		lst.add(new Date());
@@ -38,40 +44,44 @@ public class GenericTest {
 		
 //		lst.add(new String("helloworld"));
 		
-//		for (int i=0; i<lst.size(); i++) {
-//			Object object = lst.get(i);
-//			Date date = (Date) object;
-//			System.out.println(date);
-//		}
-		
-		foreachList(lst);
-	}
-
-
-	private void foreachList(List lst) {
 		for (int i=0; i<lst.size(); i++) {
 			Object object = lst.get(i);
 			Date date = (Date) object;
-			System.out.println(date.getTime());
+			System.out.println(date);
 		}
 	}
 	
+	@Test
+	public void testGeneric () {
+		List<Date> lst = new ArrayList<>();
 	
-	private String generateRandom (String[] strArr) {
+		lst.add(new Date());
+		lst.add(new Date());
+		lst.add(new Date());
+		lst.add(new Date());
+		lst.add(new Date());
+		
+		for (int i=0; i<lst.size(); i++) {
+			Date date = lst.get(i);
+			System.out.println(date.getTime());
+		}
+	}
+
+	private static String generateRandomInArray (String[] strArr) {
 		Random random = new Random();
-		int randomIndex = random.nextInt(strArr.length);
+		int randomIndex = random.nextInt(strArr.length);					// 0 ~ strArr.length - 1
 		return strArr[randomIndex];
 	}
 	
-	private Integer generateRandom (Integer[] intArr) {
+	private static Integer generateRandomInArray (Integer[] intArr) {
 		Random random = new Random();
-		int randomIndex = random.nextInt(intArr.length);
+		int randomIndex = random.nextInt(intArr.length);					// 0 ~ intArr.length - 1
 		return intArr[randomIndex];
 	}
 	
-	private Date generateRandom (Date[] dateArr) {
+	private static Date generateRandomInArray (Date[] dateArr) {
 		Random random = new Random();
-		int randomIndex = random.nextInt(dateArr.length);
+		int randomIndex = random.nextInt(dateArr.length);					// 0 ~ dateArr.length - 1
 		return dateArr[randomIndex];
 	}
 	
@@ -80,15 +90,19 @@ public class GenericTest {
 	 */
 	@Test
 	public void testNoGeneric2 () {
-		System.out.println(generateRandom(new String[] {"hello", "world"}));
-		System.out.println(generateRandom(new Integer[] {1, 2}));
-		System.out.println(generateRandom(new Date[] {new Date(), new Date()}));
+		System.out.println(generateRandomInArray(new String[] {"hello", "world"}));
+		System.out.println(generateRandomInArray(new Integer[] {1, 2}));
+		System.out.println(generateRandomInArray(new Date[] {new Date(), new Date()}));
 	}
 	
-	private Object generateRandomAdjust (Object[] objectArr) {
+	private Object generateRandomInObjectArray (Object[] objectArr) {
 		Random random = new Random();
 		int randomIndex = random.nextInt(objectArr.length);
 		return objectArr[randomIndex];
+	}
+	
+	private <T> T generateRandomInGenericArray (T[] objectArr) {
+		return objectArr[new Random().nextInt(objectArr.length)];			// 0 ~ objectArr.length - 1
 	}
 	
 	/**
@@ -96,52 +110,23 @@ public class GenericTest {
 	 */
 	@Test
 	public void testNoGeneric3 () {
-		Object obj = generateRandomAdjust(new Date[] {new Date(), new Date()});
+		System.out.println(generateRandomInObjectArray(new String[] {"hello", "world"}));
+		System.out.println(generateRandomInObjectArray(new Integer[] {1, 2}));
+		System.out.println(generateRandomInObjectArray(new Date[] {new Date(), new Date()}));
+		
+		Object obj = generateRandomInObjectArray(new Date[] {new Date(), new Date()});
 		Date date = (Date) obj;
 		System.out.println(date.getTime());
-	}
-	
-	
-/************************************* 使用泛型场景 ************************************************/	
-	
-	/**
-	 * 1. 解决元素存储的安全性问题
-	 * 2. 解决获取数据元素时，需要类型强转的问题
-	 */
-	@Test
-	public void testUseGeneric () {
-		List<Date> lst = new ArrayList<>();
-		lst.add(new Date());
-		lst.add(new Date());
-		lst.add(new Date());
-		lst.add(new Date());
-		lst.add(new Date());
-//		lst.add(new String("helloworld"));
-	
-		for (int i=0; i<lst.size(); i++) {
-			Date date = lst.get(i);
-			System.out.println(date.getTime());
-		}
-	}
-	
-	
-	private <T> T generateRandomWithGeneric (T[] objectArr) {
-		Random random = new Random();
-		int randomIndex = random.nextInt(objectArr.length);
-		return objectArr[randomIndex];
-	}
-	
-	/**
-	 * 1. 解决元素存储的安全性问题
-	 * 2. 解决获取数据元素时，需要类型强转的问题
-	 */
-	@Test
-	public void testUseGeneric2 () {
-		Date date = generateRandomWithGeneric(new Date[] {new Date(), new Date()});
-		System.out.println(date.getTime());
 		
-		String str = generateRandomWithGeneric(new String[] {"hello", "world"});
-		System.out.println(str);
+		
+		// 1. 解决元素存储的安全性问题
+		// 2. 解决获取数据元素时，需要类型强转的问题
+		System.out.println(generateRandomInGenericArray(new String[] {"hello", "world"}));
+		System.out.println(generateRandomInGenericArray(new Integer[] {1, 2}));
+		System.out.println(generateRandomInGenericArray(new Date[] {new Date(), new Date()}));
+		
+		Date date2 = generateRandomInGenericArray(new Date[] {new Date(), new Date()});
+		System.out.println(date2.getTime());
 	}
 	
 	/**
@@ -151,7 +136,7 @@ public class GenericTest {
 	 * @param objectArr
 	 * @return
 	 */
-	private <HelloWorld> HelloWorld generateRandom2 (HelloWorld[] objectArr) {
+	private <HelloWorld> HelloWorld generateRandomWithGeneric (HelloWorld[] objectArr) {
 		Random random = new Random();
 		int randomIndex = random.nextInt(objectArr.length);
 		return objectArr[randomIndex];
@@ -162,7 +147,7 @@ public class GenericTest {
 	 */
 	@Test
 	public void testUseGeneric3 () {
-		Date date = generateRandom2(new Date[] {new Date(), new Date()});
+		Date date = generateRandomWithGeneric(new Date[] {new Date(), new Date()});
 		System.out.println(date.getTime());
 	}
 	
@@ -176,6 +161,14 @@ public class GenericTest {
 		Holder<String> holder = new Holder<>();
 		holder.setObject("helloworld");
 		holder.printObject();
+		holder.writeToFile();
+		
+		Holder<Date> holder2 = new Holder<>();
+		holder2.setObject(new Date());
+		holder2.printObject();
+		holder2.writeToFile();
+		
+		// xxxx
 	}
 
 	/**
@@ -216,10 +209,13 @@ public class GenericTest {
 
 	/**
 	 * 泛型接口 练习：Fibonacci数列
+	 * 为什么要定义 Generator 生成器接口呢？
+	 * 加强设计：支持其它数列，比如等比数列、等差数列...
 	 */
 	@Test
 	public void testGenericInterface() {
-		Fibonacci fibonacci = new Fibonacci();
+//		Fibonacci fibonacci = new Fibonacci();
+		Generator<Integer> fibonacci = new Fibonacci();			// 把 Fibnaccio 数列当成普通数列来对待，至于底层实现，毫不关心
 		for (int i = 0; i < 100; i++) {
 			System.out.print(fibonacci.next() + " ");
 		}
@@ -227,12 +223,21 @@ public class GenericTest {
 
 	/**
 	 * 泛型方法
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
 	@Test
-	public void testGenericMethod() {
-		ClassDesc classDesc = new ClassDesc();
-		classDesc.getClassName(new String("helloworld"));
-		ClassDesc.getClassName2(new Object());
+	public void testGenericMethod() throws InstantiationException, IllegalAccessException {
+		ClassUtil util = new ClassUtil();
+		util.getClasName(new Object());
+		util.getClasName(new String());
+		util.getClasName(new Date());
+		
+		ClassUtil.getClasName2(new Object());
+		ClassUtil.getClasName2(new String());
+		ClassUtil.getClasName2(new Date());
+		
+		System.out.println(util.getInstance(new Date()));
 	}
 
 	public static <T> List<T> makeList(T... args) {
@@ -250,6 +255,8 @@ public class GenericTest {
 	public void testGenericArgs() {
 		System.out.println(makeList("hello", "world", "hello", "linkknown"));
 		System.out.println(makeList(1, 2, 3, 4));
+		
+		System.out.println(makeList(1, 2, "hello", "world"));		// ?? why 可以，后面讲解
 	}
 	
 	/**
@@ -261,11 +268,13 @@ public class GenericTest {
 	 */
 	public <K,V> Map<V,K> changeMap (Map<K, V> map) {
 		Map<V, K> _map = new HashMap<V, K>();
+		
 		Iterator<Entry<K, V>> iterator = map.entrySet().iterator();
 		while (iterator.hasNext()) {
-			Map.Entry<K, V> entry = (Map.Entry<K, V>) iterator.next();
+			Map.Entry<K, V> entry = iterator.next();
 			_map.put(entry.getValue(), entry.getKey());
 		}
+		
 		return _map;
 		
 	}
@@ -280,6 +289,15 @@ public class GenericTest {
 		map.put("bob", 22);
 		Map<Integer, String> resultMap = changeMap(map);
 		System.out.println(resultMap);
+		
+		Map<String, Date> map2 = new HashMap<>();
+		map2.put("tom", new Date());
+		map2.put("bob", new Date());
+		
+		System.out.println(map2);
+		
+		Map<Date, String> resultMap2 = changeMap(map2);
+		System.out.println(resultMap2);
 	}
 	
 	
@@ -287,16 +305,26 @@ public class GenericTest {
 	 * 通配符
 	 * @param lst
 	 */
-	public void print (List<?> lst) {
+	public static void printCollectionForList (List<?> lst) {
 		System.out.println(lst);
 	}
 	
+	public static <T> void printCollectionForList2 (List<T> lst) {
+		System.out.println(lst);
+	}
+	
+	
 	/**
 	 * 通配符测试
+	 * 通配符和 T 差不多，稍有区别
 	 */
 	@Test
 	public void testQuestion () {
-		print(Arrays.asList("hello", 1));
+		printCollectionForList(Arrays.asList(1, 2, 3, 4));
+		printCollectionForList(Arrays.asList("hello", "world"));
+		
+		printCollectionForList2(Arrays.asList(1, 2, 3, 4));
+		printCollectionForList2(Arrays.asList("hello", "world"));
 	}
 	
 	
@@ -314,35 +342,41 @@ public class GenericTest {
 		List<Integer> lst2 = new ArrayList<>();
 		lst2.add(10);
 
-		// 返回 true 表示类型在编译期被擦除了
-		System.out.println(lst1.getClass() == lst2.getClass());
+		// 泛型擦除
+		// 以为    		List<String>.class == List<Integer>.class
+		// 实际上  	List.class == List.class
+		System.out.println(lst1.getClass() == lst2.getClass());	// 返回 true 表示类型在编译期被擦除了
 	}
 
 	/**
 	 * 通过反射添加其它类型元素 验证泛型擦除
 	 * 
-	 * @throws SecurityException
+	 * 编译期进行泛型擦除,运行时只有 add (Object obj) 方法,没有 add (String str) 方法
 	 * @throws NoSuchMethodException
-	 * @throws InvocationTargetException
-	 * @throws IllegalArgumentException
+	 * @throws SecurityException
 	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
 	 */
 	@Test
-	public void testErase2() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException,
-			NoSuchMethodException, SecurityException {
-		ArrayList<String> lst = new ArrayList<>();
+	public void testGenericErase2 () throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		List<String> lst = new ArrayList<>();
+		
 		lst.add("hello");
-
-		lst.getClass().getMethod("add", Object.class).invoke(lst, 10);
-
-		for (Object item : lst) {
-			System.out.println(item);
-		}
+		
+//		Method addMethod01 = lst.getClass().getMethod("add", String.class);
+//		addMethod01.invoke(lst, "world");
+		
+		Method addMethod02 = lst.getClass().getMethod("add", Object.class);
+		addMethod02.invoke(lst, 10);
+		
+		System.out.println(lst);
 	}
 
-	// 这是一个简单的泛型方法
-	public static <T> T random(T x, T y) {
-		return y;
+	
+	// 这是一个泛型方法
+	public static <T> T getRandom (T... args) {
+		return args[new Random().nextInt(args.length)];				// 0 ~ args.length - 1
 	}
 
 	/**
@@ -351,14 +385,16 @@ public class GenericTest {
 	@Test
 	public void test() {
 		/** 不指定泛型的时候 */
-		Integer result1 = GenericTest.random(1, 2); // 这两个参数都是Integer，所以T为Integer类型
-		Number result2 = GenericTest.random(1, 1.2); // 这两个参数一个是Integer，一个风格是Float，所以取同一父类的最小级，为Number
-		Object random = GenericTest.random(1, "hello"); // 这两个参数一个是Integer，以风格是Float，所以取同一父类的最小级，为Object
+		Integer result1 = GenericTest.getRandom(1, 2); 			// 这两个参数都是Integer，所以T为Integer类型
+		String random2 = getRandom("hello", "world", "hello", "world");
+		Boolean random3 = getRandom(true, false, false, true);
+		Number random4 = GenericTest.getRandom(1, 1.2); // 这两个参数一个是Integer，一个风格是 double，所以取同一父类的最小级，为Number
+		Object random5 = GenericTest.getRandom(1, "hello"); // 这两个参数一个是Integer，一个风格是double，所以取同一父类的最小级，为Object
 
 		/** 指定泛型的时候 */
-		int a = GenericTest.<Integer>random(1, 2); // 指定了Integer，所以只能为Integer类型或者其子类
-//		int b = GenericEraseTest.<Integer>random(1, 2.2); // 编译错误，指定了Integer，不能为Float
-		Number c = GenericTest.<Number>random(1, 2.2); // 指定为Number，所以可以为Integer和Float
+		int a = GenericTest.<Integer>getRandom(1, 2); // 指定了Integer，所以只能为Integer类型或者其子类
+//		int b = GenericEraseTest.<Integer>getRandom(1, 2.2); // 编译错误，指定了Integer，不能为double
+		Number c = GenericTest.<Number>getRandom(1, 2.2); // 指定为Number，所以可以为Integer和double
 	}
 		
 	
