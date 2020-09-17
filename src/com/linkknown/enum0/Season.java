@@ -1,6 +1,6 @@
 package com.linkknown.enum0;
 
-public class NoEnumSeason {
+public class Season {
 
 	public static final String SEASON_SPRING = "SPRING";
 	public static final String SEASON_SUMMER = "SUMMER";
