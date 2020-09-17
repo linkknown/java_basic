@@ -49,7 +49,7 @@ public class TcpTest {
 	}
 
 	@Test
-	public void testclient() {
+	public void testClient() {
 		Socket socket = null;
 		OutputStream outputStream = null;
 		try {
