@@ -2,16 +2,16 @@ package com.linkknown.xml;
 
 public class User {
 
-	private int index;
+	private int id;
 	private String name;
 	private String password;
 
-	public int getIndex() {
-		return index;
+	public int getId() {
+		return id;
 	}
 
-	public void setIndex(int index) {
-		this.index = index;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -32,7 +32,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [index=" + index + ", name=" + name + ", password=" + password + "]";
+		return "User [id=" + id + ", name=" + name + ", password=" + password + "]";
 	}
 
 }

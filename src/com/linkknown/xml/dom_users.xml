@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <users>
-	<user index="1">
+	<user id="1">
 		<name>tom</name>
 		<password>12345</password>
 	</user>
-	<user index="2">
+	<user id="2">
 		<name>jack</name>
 		<password>abc</password>
 	</user>
-	<user index="3">
+	<user id="3">
 		<name>john</name>
 		<password>www</password>
 	</user>

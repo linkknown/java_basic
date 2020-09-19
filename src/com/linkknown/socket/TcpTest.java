@@ -39,7 +39,7 @@ public class TcpTest {
 			byte[] bytes = new byte[100]; // 长度为 1 时，中文会部分读取
 			int len;
 			while ((len = inputStream.read(bytes)) != -1) {
-				System.out.print(new String(bytes, 0, len)); // 此时打印中文会乱码, 应该改用 BufferedReader 一次读取一行
+				System.out.print(new String(bytes, 0, len, "UTF-8")); // 此时打印中文会乱码, 应该改用 BufferedReader 一次读取一行
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -57,7 +57,7 @@ public class TcpTest {
 			socket = new Socket(InetAddress.getByName("127.0.0.1"), 9000);
 			// 发送数据到服务端
 			outputStream = socket.getOutputStream();
-			outputStream.write("你好啊 Java".getBytes());
+			outputStream.write("你好啊 Java".getBytes("UTF-8"));
 
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
