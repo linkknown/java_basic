@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>	 <!-- 第一行是 xml 声明,我是 xml 注释 -->
+<!-- 这里是根标签，一个 xml 文件只能有一个根标签 -->
+<accounts>
+	<!-- 标签必须成对存在 -->
+	<account>
+		<userName>admin0</userName>
+		<password>123456</password>
+	</account>
+	<account>
+		<userName>admin1</userName>
+		<password>123456</password>
+	</account>
+	<account>
+		<userName>admin2</userName>
+		<password>123456</password>
+	</account>
+	<!-- xml 对大小写敏感 -->
+	<Account>
+		<userName>admin3</userName>
+		<password>123456</password>
+	</Account>
+		<Account>
+		<userName>admin3</userName>
+		<!-- xml 预定义的五个实体引用分别是 < > & ' " -->
+		<password>&lt;&gt;&amp;&apos;&quot;</password>
+	</Account>
+	<!-- 这里是 xml 属性，可以自定义属性，这里定义账号角色是 manager，权限等级为 1 -->
+	<Account role="manager" level="1">
+		<userName>admin3</userName>
+		<password>123456</password>
+	</Account>
+	<extra>
+		<![CDATA[
+			这里是 CDATA 段，可被 xml 解析器忽略
+			<>&'"
+		]]>
+		
+		<![CDATA[
+			<?xml version="1.0" encoding="UTF-8" ?>
+			<demo>
+				我是嵌套的 xml，我在 CDATA 段里面，我不被 xml 解析器解析
+			</demo>
+		]]>
+	</extra>
+</accounts>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<users>
+	<user id="0">
+		<name>tom_0</name>
+		<password>&lt;!-- 我是注释 --&gt;</password>
+	</user>
+	<user id="1">
+		<name>tom_1</name>
+		<password>&lt;&gt;&amp;'"</password>
+	</user>
+	<user id="2">
+		<name>tom_2</name>
+		<password>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;demo&gt;
+我是嵌套的xml
+&lt;/demo&gt;</password>
+	</user>
+	<user id="3">
+		<name>tom_3</name>
+		<password><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<demo>
+我是嵌套的xml
+</demo>]]></password>
+	</user>
+	<user id="4">
+		<name>tom_4</name>
+		<password>password_4</password>
+	</user>
+	<user id="5">
+		<name>tom_5</name>
+		<password>password_5</password>
+	</user>
+	<user id="6">
+		<name>tom_6</name>
+		<password>password_6</password>
+	</user>
+	<user id="7">
+		<name>tom_7</name>
+		<password>password_7</password>
+	</user>
+	<user id="8">
+		<name>tom_8</name>
+		<password>password_8</password>
+	</user>
+	<user id="9">
+		<name>tom_9</name>
+		<password>password_9</password>
+	</user>
+</users>
