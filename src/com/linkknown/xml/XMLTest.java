@@ -334,8 +334,4 @@ public class XMLTest {
 	
 	}
 	
-	
-	
-	
-	
 }
