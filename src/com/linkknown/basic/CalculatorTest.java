@@ -84,13 +84,10 @@ public class CalculatorTest {
 		System.out.println(num);
 		System.out.println(flag);
 		
+		// 三目运算符的作用是简化 if ... else 判断
 		// 等价于
 		flag = num > 10 ? true : false;
 		System.out.println(flag);
 		System.out.println(num > 10 ? true : false);
-		
-		flag = num > 10;
-		System.out.println(flag);
-		System.out.println(num > 10);
 	}
 }

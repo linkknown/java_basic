@@ -10,10 +10,18 @@ public class DataTypeConvertTest {
 		byte a = 100;
 		int a1 = a;
 		
+		// 自动类型转换，char 和 int 互转
+		int b = 'a';
+		System.out.println(b);
+		char c = 97;
+		System.out.println(c);
+		
+		
 		// 测试强制类型转换
-		byte b = (byte)128;
+		byte d = (byte)128;
+		
 		
 		// 测试隐含强制类型转换
-		byte c = 3;
+		byte e = 3;
 	}
 }

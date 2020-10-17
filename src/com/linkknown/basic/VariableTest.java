@@ -31,5 +31,31 @@ public class VariableTest {
 		System.out.println(a);		// 变量可以修改值
 		
 //		a = "helloworld";			// 变量类型确定就不能再修改
+		
+		testVariableScope();		// 变量作用域
+		
+		testIdentifier();			// 测试 Java 标识符
+	}
+	
+	public static void testVariableScope () {
+		int a = 1000;				// 变量 a 仅在本方法里有效
+	}
+	
+	
+	public static void testIdentifier () {
+		// 标识符：只有能字母\数字\$\_
+		// 标识符不能以数字开头
+		int a0$_ = 10;
+		System.out.println(a0$_);
+		int $0 = 10;
+		int _ = 10;
+//		int 3a = 10;
+		
+		// 标识符严格区分大小写
+		int num = 10;
+		String NUM = "20";
+		
+		// 不能用关键字来声明一个变量
+//		int class = 10;
 	}
 }

@@ -63,20 +63,10 @@ public class DataTypeTest {
 		System.out.println(Integer.MIN_VALUE); // -2147483648
 	}
 	
-	@Test
-	public void testBasicType2 () {
-		// Byte.MAX_VALUE + 1 自动转换成 Short，所以不相等
-		System.out.println(Byte.MAX_VALUE + 1 == Byte.MIN_VALUE);		// ??  	false
-		// Short.MAX_VALUE + 1 自动转换成 Integer，所以不相等
-		System.out.println(Short.MAX_VALUE + 1 == Short.MIN_VALUE);		// ??  	false
-		
-		// 保持原类型
-		System.out.println(Integer.MAX_VALUE + 1 == Integer.MIN_VALUE); // ??	true
-		System.out.println(Long.MAX_VALUE + 1 == Long.MIN_VALUE);		// ??	true
-	}
+
 	
 	@Test
-	public void testBasicType3 () {
+	public void testBasicType2 () {
 		// byte\short 溢出类型会升级
 		// int\long 则不会
 //		byte bt = Byte.MAX_VALUE + 1;
@@ -90,6 +80,18 @@ public class DataTypeTest {
 		
 		short bt3 = Byte.MAX_VALUE + 1;
 		int st3 = Short.MAX_VALUE + 1;
+	}
+	
+	@Test
+	public void testBasicType3 () {
+		// Byte.MAX_VALUE + 1 自动转换成 Short，所以不相等
+		System.out.println(Byte.MAX_VALUE + 1 == Byte.MIN_VALUE);		// ??  	false
+		// Short.MAX_VALUE + 1 自动转换成 Integer，所以不相等
+		System.out.println(Short.MAX_VALUE + 1 == Short.MIN_VALUE);		// ??  	false
+		
+		// 保持原类型
+		System.out.println(Integer.MAX_VALUE + 1 == Integer.MIN_VALUE); // ??	true
+		System.out.println(Long.MAX_VALUE + 1 == Long.MIN_VALUE);		// ??	true
 	}
 	
 	@Test

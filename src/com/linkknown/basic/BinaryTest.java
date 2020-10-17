@@ -59,7 +59,7 @@ public class BinaryTest {
 		
 		byte[] bytes1 = "国".getBytes("gbk");
 		for (int i=0; i<bytes1.length; i++) {
-			System.out.println(Integer.toBinaryString(bytes1[i] & 0xff));
+			System.out.print(Integer.toBinaryString(bytes1[i] & 0xff));
 		}
 		
 		System.out.println();
@@ -74,8 +74,10 @@ public class BinaryTest {
 //			11111111111111111111111111100101	& 0xff = 00000000000000000000000011100101	=> 11100101
 //			11111111111111111111111110011011	& 0xff = 00000000000000000000000010011011	=> 10011011
 //			11111111111111111111111110111101	& 0xff = 00000000000000000000000010111101	=> 10111101
-			System.out.println(Integer.toBinaryString(bytes2[i] & 0xff));		// & 0xff 就是取低八位,打印的是 byte 类型的二进制
+			System.out.print(Integer.toBinaryString(bytes2[i] & 0xff));		// & 0xff 就是取低八位,打印的是 byte 类型的二进制
 		}
+		
+		System.out.println();
 		
 
 		byte[] bytes3 = "国".getBytes("utf-8");
