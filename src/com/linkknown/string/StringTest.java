@@ -13,6 +13,150 @@ import org.junit.jupiter.api.Test;
 public class StringTest {
 	
 	/**
+	 * 验证字符串的不可变性
+	 */
+	@Test
+	public void testImmutableString () {
+		String str = "helloworld";
+		System.out.println(str);
+		String upperStr = str.toUpperCase();
+	
+		System.out.println(upperStr);
+		System.out.println(str);		// 调用前后 str 值不变,证明 toUpperCase 是返回新字符串
+	}
+	
+	@Test
+	public void testImmutableString2 () {
+		String str = "helloworld";
+		System.out.println(str);
+		String subStr = str.substring(0, 5);
+	
+		System.out.println(subStr);
+		System.out.println(str);		// 调用前后 str 值不变,证明 substring 是返回新字符串
+	}
+	
+	
+	@Test
+	public void testImmutableString3 () {
+		String str = "helloworld";
+		String str2 = "helloworld";
+		String subStr = str.substring(0, 5);
+	
+		System.out.println(subStr);
+		System.out.println(str2);	
+	}
+	
+	
+	
+	
+	/**
+	 * 字符串连接测试
+	 * @author Administrator
+	 * 1.无论如何直接用“+”号连接字符串都是最慢的
+	 * 2.在拼接少数字符串（不超过4个）的时候，concat效率是最高的
+	 * 3.多个字符串拼接的时候，StringBuilder/StringBuffer的效率是碾压的
+	 * 4.在不需要考虑线程安全问题的时候，使用StringBuilder的效率比StringBuffer更高
+	 *
+	 */
+	/**
+	 * + 号链接
+	 */
+	@Test
+	public void testAdd () {
+		System.out.println("hello" + "world");
+		System.out.println("hello" + 'a');
+		System.out.println("hello" + 12);
+	}
+	
+	/**
+	 * concat 链接
+	 */
+	@Test
+	public void testConcat () {
+		System.out.println("hello".concat("world"));
+	}
+	
+	/**
+	 * StringBuilder 类,线程不安全，效率高于 StringBuffer
+	 */
+	@Test
+	public void testStringBuilder () {
+		StringBuilder sb = new StringBuilder();
+		sb.append("hello");
+		sb.append("world");
+		sb.append("hello");
+		sb.append("world...");
+		System.out.println(sb.toString());
+	}
+	
+	/**
+	 * StringBuffer 类,线程安全
+	 */
+	@Test
+	public void testStringBuffer () {
+		StringBuffer sb = new StringBuffer();
+		sb.append("hello");
+		sb.append("world");
+		sb.append("hello");
+		sb.append("world...");
+		System.out.println(sb.toString());
+	}
+	
+	
+	/**
+	 * 多种连接方式性能比较
+	 * 1.无论如何直接用“+”号连接字符串都是最慢的 
+	 * 2.在拼接少数字符串（不超过4个）的时候，concat效率是最高的
+	 * 3.多个字符串拼接的时候，StringBuilder/StringBuffer的效率是碾压的
+	 * 4.在不需要考虑线程安全问题的时候，使用StringBuilder的效率比StringBuffer更高
+	 */
+	@Test
+	public void testStringConcat () {
+		
+		// +
+		String initialStr = "";
+		long start = System.currentTimeMillis();
+		for (int i=0; i<100000; i++) {
+			initialStr = initialStr + "0";
+		}
+		long end = System.currentTimeMillis();
+		System.out.println(String.format("+ total cost time %d (ms)", end - start));
+		
+		
+		// concat
+		initialStr = "";
+		start = System.currentTimeMillis();
+		for (int i=0; i<100000; i++) {
+			initialStr = initialStr.concat("0");
+		}
+		end = System.currentTimeMillis();
+		System.out.println(String.format("concat total cost time %d (ms)", end - start));
+		
+		
+		// StringBuilder
+		StringBuilder sb = new StringBuilder();
+		start = System.currentTimeMillis();
+		for (int i=0; i<100000; i++) {
+			sb = sb.append("0");
+		}
+		end = System.currentTimeMillis();
+		System.out.println(String.format("StringBuilder total cost time %d (ms)", end - start));
+	
+		
+		// StringBuffer
+		StringBuffer sbf = new StringBuffer();
+		start = System.currentTimeMillis();
+		for (int i=0; i<100000; i++) {
+			sbf = sbf.append("0");
+		}
+		end = System.currentTimeMillis();
+		System.out.println(String.format("StringBuffer total cost time %d (ms)", end - start));
+	}
+	
+	
+	
+	
+	/**
 	 * 测试字符串转义
 	 */
 	@Test
@@ -20,9 +164,9 @@ public class StringTest {
 		System.out.println("\"");			// 返回字面量 "
 		System.out.println("\'");			// 返回字面量 '
 		System.out.println("\\");			// 返回字面量 \
-		System.out.println("\r");			// 回车
-		System.out.println("\n");			// 换行
-		System.out.println("\t");			// tab
+		System.out.println("1~~~~\r~~~~1");	// \r 表示回车
+		System.out.println("2~~~~\n~~~~2");	// \n 表示换行
+		System.out.println("3~~~~\t~~~~3");	// \t 表示一个制表符
 	}
 	
 	/**
@@ -58,7 +202,7 @@ public class StringTest {
 		System.out.println(str.replaceFirst("o", "O"));			// 替换第一个,匹配正则进行替换
 		System.out.println(str.replaceAll("o", "O"));			// 替换全部,匹配正则进行替换
 		
-		System.out.println(str4.replace("\\d", ""));			
+		System.out.println(str4.replace("\\d", ""));			// 替换不成功
 		System.out.println(str4.replaceAll("\\d", ""));			// 替换成功
 		
 		

@@ -302,6 +302,8 @@ public class ArrayTest {
 	@Test
 	public void test2Array2() {
 		int[][] arr = new int[][] { { 22, 66, 44 }, { 77, 33, 88 }, { 25, 45, 65 }, { 11, 66, 99 } };
+		// 二位数组里面的元素数量不要求相等（第二季度只有一个月盈利的场景）
+//		int[][] arr = new int[][] { { 22, 66, 44 }, { 77 }, { 25, 45, 65 }, { 11, 66, 99 } };
 
 		int sum = 0;
 		for (int i = 0; i < arr.length; i++) {
