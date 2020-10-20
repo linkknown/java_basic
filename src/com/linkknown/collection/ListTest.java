@@ -261,15 +261,30 @@ public class ListTest {
 	 */
 	@Test
 	public void testRemove () {
-		List<String> lst = new ArrayList<>(100);
-		for (int i=0; i< 1000; i++) {
+		// 随机产生 100 个成绩：0 ~ 100 分
+		List<String> lst = new ArrayList<>();
+		for (int i=0; i< 100; i++) {
 			lst.add(new Random().nextInt(100) + "");
 		}
-		for(String s: lst){  
+		
+		System.out.println(lst); 
+		
+		// 增强 for 循环删除会报错：java.util.ConcurrentModificationException
+//		for(String s: lst){  
+//		    if(Integer.parseInt(s) < 60){  
+//		    	// 遍历每一个成绩，然后剔除不及格的成绩
+//		        lst.remove(s);  
+//		    }  
+//		} 
+//		
+		// 普通 for 循环也删除不干净，有错位问题
+		for(int i=0; i<lst.size(); i++){  
+			String s = lst.get(i);
 		    if(Integer.parseInt(s) < 60){  
+		    	// 遍历每一个成绩，然后剔除不及格的成绩
 		        lst.remove(s);  
 		    }  
-		}  
+		} 
 		System.out.println(lst); 
 	}
 	
@@ -288,8 +303,8 @@ public class ListTest {
 	 */
 	@Test
 	public void testRemove2 () {
-		List<String> lst = new ArrayList<>(100);
-		for (int i=0; i< 1000; i++) {
+		List<String> lst = new ArrayList<>();
+		for (int i=0; i< 100; i++) {
 			lst.add(new Random().nextInt(100) + "");
 		}
 		

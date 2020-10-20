@@ -40,7 +40,8 @@ public class MapTest {
 	}
 	
 	/**
-	 * 测试 map 常见方法
+	 * 测试 map  常见方法
+	 * HashMap 键不允许重复，值允许重复
 	 */
 	@Test
 	public void testHashMap2 () {
@@ -48,6 +49,8 @@ public class MapTest {
 		Map<String, String> map = new HashMap<>();
 		map.put("tom", "tom123");
 		map.put("bob", "bob123");
+		map.put("bob", "bob123444");
+		map.put("dav", "bob123444");
 
 		System.out.println(map.containsKey("tom"));
 		System.out.println(map.containsValue("tom123"));

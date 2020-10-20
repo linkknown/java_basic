@@ -1,5 +1,6 @@
 package com.linkknown.collection;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -92,10 +93,18 @@ public class CollectionTest {
 		System.out.println(lst);
 	}
 	
-	
+	/**************************** 了解即可，不讲解 *********************************/
 	/********************* 形参和实参的使用: 集合传参是引用传递 *************************/
-	public static void add (Integer i) {
+	public static void add (Integer i) {	
+		// Integer 里面 value 是 final 的
+		// private final int value;
 		i = i + 1;
+	}
+	
+	public static void add2 (Integer i) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		Field field = Integer.class.getDeclaredField("value");
+		field.setAccessible(true);
+		field.set(i, i + 1);
 	}
 	
 	public static void add (List<Integer> lst) {
@@ -119,12 +128,20 @@ public class CollectionTest {
 	 * 
 	 * 引用传递：也称为地址传递、址传递。方法调用时，实际参数的引用(地址，而不是参数的值)被传递给方法中相对应的形式参数，
 	 * 函数接收的是原始值的内存地址在方法执行中，形参和实参内容相同，指向同一块内存地址，方法执行中对引用的操作将会影响到实际对象。
+	 * @throws IllegalAccessException 
+	 * @throws IllegalArgumentException 
+	 * @throws SecurityException 
+	 * @throws NoSuchFieldException 
 	 */
 	@Test
-	public void testCollection4 () {
+	public void testCollection4 () throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		Integer i = 10;
 		
 		add(i);
+		
+		System.out.println(i);
+		
+		add2(i);
 		
 		System.out.println(i);
 		
