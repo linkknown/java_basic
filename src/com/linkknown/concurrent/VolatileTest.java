@@ -4,8 +4,8 @@ public class VolatileTest {
 
 	public static class RunThread extends Thread {
 
-//		private boolean isRunning = true;				// 错误			
-		private volatile boolean isRunning = true;
+		private boolean isRunning = true;				// 错误			
+//		private volatile boolean isRunning = true;
 
 		public boolean isRunning() {
 			return isRunning;
@@ -19,13 +19,32 @@ public class VolatileTest {
 		public void run() {
 			System.out.println("进入到run方法中了");
 			while (isRunning == true) {
+				int i = 0;
+				i ++;
+				
+				
+				// 在变量不加 volatile 的的情况，如果 while 循环里面加上一句打印的语句，随便打印什么，就不会产生死循环
+				/*
+				 * 原因：
+				 * 打印语句属于主线程的任务（即main线程），如果中间加了一个线程，相当于一个线程里面加入了另外一个线程，加入的时候，
+				 * 原来的线程时间被主线程接管了，这就是失败的原因，如果换成别的代码，比如随便在while循环里面做自增运算，就不会存在这个问题。
+				 * 
+				 * 执行System.out.println();这句话时，会有一个上锁的过程，然后使用了synchronized上锁这个操作后会做以下操作： 　　
+				 * 1.获得同步锁 　　
+				 * 2.清空工作内存 　　
+				 * 3.从主内存中拷贝对象副本到本地内存 　　
+				 * 4.执行代码（打印语句或加加操作） 　　
+				 * 5.刷新主内存数据 　　
+				 * 6.释放同步锁
+				 */
+//				System.out.println("execute run method...");
 			}
 			System.out.println("线程执行完成了");
 		}
 	}
 
-//	public static void main(String[] args) {
-	public static void testVisible () {
+	public static void main(String[] args) {
+//	public static void testVisible () {
 		try {
 			RunThread thread = new RunThread();
 			thread.start();
@@ -74,8 +93,8 @@ public class VolatileTest {
      * @throws InterruptedException 
  	 * 
      */
-	public static void main(String[] args) throws InterruptedException {
-//		public static void testReOrder () throws InterruptedException {
+//	public static void main(String[] args) throws InterruptedException {
+		public static void testReOrder () throws InterruptedException {
 		for (int i = 0; i < Integer.MAX_VALUE; i++) {
 			Thread t1 = new Thread(new Runnable() {
 				@Override
