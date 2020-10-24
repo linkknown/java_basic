@@ -529,7 +529,7 @@ public class ThreadTest2 {
 		countDownLatch.await();
 //		System.out.println(safeInteger.get());
 //		System.out.println(safeInteger.get2());
-//		System.out.println(safeInteger.get3());
+		System.out.println(safeInteger.get3());
 	
 		TimeUnit.SECONDS.sleep(1000);
 	}

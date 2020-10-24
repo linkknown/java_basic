@@ -28,12 +28,12 @@ public class ThreadSafeInteger2 {
 //	不公平锁与公平锁的区别：
 //	公平情况下，操作会排一个队按顺序执行，来保证执行顺序。（会消耗更多的时间来排队）
 //	不公平情况下，是无序状态允许插队，jvm会自动计算如何处理更快速来调度插队。（如果不关心顺序，这个速度会更快）
-	private static ReentrantLock reentrantLock = new ReentrantLock();			// 参数默认为 false,不公平锁
-	private static ReentrantLock reentrantLock2 = new ReentrantLock(true);		// 公平锁
+	private ReentrantLock reentrantLock = new ReentrantLock();			// 参数默认为 false,不公平锁
+	private ReentrantLock reentrantLock2 = new ReentrantLock(true);		// 公平锁
 	
-	private static final ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
-	private static final Lock readLock = reentrantReadWriteLock.readLock();
-	private static final Lock writeLock = reentrantReadWriteLock.writeLock();
+	private ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
+	private Lock readLock = reentrantReadWriteLock.readLock();
+	private Lock writeLock = reentrantReadWriteLock.writeLock();
 
 	
 	public void add (int num) {
