@@ -407,25 +407,94 @@ public class ThreadTest2 {
 	
 	
 	/**
+	 * 验证指令重排（有序性）
+	 */
+    static Integer a = 0;
+    static Integer b = 0;
+    static Integer x = 0;
+    static Integer y = 0;
+    
+    /**
+     *用来演示指令重排
+     *
+     * 指令重排会发生在两个阶段：
+ 	 * 1. 编译期(jvm 加载字节码时)
+ 	 * 2. cpu 执行期
+ 	 * 但对于单线程来说，不管发生怎样的重排，都必须保持与源代码一致的输出结果（As-If-Serial）.
+ 	 * 上述规则保证了单线程的执行结果总是与预期一致，但在多线程的情况，就会出现与预期不一致的情况，
+ 	 * 而导致这一情况发生的原因，正是指令重排
+ 	 * 
+ 	 * 执行正常场景有： a = 1; => x = b; => b = 1; => y = a; 				打印 第 ?? 次，x=0, y=1
+ 	 * 			   b = 1; => y = a; => a = 1; => x = b; 				打印 第 ?? 次，x=1, y=0
+ 	 * 			   a = 1; => b = 1; => x = b; => y = a; 				打印 第 ?? 次，x=1, y=1
+ 	 * 
+ 	 * 指令重排异常场景有：
+ 	 * 			   x = b; => y = a; => a = 1; => b = 1; 				打印 第 ?? 次，x=0, y=0
+     * @throws InterruptedException 
+ 	 * 
+     */
+//	public static void main(String[] args) throws InterruptedException {
+		public static void testReOrder () throws InterruptedException {
+		for (int i = 0; i < Integer.MAX_VALUE; i++) {
+			Thread t1 = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					// 有可能发生重排，即 先执行 x = b,再执行 a = 1
+					a = 1;
+					x = b;
+				}
+			});
+
+			Thread t2 = new Thread(new Runnable() {
+				@Override
+				public void run() {
+					// 有可能发生重排，即先执行 y = a,再执行 b = 1;	
+					b = 1;
+					y = a;
+				}
+			});
+
+			t1.start();
+			t2.start();
+			// t1 线程插队，比主线程先执行
+			t1.join();
+			// t2 线程插队，比主线程先执行
+			t2.join();
+			/**
+			 * 如果没有指令重排，输出的可以结果为:(0,1)(1,1)(1,0) 但实际上有可能会输出(0,0)
+			 */
+			System.out.println("第 " + i + "次，x=" + x + ", y=" + y);
+			if (x == 0 && y == 0) {
+				System.out.println("发生了指令重排");
+				break;
+			}
+			// 全部重置成 0
+			a = b = 0;
+			x = y = 0;
+		}
+	}
+	
+	/**
 	 * 安全地读取配置文件
 	 */
 //	public static void main(String[] args) {
 	public static void testReadFle () {
-		for (int i=0; i<10; i++) {
+		for (int i=0; i<100; i++) {
 			new Thread(new Runnable() {
 				
 				@Override
 				public void run() {
 //					System.out.println(AccountUtil.getInstance());		// 没加锁，并发不安全
 //					System.out.println(AccountUtil.getInstance2());		// 方法加锁，并发安全
-//					System.out.println(AccountUtil.getInstance3());		// 代码块加锁，synchronized 外部判空，不安全（ 外部判空，不安全,读操作没有加锁）
-//					System.out.println(AccountUtil.getInstance4());		// 代码块加锁，线程安全
-//					System.out.println(AccountUtil.getInstance5());		// 代码块加锁，线程安全, (单元测试类下跑会有 bug)
+//					System.out.println(AccountUtil.getInstance3());		// 代码块加锁，synchronized 外部判空，虽然安全，但是判空会被并发执行，导致 initAccount 重复执行
+//					System.out.println(AccountUtil.getInstance4());		// 代码块加锁，线程安全, synchronized 内部判空，安全，但是 synchronized 和 判空操作每个线程都会执行，性能差
+					System.out.println(AccountUtil.getInstance5());		// 代码块加锁，线程安全
 				}
 			}).start();
 		}
 	}
-
+	
+	
 //	public static void main(String[] args) throws InterruptedException {
 	@Test
 	public void testThreadSafeInteger3() throws InterruptedException {
