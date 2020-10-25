@@ -19,7 +19,10 @@ import org.junit.jupiter.api.Test;
 public class RegexTest {
 
 	/**
-	 * 校验邮箱
+	 * 校验邮箱是否合法
+	 * 
+	 * 字符串类的 matches 方法可以用来校验一个字符串是否满足一个正则
+	 * 
 	 */
 	@Test
 	public void testRegex1 () {
@@ -28,34 +31,69 @@ public class RegexTest {
 		System.out.println(regex);
 		
 		String str = "linkknown@163.com";
-//		String str = "www.linkknown.com";
-		// String 的 matches 方法,无论是否加 ^$,都是做全匹配
-		System.out.println("是否是合法的邮箱 " + str.matches(regex));
+		String str2 = "389093982@qq.com";
+		String str3 = "389093982";
+		
+		System.out.println(String.format("%s 是否是一个有效的邮箱：%b", str, str.matches(regex)));
+		System.out.println(String.format("%s 是否是一个有效的邮箱：%b", str2, str2.matches(regex)));
+		System.out.println(String.format("%s 是否是一个有效的邮箱：%b", str3, str3.matches(regex)));
 	}
 	
 	/**
-	 * 校验邮箱
+	 * matches 方法默认就是全匹配，底层相当于自动添加 ^ $
+	 * ^ 表示以什么开头
+	 * $ 表示以什么结尾
+	 * ^ 和 $ 成为全匹配
 	 */
 	@Test
 	public void testRegex2 () {
-		String regex = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.com$";
-		
 		String str = "linkknown@163.com";
-//		String str = "www.linkknown.com";
-		System.out.println("是否是合法的邮箱 " + str.matches(regex));
+		String str2 = "389093982@qq.com";
+		String str3 = "389093982";
+		
+		String regex = "^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.com$";
+		System.out.println(String.format("%s 是否是一个有效的邮箱：%b", str, str.matches(regex)));
+		System.out.println(String.format("%s 是否是一个有效的邮箱：%b", str2, str2.matches(regex)));
+		System.out.println(String.format("%s 是否是一个有效的邮箱：%b", str3, str3.matches(regex)));
 	}
 
 	/**
-	 * 验证 QQ
+	 * QQ 号规定 5-10 位数字，且不能以 0 开头
 	 */
 	@Test
-	public void testQQ () {
+	public void testRegex3 () {
 		String regex = "^[1-9][0-9]{4,9}$";
+		System.out.println("389893982".matches(regex));
+		System.out.println("11111".matches(regex));
+		System.out.println("1111111111".matches(regex));
+		System.out.println("111".matches(regex));
+		System.out.println("1111111111111".matches(regex));
+		System.out.println("000112323".matches(regex));
+		System.out.println("a323232233".matches(regex));
+	}
 	
-		System.out.println("389093982".matches(regex));
-		System.out.println("11111111".matches(regex));
-		System.out.println("01111111".matches(regex));
-		System.out.println("a1111111".matches(regex));
+	@Test
+	public void testRegex4 () {
+		// 数字至少出现一次
+		System.out.println("11213234".matches("\\d+"));
+		System.out.println("11213234".matches("[0-9]+"));
+		System.out.println("11213234".matches("^[0-9]+$"));
+		
+		// 表示正数或者负数：10 和 -10
+		System.out.println("10".matches("^-?[1-9][0-9]*$"));
+		System.out.println("-10".matches("^-?[1-9][0-9]*$"));
+		
+		// 表示正数或者负数：10.01 和 -10.01
+		System.out.println("10.01".matches("^-?[1-9][0-9]*(\\.[0-9]{1,2})?$"));
+		System.out.println("-10.01".matches("^-?[1-9][0-9]*(\\.[0-9]{1,2})?$"));
+		System.out.println("-10..01".matches("^-?[1-9][0-9]*(\\.[0-9]{1,2})?$"));
+		System.out.println("-10.012".matches("^-?[1-9][0-9]*(\\.[0-9]{1,2})?$"));
+	
+		// 日期 2020-10-25
+		System.out.println("2020-10-25".matches("^\\d{4}-\\d{2}-\\d{2}$"));				// 不够严谨
+		System.out.println("2020-99-99".matches("^\\d{4}-\\d{2}-\\d{2}$"));				
+		System.out.println("2020-99-99".matches("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"));		// 够严谨		
+		System.out.println("2020-10-25".matches("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"));			
 	}
 	
 	/**
@@ -104,7 +142,12 @@ public class RegexTest {
 		String regex = "[A-Z]";
 		String str = "aAbBcCdDeEfF";
 		System.out.println(str.split(regex));
-		System.out.println(Arrays.asList(str.split(regex)));
+		System.out.println(Arrays.toString(str.split(regex)));
+		
+		// 根据大写字母来分割
+		System.out.println(Arrays.toString("afAs4DFS34GFFFGdRfsfhDSif32F3232SfdgsF2323".split("[A-Z]")));
+		System.out.println(Arrays.toString("afAs4DFS34GFFFGdRfsfhDSif32F3232SfdgsF2323".split("[A-Z]{2}")));
+		System.out.println(Arrays.toString("afAs4DFS34GFFFGdRfsfhDSif32F3232SfdgsF2323".split("[A-Z]{3}")));
 	}
 	
 	@Test
@@ -120,7 +163,7 @@ public class RegexTest {
 		String str = "1.2.3.4.5.6...7.8.9,,,,,,.0";
 		String[] arr = str.split(regex);
 		System.out.println(arr.length);
-		System.out.println(Arrays.asList(arr));
+		System.out.println(Arrays.toString(arr));
 	}
 	
 	/**

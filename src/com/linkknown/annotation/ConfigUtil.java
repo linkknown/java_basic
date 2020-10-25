@@ -10,7 +10,7 @@ import com.linkknown.annotation.ConfigUtil.Config;
 
 public class ConfigUtil {
 	
-	private static Config config;
+	private static volatile Config config = null;
 	
 	public static Config getInstance () {		
 		if (config == null) {
