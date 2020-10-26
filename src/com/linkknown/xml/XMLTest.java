@@ -282,6 +282,13 @@ public class XMLTest {
 
 		Element element = (Element) document.selectSingleNode(xpath);
 		System.out.println(element.asXML());
+		
+//		String xpath = "/users/user[@*>9990]";
+//		List nodes = document.selectNodes(xpath);
+//		for (int i=0; i<nodes.size();i++) {
+//			Element element = (Element) nodes.get(i);
+//			System.out.println(element.asXML());
+//		}
 	}
 
 	
