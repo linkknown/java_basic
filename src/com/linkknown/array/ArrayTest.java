@@ -106,8 +106,9 @@ public class ArrayTest {
 	}
 
 	/**
-	 * 冒泡排序 总结前面的图解，数组长度设为n。外层共循环了n-1次，外层循环增加一次，对应内层循环就 减少一次。 外层循环为：for (int i = 0;
-	 * i < arr.length-1; i++) 内层循环为：for (int j = 0; j < arr.length - 1 - i; j++)
+	 * 冒泡排序 总结前面的图解，数组长度设为n。外层共循环了n-1次，外层循环增加一次，对应内层循环就 减少一次。
+	 *  外层循环为：for (int i = 0; i < arr.length-1; i++) 
+	 *  内层循环为：for (int j = 0; j < arr.length - 1 - i; j++)
 	 */
 	@Test
 	public void testSort() {

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class IPTest {
 	
 	/**
-	 * 正则校验 ip
+	 * 正则校验 ipV4
 	 */
 	@Test
 	public void testIP () {
@@ -33,13 +33,11 @@ public class IPTest {
 		// l 表示 long 型
 		System.out.println(256 * 256 * 256 * 256l);	// ipV4 只有 4294967296 （42亿）个地址
 		System.out.println(Math.pow(256, 4));
-		
-		System.out.println(Math.pow(256, 16));		// IPV6 地址个数是 IPV4的 65536 倍
+		System.out.println(Math.pow(256, 16));
 	}
 	
 	/**
 	 * ip 测试
-	 * @throws UnknownHostException
 	 */
 	@Test
 	public void testIP3 () throws UnknownHostException {

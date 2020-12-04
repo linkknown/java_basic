@@ -18,10 +18,8 @@ import org.junit.jupiter.api.Test;
 public class InputOutputStreamTest {
 
 	/**
+	 * 测试字节流写入 
 	 * 结论：写文件的时候必须保证文件夹存在
-	 * 
-	 * 测试字节流写入
-	 * @throws IOException
 	 */
 	@Test
 	public void testOutputStream () throws IOException {
@@ -32,9 +30,7 @@ public class InputOutputStreamTest {
 		}
 		OutputStream outputStream = new FileOutputStream(file);
 		
-		
-		// 写一个字节
-		// 65～90为26个大写英文字母，97～122号为26个小写英文字母，其余为一些标点符号、运算符号等。
+		// 写一个字节，65～90为26个大写英文字母，97～122号为26个小写英文字母，其余为一些标点符号、运算符号等。
 		for (int i=65; i<=90; i++) {
 			outputStream.write(i);
 		}

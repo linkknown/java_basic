@@ -76,17 +76,10 @@ public class ClassTest {
 	
 	/**
 	 * 测试创建实例
-	 * @throws ClassNotFoundException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
-	 * @throws SecurityException
-	 * @throws NoSuchFieldException
 	 */
 	@Test
-	public void testNewInstance () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, NoSuchFieldException {
+	public void testNewInstance () throws ClassNotFoundException, InstantiationException, IllegalAccessException, 
+	IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, NoSuchFieldException {
 		// 通过反射创建实例
 		Class<?> clazz = Class.forName("com.linkknown.reflect.Student");
 		Object instance = clazz.getConstructor().newInstance();

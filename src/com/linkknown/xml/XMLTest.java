@@ -1,34 +1,8 @@
 package com.linkknown.xml;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXTransformerFactory;
-import javax.xml.transform.sax.TransformerHandler;
-import javax.xml.transform.stream.StreamResult;
-
-import org.dom4j.Attribute;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.dom4j.ElementHandler;
-import org.dom4j.ElementPath;
+import com.linkknown.util.FileUtil;
+import com.linkknown.util.JAXBUtil;
+import org.dom4j.*;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
@@ -36,8 +10,16 @@ import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
-import com.linkknown.util.FileUtil;
-import com.linkknown.util.JAXBUtil;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.sax.SAXTransformerFactory;
+import javax.xml.transform.sax.TransformerHandler;
+import javax.xml.transform.stream.StreamResult;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class XMLTest {
 
@@ -47,33 +29,19 @@ public class XMLTest {
 	
 /*************************************************** dom4j ********************************************************/	
 	
-	/**
-	 * dom 方式读取 xml
-	 * 
-	 * @throws DocumentException
-	 */
+	//dom 方式读取 xml
 	@Test
 	public void testReadXML() throws DocumentException {
-		SAXReader reader = new SAXReader();
-		Document document = reader
-				.read(XMLTest.class.getClassLoader().getResourceAsStream("com/linkknown/xml/dom_users.xml"));
-		// asXML 以字符串形式显示
-		System.out.println(document.asXML());
-	}
-
-	/**
-	 * dom 方式读取 xml
-	 * 
-	 * @throws DocumentException
-	 */
-	@Test
-	public void testReadXML2() throws DocumentException {
 		List<User> users = new ArrayList<User>();
 
 		// 读取 xml 文件, 得到 document 文档对象
 		SAXReader reader = new SAXReader();
 		Document document = reader
 				.read(XMLTest.class.getClassLoader().getResourceAsStream("com/linkknown/xml/dom_users.xml"));
+		
+		// asXML 以字符串形式显示
+		System.out.println(document.asXML());
+		
 		// 获取根元素
 		Element rootElement = document.getRootElement();
 		// 获取所有 user 子元素
@@ -93,14 +61,10 @@ public class XMLTest {
 			user.setId(Integer.valueOf(id));
 			users.add(user);
 		}
-
 		System.out.println(users);
 	}
 
-	/**
-	 * dom 方式写入 xml
-	 * @throws IOException
-	 */
+	// dom 方式写入 xml
 	@Test
 	public void testWriteXML() throws IOException {
 		List<User> users = new ArrayList<>();
@@ -113,8 +77,9 @@ public class XMLTest {
 		}
 		users.get(0).setPassword("<!-- 我是注释 -->");
 		users.get(1).setPassword("<>&'\"");
-		users.get(2).setPassword("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<demo>\n我是嵌套的xml\n</demo>");
-		users.get(3).setPassword("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<demo>\n我是嵌套的xml\n</demo>");
+		String xmlStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<demo>\n我是嵌套的xml\n</demo>";
+		users.get(2).setPassword(xmlStr);
+		users.get(3).setPassword(xmlStr);
 		
 		System.out.println(users);
 
@@ -146,10 +111,8 @@ public class XMLTest {
 		xmlFormat.setIndent(true);
 		xmlFormat.setIndent("	");
 
-		XMLWriter writer = new XMLWriter(
-				new FileOutputStream(
-						"D:\\zhourui\\program\\java\\IDEA\\java_basic\\src\\com\\linkknown\\xml\\dom_write_users.xml"),
-				xmlFormat);
+		String xmlFilePath = "D:\\zhourui\\program\\java\\IDEA\\java_basic\\src\\com\\linkknown\\xml\\dom_write_users.xml";
+		XMLWriter writer = new XMLWriter(new FileOutputStream(xmlFilePath),xmlFormat);
 		writer.write(document);
 		writer.close();
 	}
@@ -158,8 +121,6 @@ public class XMLTest {
 	
 	/**
 	 * SAX 方式读取，当数据量过大时，文件可能大于 500 M,这样用 dom 方式读取会很吃亏
-	 * 
-	 * @throws DocumentException
 	 */
 	@Test
 	public void testSAXRead() throws DocumentException {
@@ -189,9 +150,6 @@ public class XMLTest {
 
 	/**
 	 * SAX 方式写 xml
-	 * @throws TransformerConfigurationException 
-	 * @throws SAXException 
-	 * @throws IOException 
 	 */
 	@Test
 	public void testSAXWrite () throws TransformerConfigurationException, SAXException, IOException {

@@ -2,15 +2,10 @@ package com.linkknown.enum0;
 
 /**
  * 定义一个地址枚举类
- * 
- * @author Administrator
- *
  */
 public enum AddressEnum {
 	
-	/**
-	 * 调用构造器
-	 */
+	// 调用构造器
 	FEIXI("安徽省","合肥市","肥西县"),
 	FEIDONG("安徽省","合肥市","肥东县");
 	
@@ -29,13 +24,10 @@ public enum AddressEnum {
 	public String getProvince() {
 		return province;
 	}
-
 	public String getCity() {
 		return city;
 	}
-
 	public String getCountry() {
 		return country;
 	}
-	
 }

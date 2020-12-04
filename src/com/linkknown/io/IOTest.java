@@ -81,60 +81,7 @@ public class IOTest {
 			e.printStackTrace();
 			System.out.println("ÎÄ¼þ¿½±´Ê§°ÜÀ²£¡");
 		} finally {
-			
 			IOUtil.close(writer, outputStreamWriter, out, reader, inputStreamReader, in);
-			
-//			if (writer != null) {
-//				try {
-//					writer.close();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//					System.out.println("Á÷¹Ø±ÕÊ§°ÜÀ²£¡");
-//				}
-//			}
-//			if (outputStreamWriter != null) {
-//				try {
-//					outputStreamWriter.close();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//					System.out.println("Á÷¹Ø±ÕÊ§°ÜÀ²£¡");
-//				}
-//			}
-//			if (out != null) {
-//				try {
-//					out.close();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//					System.out.println("Á÷¹Ø±ÕÊ§°ÜÀ²£¡");
-//				}
-//			}
-//
-//			
-//			if (reader != null) {
-//				try {
-//					reader.close();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//					System.out.println("Á÷¹Ø±ÕÊ§°ÜÀ²£¡");
-//				}
-//			}
-//			if (inputStreamReader != null) {
-//				try {
-//					inputStreamReader.close();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//					System.out.println("Á÷¹Ø±ÕÊ§°ÜÀ²£¡");
-//				}
-//			}
-//			if (in != null) {
-//				try {
-//					in.close();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//					System.out.println("Á÷¹Ø±ÕÊ§°ÜÀ²£¡");
-//				}
-//			}
 		}
-
 	}
 }

@@ -22,5 +22,4 @@ public class RandomList<T> {
 	public T select () {
 		return storage.get(random.nextInt(storage.size()));
 	} 
-	
 }

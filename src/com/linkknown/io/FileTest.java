@@ -18,44 +18,44 @@ import org.junit.jupiter.api.Test;
  */
 public class FileTest {
 	
-	/**
-	 * 测试 File 对象获取的几种方式
-	 * @throws URISyntaxException
-	 */
-	@Test
-	public void testFile () throws URISyntaxException {
-		// window 系统的路径分隔符是 \, Linux 系统的路径分隔符是 /, \需要进行转义
-		File file = new File("D:\\java\\linkknown\\helloworld.txt");
-		
-		System.out.println(file.exists());
-		
-		// window 系统也可以使用 /
-		file = new File("D:/java/linkknown/helloworld.txt");
-		
-		System.out.println(file.exists());
-		
-		// 使用 File.separator 路径分隔符
-		System.out.println("D:" + File.separator + "java" + File.separator + "linkknown" + File.separator + "helloworld.txt");
-		System.out.println(file.exists());
-		
-		System.out.println(file.toURI());
-		
-		file = new File(new URI("file:/D:/java/linkknown/helloworld.txt"));
-		System.out.println(file.exists());
-	
-		file = new File(new File("D:" + File.separator + "java" + File.separator + "linkknown"), "helloworld.txt");
-		System.out.println(file.exists());
-	
-		file = new File("D:" + File.separator + "java" + File.separator + "linkknown", "helloworld.txt");
-		System.out.println(file.exists());
-	}
+    /**
+     * 测试 File 对象获取的几种方式
+     * @throws URISyntaxException
+     */
+    @Test
+    public void testFile () throws URISyntaxException {
+        // window 系统的路径分隔符是 \, Linux 系统的路径分隔符是 /, \需要进行转义
+        File file = new File("D:\\java\\linkknown\\helloworld.txt");
+        
+        System.out.println(file.exists());
+        
+        // window 系统也可以使用 /
+        file = new File("D:/java/linkknown/helloworld.txt");
+        
+        System.out.println(file.exists());
+        
+        // 使用 File.separator 路径分隔符
+        System.out.println("D:" + File.separator + "java" + File.separator + "linkknown" + File.separator + "helloworld.txt");
+        System.out.println(file.exists());
+        
+        System.out.println(file.toURI());
+        
+        file = new File(new URI("file:/D:/java/linkknown/helloworld.txt"));
+        System.out.println(file.exists());
+    
+        file = new File(new File("D:" + File.separator + "java" + File.separator + "linkknown"), "helloworld.txt");
+        System.out.println(file.exists());
+    
+        file = new File("D:" + File.separator + "java" + File.separator + "linkknown", "helloworld.txt");
+        System.out.println(file.exists());
+    }
 	
 
 	/**
 	 * File 静态属性、静态方法测试
 	 */
 	@Test
-	public void test() {
+	public void testListRoots() {
 		System.out.println(File.separator);
 
 		File[] rootFiles = File.listRoots();
@@ -111,8 +111,9 @@ public class FileTest {
 	public void testCreateFile3 () throws IOException {
 		File file = new File("D:/java/linkknown/helloworld.txt");
 		if (!file.exists()) {
-			
-			file.getParentFile().mkdirs();
+			if (file.getParentFile() != null) {
+				file.getParentFile().mkdirs();
+			}
 			// 创建当前文件
 			file.createNewFile();
 		}

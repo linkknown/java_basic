@@ -4,8 +4,7 @@ public class VolatileTest {
 
 	public static class RunThread extends Thread {
 
-		private boolean isRunning = true;				// 错误			
-//		private volatile boolean isRunning = true;
+		private volatile boolean isRunning = true;
 
 		public boolean isRunning() {
 			return isRunning;
@@ -60,10 +59,7 @@ public class VolatileTest {
 	
 	
 	
-	
-	
-	
-	
+
 	
 	/**
 	 * 验证指令重排（有序性）

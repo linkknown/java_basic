@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 public class StackTest {
 
 	/**
+	 * 栈（先进后出）
 	 * 验证栈先进后出
 	 */
 	@Test

@@ -1,15 +1,12 @@
 package com.linkknown.generic;
 
 /**
- * 生成器接口
- * @author Administrator
- *
- * @param <T>
+ * 泛型接口
  */
 public interface Generator<T> {
 
 	/**
-	 * 按照一定规则生成下一个函数
+	 * 按照一定规则生成下一个数据的函数
 	 * @return
 	 */
 	T next();

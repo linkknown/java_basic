@@ -24,6 +24,8 @@ public class ThreadTest {
 		// 超时设置
 		testCreateCallableWithTimeout();
 	}
+	
+	// 测试主线程
 	public static void testMain () {
 		System.out.println(Thread.currentThread().getName());
 	}

@@ -2,9 +2,6 @@ package com.linkknown.generic;
 
 /**
  * T 类型持有类
- * @author Administrator
- *
- * @param <T>
  */
 public class Holder<T> {
 

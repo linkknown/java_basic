@@ -18,6 +18,7 @@ public class DateTest {
 		Date date = new Date();
 		System.out.println(date);
 		
+		// 返回自 1970 年 1 月 1 日 00:00:00 GMT 以来此 Date 对象表示的毫秒数。
 		System.out.println(date.getTime());
 	}
 
@@ -51,16 +52,6 @@ public class DateTest {
 	
 	public static boolean between (Date date, Date start, Date end) {
 		return date.after(start) && date.before(end);
-	}
-
-	/**
-	 * 获取毫秒数
-	 */
-
-	public void testGetTime() {
-		Date date = new Date();
-		// 返回自 1970 年 1 月 1 日 00:00:00 GMT 以来此 Date 对象表示的毫秒数。
-		System.out.println(date.getTime());
 	}
 
 	/**

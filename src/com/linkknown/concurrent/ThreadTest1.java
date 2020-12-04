@@ -15,20 +15,20 @@ import org.junit.jupiter.api.Test;
  *
  */
 public class ThreadTest1 {
-
-	static void sleep(long second) {
-		try {
-			Thread.sleep(second * 1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	
+	public static void main(String[] args) throws Exception {
+//		testThreadName();
+//		testThreadName2();
+//		testThreadName3();
+//		testPriority();
+//		testCountDownLatch();
+		testCountDownLatch2();
 	}
 
 	/**
 	 * 获取线程名
 	 */
-	@Test
-	public void testThreadName() {
+	public static void testThreadName() {
 		Thread thread = new Thread() {
 			@Override
 			public void run() {
@@ -40,15 +40,12 @@ public class ThreadTest1 {
 		};
 		thread.start();
 		System.out.println("当前线程名称是：" + Thread.currentThread().getName());
-
-		ThreadTest1.sleep(10);
 	}
 
 	/**
 	 * 修改线程名称
 	 */
-	@Test
-	public void testThreadName2() {
+	public static void testThreadName2() {
 		Thread.currentThread().setName("Thread___main");
 		Thread thread = new Thread() {
 			@Override
@@ -59,15 +56,12 @@ public class ThreadTest1 {
 		};
 		thread.start();
 		System.out.println("当前线程名称是：" + Thread.currentThread().getName());
-
-		ThreadTest1.sleep(10);
 	}
 
 	/**
 	 * 修改线程名称
 	 */
-	@Test
-	public void testThreadName3() {
+	public static void testThreadName3() {
 		Runnable runnable = new Runnable() {
 
 			@Override
@@ -82,8 +76,6 @@ public class ThreadTest1 {
 		t1.start();
 		t2.start();
 		t3.start();
-
-		ThreadTest1.sleep(10);
 	}
 
 	/**
@@ -91,8 +83,7 @@ public class ThreadTest1 {
 	 * 
 	 * @throws InterruptedException
 	 */
-	@Test
-	public void testPriority() throws InterruptedException {
+	public static void testPriority() throws InterruptedException {
 		Runnable runnable = new Runnable() {
 
 			@Override
@@ -115,61 +106,53 @@ public class ThreadTest1 {
 		t1.start();
 		t2.start();
 		t3.start();
-
-		ThreadTest1.sleep(10);
 	}
 
-	/**
-	 * 测试 CountDownLatch 类 egg:
-	 * 有三个工人在为老板干活，这个老板有一个习惯，就是当三个工人把一天的活都干完了的时候，他就来检查所有工人所干的活。
-	 * @throws InterruptedException 
-	 * 
-	 */
-	@Test
-	public void testCountDownLatch () throws InterruptedException {
-		long startTime = System.currentTimeMillis();
-		CountDownLatch countDownLatch = new CountDownLatch(3);
-		
-		Runnable runnable = new Runnable() {
-			
-			@Override
-			public void run() {
-				long _startTime =  System.currentTimeMillis();
-				System.out.println(Thread.currentThread().getName() + " 开始工作啦~");
-				try {
-					TimeUnit.SECONDS.sleep(new Random().nextInt(10));
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				countDownLatch.countDown();
-				System.out.println(Thread.currentThread().getName() + " 完成工作啦~");
-				long _endTime =  System.currentTimeMillis();
-				System.out.println(Thread.currentThread().getName() + "一共消耗" + (_endTime - _startTime) + "ms");
-			}
-		};
-		Thread worker1 = new Thread(runnable, "工人1");
-		Thread worker2 = new Thread(runnable, "工人2");
-		Thread worker3 = new Thread(runnable, "工人3");
-		worker1.start();
-		worker2.start();
-		worker3.start();
-	
-		System.out.println("老板正在等待所有人完成工作...");
-		countDownLatch.await();
-		System.out.println("工人完成工作,老板开始检查...");
-		
-		long endTime = System.currentTimeMillis();
-		System.out.println("一共消耗" + (endTime - startTime) + "ms");
-		
-	}
+
+    // 测试 CountDownLatch 类 egg:有三个工人在为老板干活，这个老板有一个习惯，
+	// 就是当三个工人把一天的活都干完了的时候，他就来检查所有工人所干的活。则老板所用时间就是最后一个工人所用的时间.
+    public static void testCountDownLatch () throws InterruptedException {
+        long startTime = System.currentTimeMillis();
+        CountDownLatch countDownLatch = new CountDownLatch(3);
+        
+        Runnable runnable = new Runnable() {      
+            @Override
+            public void run() {
+                long _startTime =  System.currentTimeMillis();
+                System.out.println(Thread.currentThread().getName() + " 开始工作啦~");
+                try {
+                    TimeUnit.SECONDS.sleep(new Random().nextInt(10));		 // 模拟工人干活耗时
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                countDownLatch.countDown();
+                System.out.println(Thread.currentThread().getName() + " 完成工作啦~");
+                long _endTime =  System.currentTimeMillis();
+                System.out.println(Thread.currentThread().getName() + "一共消耗" + (_endTime - _startTime) + "ms");
+            }
+        };
+        Thread worker1 = new Thread(runnable, "工人1");
+        Thread worker2 = new Thread(runnable, "工人2");
+        Thread worker3 = new Thread(runnable, "工人3");
+        worker1.start();
+        worker2.start();
+        worker3.start();
+    
+        System.out.println("老板正在等待所有人完成工作...");
+        countDownLatch.await();
+        System.out.println("工人完成工作,老板开始检查...");
+        
+        long endTime = System.currentTimeMillis();
+        System.out.println("老板一共消耗" + (endTime - startTime) + "ms");        
+    }
+
 	
 	/**
 	 * 测试 CountDownLatch 类 egg:
 	 * 有三个工人在为老板干活，这个老板有一个习惯，就是当三个工人把一天的活都干完了的时候，他就来检查所有工人所干的活。
 	 * 记住这个条件：三个工人先全部干完活，老板才检查。所以在这里用Java代码设计两个类，Worker代表工人，Boss代表老板，具体的代码实现如下
 	 */
-	@Test
-	public void testCountDownLatch2 () {
+	public static void testCountDownLatch2 () {
 
 		CountDownLatch countDownLatch = new CountDownLatch(3);
 		Worker worker1 = new Worker("工人1", countDownLatch);
@@ -180,7 +163,5 @@ public class ThreadTest1 {
 		new Thread(worker2).start();
 		new Thread(worker3).start();
 		new Thread(boss).start();
-
-		ThreadTest1.sleep(10);
 	}
 }

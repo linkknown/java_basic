@@ -26,17 +26,32 @@ public class ThreadTest2 {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void main(String[] args) throws Exception {
+//		testThread();
+//		testThreadUnSafeInteger();
+//		testThreadUnSafeInteger2();
+//		testThreadSafeInteger();
+//		testThreadSafeInteger2();
+//		testStringBuilder();
+//		testStringBuffer();
+//		testArrayList();
+//		testCopyOnWriteArrayList();
+//		testSynchronizedList();
+//		testAtomicInteger();
+//		testReOrder();
+//		testReadFle();
+		testPrintABC123();
+	}
 
 	static int count = 0;
 
 	/**
-	 * i++ 是线程安全的吗 不是原子操作，分为三步：取、改、存
+	 * i++ 是线程安全的吗? 不是原子操作，分为三步：取、改、存
 	 * 
 	 * @throws InterruptedException
 	 */
-//	public static void main(String[] args) throws InterruptedException {
-	@Test
-	public void testThread() throws InterruptedException {
+	public static void testThread() throws InterruptedException {
 
 		CountDownLatch countDownLatch = new CountDownLatch(1000);
 
@@ -46,7 +61,7 @@ public class ThreadTest2 {
 				@Override
 				public void run() {
 					for (int j = 0; j < 1000; j++) {
-						ThreadTest2.count++;
+						count++;
 					}
 					countDownLatch.countDown();
 				}
@@ -55,18 +70,13 @@ public class ThreadTest2 {
 
 		countDownLatch.await();
 		// 打印的会是 1000000 么？
-		System.out.println(ThreadTest2.count);
-
+		System.out.println(count);
 	}
 
 	/**
 	 * 测试非原子操作
-	 * 
-	 * @throws InterruptedException
 	 */
-//	public static void main(String[] args) throws InterruptedException {
-	@Test
-	public void testThreadUnSafeInteger() throws InterruptedException {
+	public static void testThreadUnSafeInteger() throws InterruptedException {
 		CountDownLatch countDownLatch = new CountDownLatch(1000);
 
 		ThreadUnSafeInteger unSafeInteger = new ThreadUnSafeInteger(0);
@@ -93,9 +103,7 @@ public class ThreadTest2 {
 	 * 
 	 * @throws InterruptedException
 	 */
-//	public static void main(String[] args) throws InterruptedException {
-	@Test
-	public void testThreadUnSafeInteger2() throws InterruptedException {
+	public static void testThreadUnSafeInteger2() throws InterruptedException {
 		CountDownLatch countDownLatch = new CountDownLatch(1000);
 
 		ThreadUnSafeInteger unSafeInteger = new ThreadUnSafeInteger(0);
@@ -125,9 +133,7 @@ public class ThreadTest2 {
 	 * 
 	 * @throws InterruptedException
 	 */
-//	public static void main(String[] args) throws InterruptedException {
-	@Test
-	public void testThreadSafeInteger() throws InterruptedException {
+	public static void testThreadSafeInteger() throws InterruptedException {
 		CountDownLatch countDownLatch = new CountDownLatch(1000);
 
 		ThreadSafeInteger safeInteger = new ThreadSafeInteger(0);
@@ -138,9 +144,7 @@ public class ThreadTest2 {
 				@Override
 				public void run() {
 					for (int j = 0; j < 1000; j++) {
-						// add\add2 方法加锁，保证了原子操作
 						safeInteger.add(1);
-						// safeInteger.add2(1);
 					}
 					countDownLatch.countDown();
 				}
@@ -155,9 +159,7 @@ public class ThreadTest2 {
 	 * 
 	 * @throws InterruptedException
 	 */
-//	public static void main(String[] args) throws InterruptedException {
-	@Test
-	public void testThreadSafeInteger2() throws InterruptedException {
+	public static void testThreadSafeInteger2() throws InterruptedException {
 		CountDownLatch countDownLatch = new CountDownLatch(1000);
 
 		ThreadSafeInteger safeInteger = new ThreadSafeInteger(0);
@@ -232,12 +234,8 @@ public class ThreadTest2 {
 
 	/**
 	 * 测试 StringBuilder 线程安全性
-	 * 
-	 * @throws InterruptedException
 	 */
-//	public static void main(String[] args) throws InterruptedException {
-	@Test
-	public void testStringBuilder() throws InterruptedException {
+	public static void testStringBuilder() throws InterruptedException {
 		StringBuilder sb = new StringBuilder();
 
 		CountDownLatch countDownLatch = new CountDownLatch(100);
@@ -261,12 +259,8 @@ public class ThreadTest2 {
 
 	/**
 	 * 测试 StringBuffer 线程安全性
-	 * 
-	 * @throws InterruptedException
 	 */
-//	public static void main(String[] args) throws InterruptedException {
-	@Test
-	public void testStringBuffer() throws InterruptedException {
+	public static void testStringBuffer() throws InterruptedException {
 		StringBuffer sb = new StringBuffer();
 
 		CountDownLatch countDownLatch = new CountDownLatch(100);
@@ -292,12 +286,8 @@ public class ThreadTest2 {
 
 	/**
 	 * 测试 ArrayList 的线程安全性
-	 * 
-	 * @throws InterruptedException
 	 */
-//	public static void main(String[] args) throws InterruptedException {
-	@Test
-	public void testArrayList() throws InterruptedException {
+	public static void testArrayList() throws InterruptedException {
 		List<Integer> lst = new ArrayList<Integer>();
 
 		CountDownLatch countDownLatch = new CountDownLatch(100);
@@ -321,12 +311,8 @@ public class ThreadTest2 {
 
 	/**
 	 * 线程安全的 List
-	 * 
-	 * @throws InterruptedException
 	 */
-//	public static void main(String[] args) throws InterruptedException {
-	@Test
-	public void testList() throws InterruptedException {
+	public static void testCopyOnWriteArrayList() throws InterruptedException {
 		/**
 		 * Copy-On-Write，写入时复制，这个技术，准确的说应该是一种思想，在很多系统设计上都会用到，今天我们来谈一谈Java语言中，
 		 * JDK运用这种写入时复制的思想的数据结构/容器，CopyOnWriteArrayList。CopyOnWriteArrayList，是一个写入时复制的容器，
@@ -343,7 +329,6 @@ public class ThreadTest2 {
 				@Override
 				public void run() {
 					for (int j = 0; j < 100; j++) {
-						// ArrayList 线程不安全
 						lst.add(j);
 					}
 					countDownLatch.countDown();
@@ -356,12 +341,8 @@ public class ThreadTest2 {
 
 	/**
 	 * 线程安全的 List
-	 * 
-	 * @throws InterruptedException
 	 */
-//	public static void main(String[] args) throws InterruptedException {
-	@Test
-	public void testList2() throws InterruptedException {
+	public static void testSynchronizedList() throws InterruptedException {
 		// Collections.synchronizedList 也是线程安全的 List
 		List<Integer> lst = Collections.synchronizedList(new ArrayList<>());
 
@@ -383,28 +364,6 @@ public class ThreadTest2 {
 		System.out.println(lst.size());
 	}
 
-	/**
-	 * 测试 List 线程安全问题(并发读写问题)
-	 */
-//	public static void main(String[] args) {
-	public static void testList3() {
-		List<Integer> lst = new ArrayList<>();
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				for (int i = 0; i < 1000; i++) {
-					lst.add(i);
-				}
-			}
-		}).start();
-		Iterator<Integer> iterator = lst.iterator();
-		while (iterator.hasNext()) {
-			Integer num = (Integer) iterator.next();
-			System.out.println(num);
-		}
-	}
-	
 	
 	/**
 	 * 验证指令重排（有序性）
@@ -433,8 +392,7 @@ public class ThreadTest2 {
      * @throws InterruptedException 
  	 * 
      */
-//	public static void main(String[] args) throws InterruptedException {
-		public static void testReOrder () throws InterruptedException {
+	public static void testReOrder () throws InterruptedException {
 		for (int i = 0; i < Integer.MAX_VALUE; i++) {
 			Thread t1 = new Thread(new Runnable() {
 				@Override
@@ -475,20 +433,15 @@ public class ThreadTest2 {
 	}
 	
 	/**
-	 * 安全地读取配置文件
+	 * 安全高效地读取配置文件
 	 */
-//	public static void main(String[] args) {
 	public static void testReadFle () {
 		for (int i=0; i<100; i++) {
 			new Thread(new Runnable() {
 				
 				@Override
 				public void run() {
-//					System.out.println(AccountUtil.getInstance());		// 没加锁，并发不安全
-//					System.out.println(AccountUtil.getInstance2());		// 方法加锁，并发安全
-//					System.out.println(AccountUtil.getInstance3());		// 代码块加锁，synchronized 外部判空，虽然安全，但是判空会被并发执行，导致 initAccount 重复执行
-//					System.out.println(AccountUtil.getInstance4());		// 代码块加锁，线程安全, synchronized 内部判空，安全，但是 synchronized 和 判空操作每个线程都会执行，性能差
-					System.out.println(AccountUtil.getInstance5());		// 代码块加锁，线程安全
+					System.out.println(AccountUtil.getInstance());		
 				}
 			}).start();
 		}
@@ -511,11 +464,11 @@ public class ThreadTest2 {
 						if (j % 2 == 0) {
 //							safeInteger.add(1);
 //							safeInteger.add2(1);
-							safeInteger.add3(1);
+							safeInteger.add(1);
 						} else {
 //							safeInteger.sub(1);
 //							safeInteger.sub2(1);
-							safeInteger.sub3(1);
+							safeInteger.sub(1);
 						}
 					}
 					countDownLatch.countDown();
@@ -529,9 +482,7 @@ public class ThreadTest2 {
 		countDownLatch.await();
 //		System.out.println(safeInteger.get());
 //		System.out.println(safeInteger.get2());
-		System.out.println(safeInteger.get3());
-	
-		TimeUnit.SECONDS.sleep(1000);
+		System.out.println(safeInteger.get());
 	}
 	
 	private static AtomicInteger safeCount = new AtomicInteger(0);
@@ -540,11 +491,8 @@ public class ThreadTest2 {
 	
 	/**
 	 * AtomicInteger 原子类,底层使用 volitate 关键词,是线程安全的类
-	 * @throws InterruptedException
 	 */
-//	public static void main(String[] args) throws InterruptedException {
-	@Test
-	public void testAtomicInteger () throws InterruptedException {
+	public static void testAtomicInteger () throws InterruptedException {
 		CountDownLatch countDownLatch = new CountDownLatch(1000);
 
 		for (int i = 0; i < 1000; i++) {
@@ -553,7 +501,7 @@ public class ThreadTest2 {
 				@Override
 				public void run() {
 					for (int j = 0; j < 1000; j++) {
-						ThreadTest2.safeCount.addAndGet(1);
+						safeCount.addAndGet(1);
 					}
 					countDownLatch.countDown();
 				}
@@ -562,8 +510,7 @@ public class ThreadTest2 {
 
 		countDownLatch.await();
 		// 打印的会是 1000000 么？
-		System.out.println(ThreadTest2.safeCount.get());
-
+		System.out.println(safeCount.get());
 	}
 	
 	
@@ -579,9 +526,7 @@ public class ThreadTest2 {
 	 * 3）调用某个对象的notify()方法能够唤醒一个正在等待这个对象的monitor的线程，如果有多个线程都在等待这个对象的monitor，则只能唤醒其中一个线程；
 	 * 4）调用notifyAll()方法能够唤醒所有正在等待这个对象的monitor的线程；
 	 */
-//	public static void main(String[] args) throws InterruptedException {
-	@Test
-	public void testPrintABC123 () {
+	public static void testPrintABC123 () {
 
 		// 锁对象
 		final Object obj = new Object();
@@ -630,8 +575,6 @@ public class ThreadTest2 {
 		
 		thread1.start();
 		thread2.start();
-	
-		sleep(10);
 	}
 	
 }

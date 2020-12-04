@@ -1,12 +1,6 @@
 package com.linkknown.annotation;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.lang.reflect.Proxy;
-import java.util.Properties;
-
-import com.linkknown.annotation.ConfigUtil.Config;
 
 public class ConfigUtil {
 	

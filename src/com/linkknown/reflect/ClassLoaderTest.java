@@ -13,7 +13,7 @@ public class ClassLoaderTest {
 	
 	/**
 	 * AppClassLoader的父加载器为ExtClassLoader，
-	 * ExtClassLoader的父加载器为null(BoopStrap ClassLoder不在上图中，因为它是由C/C++编写的，它本身是虚拟机的一部分，并不是一个java类。)，
+	 * ExtClassLoader的父加载器为null(BoopStrap ClassLoder不在其中，因为它是由C/C++编写的，它本身是虚拟机的一部分，并不是一个java类。)，
 	 * BoopStrap ClassLoader为顶级加载器。 
 	 */
 	@Test
@@ -66,11 +66,8 @@ public class ClassLoaderTest {
 	 * @throws IllegalArgumentException 
 	 */
 	@Test
-	public void testCustomClassLoader () throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
-//		MyClassLoader myClassLoader = new MyClassLoader("D:/HelloWorld.class");
-//		Object object = Class.forName("com.linkknown.reflect.HelloWorld", true, myClassLoader).newInstance();
-//		System.out.println(object);
-		
+	public void testCustomClassLoader () throws ClassNotFoundException, InstantiationException, 
+	IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException {
 		
 		CustomClassLoader customClassLoader = new CustomClassLoader("D:\\HelloWorld.class");
 		

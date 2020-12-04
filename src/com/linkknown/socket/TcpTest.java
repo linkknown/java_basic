@@ -39,12 +39,13 @@ public class TcpTest {
 			byte[] bytes = new byte[100]; // 长度为 1 时，中文会部分读取
 			int len;
 			while ((len = inputStream.read(bytes)) != -1) {
-				System.out.print(new String(bytes, 0, len, "UTF-8")); // 此时打印中文会乱码, 应该改用 BufferedReader 一次读取一行
+				// 此时打印中文会乱码, 应该改用 BufferedReader 一次读取一行
+				System.out.print(new String(bytes, 0, len, "UTF-8")); 
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			TcpTest.close(inputStream, socket, serverSocket);
+			close(inputStream, socket, serverSocket);
 		}
 	}
 
@@ -64,7 +65,7 @@ public class TcpTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			TcpTest.close(outputStream, socket);
+			close(outputStream, socket);
 		}
 	}
 }

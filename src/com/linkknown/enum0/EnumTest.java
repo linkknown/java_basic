@@ -109,7 +109,7 @@ public class EnumTest {
 	 * 枚举使用
 	 */
 	@Test
-	public void testEnumUse () {
+	public void testEnum2 () {
 		SeasonEnum season = SeasonEnum.AUTUMN;
 		switch (season) {
 		case SPRING:
@@ -134,7 +134,7 @@ public class EnumTest {
 	 * 测试枚举构造器
 	 */
 	@Test
-	public void testEnumUse2 () {
+	public void testEnum3 () {
 		System.out.println(LoginStateEnum.LOGIN_SUCCESS);
 		System.out.println(LoginStateEnum.LOGIN_FAILED);
 		LoginStateEnum.LOGIN_SUCCESS.showDesc();
@@ -145,7 +145,7 @@ public class EnumTest {
 	 * 测试枚举属性和枚举构造器
 	 */
 	@Test
-	public void testEnumUse3 () {
+	public void testEnum4 () {
 		for (AddressEnum addressEnum : AddressEnum.values()) {
 			System.out.println(addressEnum.getProvince());
 			System.out.println(addressEnum.getCity());
@@ -157,7 +157,7 @@ public class EnumTest {
 	 * 枚举使用，将可穷举的对象信息封装成枚举类，安全（无法被篡改）,将程序运行时错误提升到编译器
 	 */
 	@Test
-	public void testEnumUse4 () {
+	public void testEnum5 () {
 		for (SeasonEnum2 seasonEnum : SeasonEnum2.values()) {
 			System.out.println(seasonEnum.getSeasonName() + seasonEnum.getSeasonDesc());
 		}

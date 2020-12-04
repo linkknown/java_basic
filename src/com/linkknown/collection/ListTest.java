@@ -180,7 +180,7 @@ public class ListTest {
 	
 	
 	/**
-	 * arraylist、linkedlist 的使用场景
+	 * arraylist、linkedlist 的使用场景比较
 	 */
 	@Test
 	public void testArrayListAndLinkedList2 () {

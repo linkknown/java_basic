@@ -23,6 +23,10 @@ import org.junit.jupiter.api.Test;
 public class BufferReaderWriterTest {
 
 	/**
+	 * 测试缓冲流
+ 	 * 1.FileReader不能一行行读，BufferedReader可以一行行地读
+ 	 * 2.BufferedReader可以一行行地读效率高，因为减少了IO的次数
+ 	 * 
 	 * 测试 BufferedReader\InputStreamReader
 	 * 
 	 * @throws IOException

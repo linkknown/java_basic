@@ -14,7 +14,8 @@ public class CalenderTest {
 	 */
 	@Test
 	public void testCalender () {
-		// 底层创建的就是 java.util.GregorianCalendar （格里高里历，即通用的阳历）
+		// 底层创建的就是 java.util.GregorianCalendar 
+		// （格里高里历，即通用的阳历）
 		Calendar calendar = Calendar.getInstance();
 		Date date = calendar.getTime();
 		System.out.println(date);
@@ -33,19 +34,23 @@ public class CalenderTest {
 		Calendar calendar = Calendar.getInstance();
 		// 设置年月日
 		calendar.set(Calendar.YEAR, 2020);
-		calendar.set(Calendar.MONTH, 1);					// 月份要加1，因为月份是从0开始的
+		// 月份要加1，因为月份是从0开始的
+		calendar.set(Calendar.MONTH, 1);					
 		calendar.set(Calendar.DAY_OF_MONTH, 1);
 		
 		// 格式化输出
-		System.out.println(simpleDateFormat.format(calendar.getTime()));		// 2020-02-01 15:57:57
+		// 2020-02-01 15:57:57
+		System.out.println(simpleDateFormat.format(calendar.getTime()));	
 		// 获取年份
 		System.out.println(calendar.get(Calendar.YEAR));
 		// 获取当前系统时间中当月的最后一天(获取给定时间分量所允许的最大值)
 		System.out.println(calendar.getActualMaximum(Calendar.DAY_OF_MONTH));	
-		System.out.println(calendar.getActualMaximum(Calendar.MONTH));			// 数字 11 表示 12 月
+		// 数字 11 表示 12 月
+		System.out.println(calendar.getActualMaximum(Calendar.MONTH));			
 
 		// 增加一年
 		calendar.add(Calendar.YEAR, 1);
-		System.out.println(simpleDateFormat.format(calendar.getTime()));		// 2021-02-01 15:57:57
+		// 2021-02-01 15:57:57
+		System.out.println(simpleDateFormat.format(calendar.getTime()));		
 	}
 }

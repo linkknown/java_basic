@@ -22,7 +22,6 @@ public class RegexTest {
 	 * 校验邮箱是否合法
 	 * 
 	 * 字符串类的 matches 方法可以用来校验一个字符串是否满足一个正则
-	 * 
 	 */
 	@Test
 	public void testRegex1 () {
@@ -152,13 +151,6 @@ public class RegexTest {
 	
 	@Test
 	public void testSplit3 () {
-		String str = "1.jpg";
-		String[] arr = str.split("\\.");
-		System.out.println("文件后缀是: " + arr[1]);
-	}
-	
-	@Test
-	public void testSplit4 () {
 		String regex = "[\\.,]";
 		String str = "1.2.3.4.5.6...7.8.9,,,,,,.0";
 		String[] arr = str.split(regex);
@@ -207,7 +199,8 @@ public class RegexTest {
 	 */
 	@Test
 	public void testPattern2 () throws IOException {
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("E:\\teacher\\code\\eclipse_workspace\\linkknown\\src\\com\\linkknown\\regex\\RegexTest.java")));
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
+				new FileInputStream("E:\\teacher\\code\\eclipse_workspace\\linkknown\\src\\com\\linkknown\\regex\\RegexTest.java")));
 		String str = "";
 		String line;
 		while ((line = bufferedReader.readLine()) != null) {

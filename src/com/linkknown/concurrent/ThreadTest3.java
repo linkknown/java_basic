@@ -22,11 +22,17 @@ public class ThreadTest3 {
 		}
 	}
 	
+	public static void main(String[] args) {
+//		testSingleThreadExecutor();
+//		testFixedThreadPool();
+//		testCachedThreadPool();
+		testThreadPoolExecutor();
+	}
+	
 	/**
-	 * 线程池测试
+	 * 测试单一线程池
 	 */
-	@Test
-	public void testExecutors () {
+	public static void testSingleThreadExecutor () {
 		ExecutorService service = Executors.newSingleThreadExecutor();
 		service.execute(new Runnable() {
 			
@@ -38,15 +44,12 @@ public class ThreadTest3 {
 //		shutdownNow方法的解释是：线程池拒接收新提交的任务，同时立马关闭线程池，线程池里的任务不再执行。
 //		shutdown方法的解释是：线程池拒接收新提交的任务，同时等待线程池里的任务执行完毕后关闭线程池。
 		service.shutdown();
-		
-		ThreadTest3.sleep(10);
 	}
 	
 	/**
-	 * 线程池测试
+	 * 测试固定线程池
 	 */
-	@Test
-	public void testExecutors2 () {
+	public static void testFixedThreadPool () {
 		ExecutorService service = Executors.newFixedThreadPool(10);
 		for (int i=0; i<10; i++) {
 			service.execute(new Runnable() {
@@ -59,15 +62,12 @@ public class ThreadTest3 {
 		}
 		
 		service.shutdown();
-		
-		ThreadTest3.sleep(10);
 	}
 	
 	/**
-	 * 线程池测试
+	 * 测试无上限的线程池
 	 */
-	@Test
-	public void testExecutors3 () {
+	public static void testCachedThreadPool () {
 		// 创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程。
 		ExecutorService service = Executors.newCachedThreadPool();
 		for (int i=0; i<10; i++) {
@@ -81,11 +81,9 @@ public class ThreadTest3 {
 		}
 		
 		service.shutdown();
-		
-		ThreadTest3.sleep(10);
 	}
 	
-	private static void testThreadPool() {
+	public static void testThreadPoolExecutor() {
 		int corePoolSize = 1;		// 线程池长期维持的线程数，即使线程处于Idle状态，也不会回收
 		int maximumPoolSize = 2;	// 线程数的上限
 		long keepAliveTime = 1000;	// 超过corePoolSize的线程的idle时长，超过这个时间，多余的线程会被回收
@@ -191,15 +189,4 @@ public class ThreadTest3 {
 		t2.start();
 	}
 	
-	public static void main(String[] args) {
-		// 测试线程池
-//		testThreadPool();
-		
-		// 测试用户线程
-//		testUserThread();
-		
-		// 测试守护线程
-		testDaemonThread();
-	}
-
 }

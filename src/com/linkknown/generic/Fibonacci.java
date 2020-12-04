@@ -2,8 +2,6 @@ package com.linkknown.generic;
 
 /**
  * Fibonacci Ъ§Са
- * @author Administrator
- *
  */
 public class Fibonacci implements Generator<Integer>{
 
@@ -20,5 +18,4 @@ public class Fibonacci implements Generator<Integer>{
 	public Integer next() {
 		return fib(count++);
 	}
-
 }

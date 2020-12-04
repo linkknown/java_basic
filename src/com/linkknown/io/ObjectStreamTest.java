@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 public class ObjectStreamTest {
 
 	/**
+	 * 对象流,序列化和反序列化
 	 * 测试对象输出流
 	 * @throws IOException
 	 */

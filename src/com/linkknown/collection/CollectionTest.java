@@ -74,11 +74,6 @@ public class CollectionTest {
 	
 	/**
 	 * 集合可以存放不同类型的数据,但是建议存储相同类型,不建议存储不同类型
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalAccessException 
 	 */
 	@Test
 	public void testCollection3 () throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {

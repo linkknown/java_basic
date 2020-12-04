@@ -2,9 +2,6 @@ package com.linkknown.enum0;
 
 /**
  * µÇÂ¼×´Ì¬Ã¶¾Ù
- * 
- * @author Administrator
- *
  */
 public enum LoginStateEnum {
 
@@ -18,5 +15,4 @@ public enum LoginStateEnum {
 	public void showDesc() {
 		System.out.println(this.toString());
 	}
-
 }
