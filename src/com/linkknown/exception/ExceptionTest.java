@@ -20,6 +20,10 @@ import org.junit.jupiter.api.Test;
  *
  */
 public class ExceptionTest {
+
+	public static void main(String[] args) {
+		testError();
+	}
 	
 	/**
 	 * ²âÊÔ´íÎó

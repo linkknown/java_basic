@@ -15,7 +15,53 @@ import javax.swing.JTextArea;
 
 import org.junit.jupiter.api.Test;
 
-public class NewTX {
+public class LamdaTest {
+
+
+	interface Operation {
+		int add(int a, int b);
+		int sub(int a, int b);
+		int mul(int a, int b);
+		int div(int a, int b);
+	}
+
+	@Test
+	public void testInnerClass () {
+		Operation operation = new Operation() {
+			@Override
+			public int add(int a, int b) {
+				return a + b;
+			}
+
+			@Override
+			public int sub(int a, int b) {
+				return a - b;
+			}
+
+			@Override
+			public int mul(int a, int b) {
+				return a * b;
+			}
+
+			@Override
+			public int div(int a, int b) {
+				return a / b;
+			}
+		};
+
+		System.out.println(operation.add(1, 2));
+	}
+
+	@FunctionalInterface
+	interface AddOperation {
+		int add(int a, int b);
+	}
+
+	@Test
+	public void testLamdaOperation () {
+		AddOperation operation = (a, b) -> a + b;
+		System.out.println(operation.add(1, 2));
+	}
 
 	@Test
 	public void testLamda () {
@@ -76,7 +122,7 @@ public class NewTX {
 	public void testFunctionalInterface2() {
 		Converter2<String, Integer> converter = (from) -> Integer.valueOf(from);
 	}
-	
+
 
 
 	
