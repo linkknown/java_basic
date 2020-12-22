@@ -83,7 +83,23 @@ public class ExceptionTest {
 	}
 	
 	
-	/*************************************** 模拟检查异常 ******************************************/ 
+	/*************************************** 模拟检查异常 ******************************************/
+
+
+	/**
+	 * 测试检查异常
+	 */
+	@Test
+	public  void testParseException () {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			Date date = dateFormat.parse("helloworld");
+			System.out.println(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * 测试检查异常
 	 */
@@ -103,10 +119,10 @@ public class ExceptionTest {
 	}
 	
 	/**
-	 * 测试检查异常 IOException
+	 * 测试 try catch finally
 	 */
 	@Test
-	public void testIOException() {
+	public void testTryCatchFinally() {
 		FileWriter fw = null;
         try{
             //可能会产出异常的代码
@@ -148,6 +164,35 @@ public class ExceptionTest {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
+	}
+
+
+	/**
+	 * try finally 使用场景
+	 */
+	@Test
+	public void testTryFinally () {
+		ThreadLocal<Integer> threadLocal = new ThreadLocal<>();
+
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					putData(threadLocal);
+				} finally {
+					System.out.println("执行了 finally 语句, threadLocal 里面的线程变量值为：" + threadLocal.get());
+					// 需要在 finally 里面主动释放线程变量，不释放可能会造成内存泄漏
+					threadLocal.remove();
+				}
+			}
+		});
+		thread.start();
+	}
+
+	public static void putData (ThreadLocal<Integer> threadLocal) {
+		threadLocal.set(10);
+		// 此处会抛出运行时异常
+		threadLocal.set(10 / 0);
 	}
 
 	/**
